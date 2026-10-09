@@ -1,0 +1,343 @@
+/* VMOS HERO - STUDIO / CONTROLBOARD STYLE (load AFTER style.css). Prefix: vh- */
+.vh-hero {
+  --hero-bg-top: #121a23;
+  --hero-bg-bottom: #10171e;
+  --ink: #ffffff;
+  --mute: #b8c7dd;
+  --pill: #0062ff;
+
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  padding: 6.5rem 0 0;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, var(--hero-bg-top) 0%, var(--hero-bg-bottom) 100%);
+  font-family: var(--font-main);
+}
+
+html[data-theme="dark"] .vh-hero {
+  --hero-bg-top: #121a23;
+  --hero-bg-bottom: #10171e;
+  --ink: #ffffff;
+  --mute: #b8c7dd;
+  --pill: #0062ff;
+  background: linear-gradient(180deg, var(--hero-bg-top) 0%, var(--hero-bg-bottom) 100%);
+}
+
+/* Background image container - right-aligned factory automation line image */
+.vh-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  width: 68vw;
+  height: 100%;
+  background: url("images/hero-factory-bg.jpg") center right / cover no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
+}
+
+/* Soft dark overlay gradient on the text side */
+.vh-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(18, 26, 35, 0.45) 0%, rgba(18, 26, 35, 0) 45%);
+}
+
+html[data-theme="dark"] .vh-hero::after {
+  background: linear-gradient(90deg, rgba(18, 26, 35, 0.45) 0%, rgba(18, 26, 35, 0) 45%);
+}
+
+.vh-wrap {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding: 3rem 2rem 0 clamp(1.5rem, 6vw, 6rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.vh-title {
+  max-width: 7.5em;
+  font-size: clamp(2.4rem, 4.6vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+  font-family: var(--font-main);
+}
+
+html[data-theme="dark"] .vh-title {
+  color: #ffffff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+}
+
+.vh-side {
+  margin-top: 1.6rem;
+  max-width: 420px;
+}
+
+.vh-side i {
+  display: block;
+  width: 44px;
+  height: 4px;
+  background: #38bdf8;
+  margin-bottom: 1rem;
+}
+
+html[data-theme="dark"] .vh-side i {
+  background: #38bdf8;
+}
+
+.vh-side p {
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin: 0 0 1.6rem;
+  color: #ffffff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+  font-family: var(--font-main);
+}
+
+html[data-theme="dark"] .vh-side p {
+  color: #ffffff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+}
+
+.vh-btn {
+  display: inline-block;
+  padding: 0.85rem 2.2rem;
+  border-radius: 999px;
+  background: #0062ff;
+  color: #ffffff;
+  text-decoration: none;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  font-weight: 600;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.vh-btn:hover {
+  transform: translateY(-2px);
+  background: #1a75ff;
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .vh-btn {
+  background: #0062ff;
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .vh-btn:hover {
+  background: #1a75ff;
+  color: #ffffff;
+}
+
+@media (max-width: 992px) {
+  .vh-hero::before {
+    width: 100%;
+    max-width: 100%;
+    height: 55vh;
+    top: 4.5rem;
+    right: 0;
+    transform: none;
+    aspect-ratio: auto;
+    background-position: 75% center;
+    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+    -webkit-mask-composite: normal;
+    mask-composite: normal;
+  }
+
+  .vh-hero::after {
+    display: none;
+  }
+
+  .vh-wrap {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: calc(55vh + 1rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vh-btn {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   HERO DARK OVERLAY - lớp phủ tối bên trái, chữ trắng nổi bật
+   ========================================================================== */
+.vh-hero,
+html[data-theme="dark"] .vh-hero,
+html[data-theme="light"] .vh-hero {
+  --vh-blue: #0062ff;
+  --vh-blue-deep: #0a3fb8;
+  background: #080e1c url("images/hero-factory.jpg") center 60% / cover no-repeat !important;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
+  image-rendering: auto !important;
+}
+
+.vh-hero::before,
+html[data-theme="dark"] .vh-hero::before,
+html[data-theme="light"] .vh-hero::before {
+  display: none !important;
+}
+
+.vh-hero::after,
+html[data-theme="dark"] .vh-hero::after,
+html[data-theme="light"] .vh-hero::after {
+  display: block !important;
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(90deg,
+      rgba(8, 14, 28, 0.90) 0%,
+      rgba(8, 14, 28, 0.78) 28%,
+      rgba(8, 14, 28, 0.40) 50%,
+      rgba(8, 14, 28, 0.00) 72%),
+    linear-gradient(180deg,
+      rgba(8, 14, 28, 0.35) 0%,
+      rgba(8, 14, 28, 0.00) 20%) !important;
+}
+
+.vh-title,
+html[data-theme="dark"] .vh-title,
+html[data-theme="light"] .vh-title {
+  color: #ffffff !important;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45) !important;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
+}
+
+.vh-side p,
+html[data-theme="dark"] .vh-side p,
+html[data-theme="light"] .vh-side p {
+  color: #dbe7fb !important;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45) !important;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
+}
+
+.vh-side i,
+html[data-theme="dark"] .vh-side i,
+html[data-theme="light"] .vh-side i {
+  background: #38bdf8 !important;
+}
+
+.vh-trust h5,
+html[data-theme="dark"] .vh-trust h5,
+html[data-theme="light"] .vh-trust h5 {
+  color: #dbe7fb !important;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
+}
+
+.vh-btn,
+html[data-theme="dark"] .vh-btn,
+html[data-theme="light"] .vh-btn {
+  background: #0062ff !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(0, 98, 255, 0.28) !important;
+  border-radius: 999px !important;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
+}
+
+.vh-btn:hover,
+html[data-theme="dark"] .vh-btn:hover,
+html[data-theme="light"] .vh-btn:hover {
+  background: #0050d6 !important;
+  color: #ffffff !important;
+}
+
+.vh-logos img,
+html[data-theme="dark"] .vh-logos img,
+html[data-theme="light"] .vh-logos img {
+  filter: grayscale(1) brightness(0) invert(1) !important;
+  opacity: 0.85 !important;
+}
+
+/* Navbar Logo Display Fix */
+.logo-img {
+  display: block !important;
+  height: 44px !important;
+  width: auto !important;
+  object-fit: contain !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+}
+
+/* Hero Content Group Vertical Centering */
+.vh-wrap {
+  justify-content: center !important;
+  padding-top: 0 !important;
+  padding-bottom: 3rem !important;
+}
+
+@media (max-width: 992px) {
+
+  .vh-hero,
+  html[data-theme="dark"] .vh-hero,
+  html[data-theme="light"] .vh-hero {
+    background-position: 62% center !important;
+  }
+
+  .vh-hero::after,
+  html[data-theme="dark"] .vh-hero::after,
+  html[data-theme="light"] .vh-hero::after {
+    background: linear-gradient(180deg,
+        rgba(8, 14, 28, 0.20) 0%,
+        rgba(8, 14, 28, 0.55) 40%,
+        rgba(8, 14, 28, 0.92) 70%,
+        rgba(8, 14, 28, 0.96) 100%) !important;
+  }
+
+  .vh-wrap {
+    justify-content: flex-start !important;
+    padding-top: calc(55vh + 1rem) !important;
+    padding-bottom: 2rem !important;
+  }
+}
+
+
+
+
+
+/* ==========================================================================
+   MODERN PALETTE v2 - nút & vạch nhấn ở hero (đồng bộ với style.css)
+   ========================================================================== */
+.vh-btn,
+html[data-theme="dark"] .vh-btn,
+html[data-theme="light"] .vh-btn {
+  background: linear-gradient(135deg, #0ea5e9 0%, #4f46e5 100%) !important;
+  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.38) !important;
+}
+
+.vh-btn:hover,
+html[data-theme="dark"] .vh-btn:hover,
+html[data-theme="light"] .vh-btn:hover {
+  background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%) !important;
+}
+
+.vh-side i,
+html[data-theme="dark"] .vh-side i,
+html[data-theme="light"] .vh-side i {
+  background: linear-gradient(90deg, #22d3ee, #6366f1) !important;
+}

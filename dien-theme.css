@@ -1,0 +1,72 @@
+/* ==========================================================================
+   dien-theme.css - Nền ảnh mạch điện cho trang Thiết Kế Điện
+   Nạp SAU style.css. Chỉ ảnh hưởng tới .dien-banner (khối đầu trang).
+
+   Nguyên tắc: ảnh luôn giữ KÍCH THƯỚC GỐC (736px), không phóng to.
+   Phần ảnh không phủ tới được sẽ là màu nền --dien-bg, và 4 mép ảnh được
+   làm mờ dần (feather) vào màu đó nên không thấy đường cắt.
+
+   Chỉnh nhanh:
+     --dien-bg        màu nền phủ chỗ thiếu (lấy từ màu viền ảnh)
+     --dien-img-w     kích thước ảnh (mặc định = gốc 736px, đừng đặt lớn hơn)
+     --dien-fade      độ rộng vùng mờ ở mép ảnh (px)
+   ========================================================================== */
+.dien-banner {
+  --dien-bg: #051a2b;
+  --dien-img: url("images/dien-banner-bg.jpg");
+  --dien-img-w: 736px;   /* kích thước gốc của ảnh, KHÔNG phóng to */
+  --dien-fade: 150px;    /* độ rộng vùng mờ ở 4 mép ảnh */
+
+  background: var(--dien-bg) !important;
+  isolation: isolate;
+}
+
+/* Lớp ảnh: đúng kích thước gốc, căn giữa ngang, sát đỉnh khối.
+   Chiều cao tối đa bằng ảnh (hoặc bằng khối nếu khối thấp hơn). 4 mép mờ dần vào màu nền. */
+.dien-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--dien-img-w);
+  height: min(100%, var(--dien-img-w));
+  transform: translateX(-50%);
+  z-index: 0;
+  pointer-events: none;
+  background: var(--dien-img) center top / var(--dien-img-w) var(--dien-img-w) no-repeat;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0, #000 var(--dien-fade), #000 calc(100% - var(--dien-fade)), transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 var(--dien-fade), #000 calc(100% - var(--dien-fade)), transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0, #000 var(--dien-fade), #000 calc(100% - var(--dien-fade)), transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 var(--dien-fade), #000 calc(100% - var(--dien-fade)), transparent 100%);
+  mask-composite: intersect;
+}
+
+/* Lớp tối nhẹ giúp tiêu đề và thẻ ảnh nổi bật trên nền mạch điện */
+.dien-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(5, 26, 43, 0) 30%, rgba(5, 26, 43, 0.5) 100%),
+    linear-gradient(180deg, rgba(5, 26, 43, 0.3) 0%, rgba(5, 26, 43, 0) 25%);
+}
+
+/* Bỏ chấm bi và quầng sáng cũ vì trùng với hoạ tiết mạch điện */
+.dien-banner-dots,
+.dien-banner-glow {
+  display: none !important;
+}
+
+.dien-banner .container {
+  position: relative;
+  z-index: 2;
+}
+
+.dien-banner-title h1 {
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+}

@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.style.backgroundColor = t === 'dark' ? '#0a0f1d' : '#f8fafc';
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Về Chúng Tôi | VMOS - VIET.MOS COMPANY LIMITED</title>
+  <meta name="description"
+    content="Tìm hiểu về hành trình phát triển, sứ mệnh, tầm nhìn, giá trị cốt lõi và đội ngũ nhân sự chuyên gia tại VMOS (VIET.MOS COMPANY LIMITED).">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Custom Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=rx16">
+  <link rel="stylesheet" href="vmos-layout.css?v=3">
+</head>
+
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar scrolled">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED" class="logo-img">
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="desktop-nav-menu">
+        <a href="index.html" class="nav-link" data-i18n="nav.home">Trang chủ</a>
+        <a href="about.html" class="nav-link active" data-i18n="nav.about">Về chúng tôi</a>
+
+        <div class="nav-dropdown">
+          <a href="dich-vu-thiet-ke-co-khi.html" class="nav-link nav-dropdown-toggle" data-i18n="nav.services">
+            <span data-i18n="nav.services">Dịch vụ</span>
+            <i class="bi bi-chevron-down"></i>
+          </a>
+          <div class="nav-dropdown-menu">
+            <a href="dich-vu-thiet-ke-co-khi.html" data-i18n="services.mechanical">Thiết Kế Cơ Khí</a>
+            <a href="dich-vu-thiet-ke-dien.html" data-i18n="services.electrical">Thiết Kế Điện - Lập Trình Điều
+              Khiển</a>
+            <a href="dich-vu-thiet-ke-mo-phong.html" data-i18n="services.simulation">Thiết Kế Mô Phỏng</a>
+          </div>
+        </div>
+
+        <a href="du-an.html" class="nav-link" data-i18n="nav.portfolio">Dự án</a>
+        <a href="blog.html" class="nav-link" data-i18n="nav.blog">Tin tức</a>
+        <a href="contact.html" class="nav-link" data-i18n="nav.contact">Liên hệ</a>
+      </nav>
+
+      <div class="nav-tools">
+        <button id="theme-toggle" class="fixed-theme-btn" aria-label="Chuyển đổi giao diện Sáng/Tối"
+          data-i18n-attr="aria-label:nav.theme_toggle">
+          <i class="bi bi-sun-fill"></i>
+        </button>
+        <div class="lang-dropdown">
+          <button class="fixed-lang-btn" aria-label="Ngôn ngữ" data-i18n-attr="aria-label:nav.lang_toggle">
+            <span class="lang-current-label">VI</span>
+          </button>
+          <div class="lang-menu">
+            <button class="lang-select-btn active" data-lang="vi" onclick="window.setLanguage('vi')">VI - Tiếng
+              Việt</button>
+            <button class="lang-select-btn" data-lang="en" onclick="window.setLanguage('en')">EN - English</button>
+            <button class="lang-select-btn" data-lang="ja" onclick="window.setLanguage('ja')">JA - 日本語</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= VINGROUP-STYLE FIXED NAVIGATION CONTROLS ================= -->
+  <!-- Fixed Left Middle: Hamburger Button (3 lines line-only) -->
+  <button class="sidebar-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="side-menu">
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+  </button>
+
+  <!-- Fixed Left Bottom: Theme Toggle + Language Selector (Vertical Stack) -->
+  </div>
+
+  <!-- ================= UNIFIED LEFT SIDEBAR NAVIGATION ================= -->
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <aside class="side-menu" id="side-menu" aria-label="Menu điều hướng" role="dialog" aria-modal="true">
+    <div class="side-menu-header">
+      <a href="index.html" class="logo">
+        <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED">
+      </a>
+      <button class="side-menu-close" aria-label="Đóng menu"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <nav class="side-menu-nav">
+      <a href="index.html" class="side-menu-link" data-i18n="nav.home">Trang chủ</a>
+      <a href="about.html" class="side-menu-link active" data-i18n="nav.about">Về chúng tôi</a>
+      <div class="side-menu-group">
+        <button class="side-menu-link side-menu-group-toggle" data-i18n="nav.services">Dịch vụ</button>
+        <div class="side-menu-submenu">
+          <a href="dich-vu-thiet-ke-co-khi.html" data-i18n="services.mechanical">Thiết Kế Cơ Khí</a>
+          <a href="dich-vu-thiet-ke-dien.html" data-i18n="services.electrical">Thiết Kế Điện - Lập Trình Điều Khiển</a>
+          <a href="dich-vu-thiet-ke-mo-phong.html" data-i18n="services.simulation">Thiết Kế Mô Phỏng</a>
+        </div>
+      </div>
+      <a href="du-an.html" class="side-menu-link" data-i18n="nav.portfolio">Dự án</a>
+      <a href="blog.html" class="side-menu-link" data-i18n="nav.blog">Tin tức</a>
+      <div class="side-menu-cta-wrapper">
+        <a href="contact.html" class="side-menu-link side-menu-cta" data-i18n="nav.contact">
+          <span data-i18n="nav.contact">Liên hệ</span>
+          <i class="bi bi-arrow-right-circle-fill"></i>
+        </a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ================= DIVISIONS BANNER (3 MẢNG DỊCH VỤ) ================= -->
+  <section class="divisions-banner" style="margin-top: 88px;">
+    <div class="divisions-banner-dots"></div>
+    <div class="divisions-banner-glow"></div>
+
+    <div class="divisions-track">
+
+      <!-- Panel 1: Thiết Kế Cơ Khí -->
+      <div class="division-panel" style="background-image: url('images/banner-co-khi.jpg');">
+        <div class="division-panel-content">
+          <span class="division-panel-tag"><i class="bi bi-gear-fill"></i> <span data-i18n="about.division1_tag">Mảng
+              01</span></span>
+          <h3 class="division-panel-title" data-i18n="services.mechanical">Thiết Kế Cơ Khí</h3>
+        </div>
+      </div>
+
+      <span class="division-icon-badge division-icon-badge--1"><i class="bi bi-gear-fill"></i></span>
+
+      <!-- Panel 2: Thiết Kế Điện - Lập Trình Điều Khiển -->
+      <div class="division-panel" style="background-image: url('images/banner-dien.jpg');">
+        <div class="division-panel-content">
+          <span class="division-panel-tag"><i class="bi bi-lightning-charge-fill"></i> <span
+              data-i18n="about.division2_tag">Mảng 02</span></span>
+          <h3 class="division-panel-title" data-i18n="services.electrical">Thiết Kế Điện - Lập Trình Điều Khiển</h3>
+        </div>
+      </div>
+
+      <span class="division-icon-badge division-icon-badge--2"><i class="bi bi-lightning-charge-fill"></i></span>
+
+      <!-- Panel 3: Thiết Kế Mô Phỏng -->
+      <div class="division-panel" style="background-image: url('images/banner-mo-phong.jpg');">
+        <div class="division-panel-content">
+          <span class="division-panel-tag"><i class="bi bi-boxes"></i> <span data-i18n="about.division3_tag">Mảng
+              03</span></span>
+          <h3 class="division-panel-title" data-i18n="services.simulation">Thiết Kế Mô Phỏng</h3>
+        </div>
+      </div>
+
+      <span class="division-icon-badge division-icon-badge--3"><i class="bi bi-boxes"></i></span>
+
+      <!-- Panel Brand: VMOS Group -->
+      <div class="division-panel-brand">
+        <img src="images/vmos-logo.png" alt="VMOS" class="division-brand-logo">
+        <span class="division-brand-headline"><span data-i18n="about.division_brand_line1">Giải Pháp</span><br><span
+            data-i18n="about.division_brand_line2">Công Nghệ</span></span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= GIỚI THIỆU CHUNG & SỐ LIỆU ================= -->
+  <section class="section-glow about-overview-section" style="padding: 4rem 0;">
+    <div class="bg-glow-right"></div>
+    <div class="container reveal">
+
+      <!-- Khối 2 Cột Giới Thiệu -->
+      <div class="about-overview-grid">
+
+        <!-- CỘT TRÁI: THÔNG TIN CHỮ & CAM KẾT -->
+        <div class="about-overview-content">
+          <h2 class="section-title-compact" data-i18n="about.overview_title">Về VIET.MOS COMPANY LIMITED</h2>
+
+          <div class="about-text-body">
+            <p data-i18n="about.overview_p1">
+              VMOS (VIET.MOS COMPANY LIMITED) là đơn vị uy tín chuyên cung cấp các giải pháp công nghệ toàn diện, từ
+              thiết kế phần mềm chuyên sâu, tư vấn tự động hóa quy trình (RPA) đến làm chủ các hệ thống công nghệ lõi
+              phục vụ sản xuất và quản trị doanh nghiệp.
+            </p>
+            <p data-i18n="about.overview_p2">
+              Với phương châm không ngừng tiến bộ và lấy sự hài lòng của khách hàng làm thước đo thành công, chúng tôi
+              đồng hành cùng các đối tác trong nước và quốc tế để tối ưu hóa vận hành, cắt giảm chi phí và bứt phá năng
+              lực cạnh tranh trong kỷ nguyên số.
+            </p>
+
+            <!-- Khối Thông Tin Pháp Lý Công Ty -->
+            <div class="about-legal-info"
+              style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem 1.75rem; margin: 1.5rem 0;">
+              <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main);"
+                data-i18n="about.legal_title">Thông Tin Pháp Lý Công Ty</h4>
+              <div style="display: grid; grid-template-columns: 1fr; gap: 0.65rem; font-size: 0.92rem;">
+                <div style="display: flex; gap: 0.5rem;">
+                  <span style="min-width: 140px; color: var(--text-muted); font-weight: 600;"
+                    data-i18n="about.legal_name_label">Tên công ty:</span>
+                  <span data-i18n="about.legal_name_val">CÔNG TY TNHH VIET.MOS</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <span style="min-width: 140px; color: var(--text-muted); font-weight: 600;"
+                    data-i18n="about.legal_founded_label">Thành lập:</span>
+                  <span data-i18n="about.legal_founded_val">28/12/2021</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <span style="min-width: 140px; color: var(--text-muted); font-weight: 600;"
+                    data-i18n="about.legal_capital_label">Vốn điều lệ:</span>
+                  <span data-i18n="about.legal_capital_val">6.844.200.000 VNĐ</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <span style="min-width: 140px; color: var(--text-muted); font-weight: 600;"
+                    data-i18n="about.legal_taxcode_label">Mã số thuế:</span>
+                  <span data-i18n="about.legal_taxcode_val">0109873066</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <span style="min-width: 140px; color: var(--text-muted); font-weight: 600;"
+                    data-i18n="about.legal_rep_label">Người đại diện:</span>
+                  <span data-i18n="about.legal_rep_val">OTAKI MASAHIDE</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <span style="min-width: 140px; color: var(--text-muted); font-weight: 600;"
+                    data-i18n="about.legal_address_label">Địa chỉ:</span>
+                  <span data-i18n="about.legal_address_val">Tầng 3, tòa Rainbow Văn Quán, P.Hà Đông, TP.Hà Nội</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Danh sách câu cam kết có Icon Checkmark tích vuông màu Accent -->
+            <ul class="about-commitments-list">
+              <li>
+                <i class="bi bi-check2-square"></i>
+                <span data-i18n="about.commitment_1">Cam kết chất lượng dịch vụ chuẩn mực và hiệu quả vận hành thực tế
+                  cho doanh nghiệp.</span>
+              </li>
+              <li>
+                <i class="bi bi-check2-square"></i>
+                <span data-i18n="about.commitment_2">Năng lực làm chủ công nghệ lõi, tư vấn và xây dựng giải pháp tùy
+                  chỉnh chuyên sâu.</span>
+              </li>
+              <li>
+                <i class="bi bi-check2-square"></i>
+                <span data-i18n="about.commitment_3">Đồng hành chiến lược lâu dài, duy trì mối quan hệ hợp tác bền vững
+                  và tin cậy tuyệt đối.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- CỘT PHẢI: KHỐI CARD STACK CHÉO 3 ẢNH VMOS -->
+        <div class="about-overview-media">
+          <div class="about-card-stack" id="about-card-stack">
+            <div class="about-card-item card-active" data-index="0">
+              <img src="images/about-team-1.jpg" alt="Tập thể cán bộ nhân viên VMOS">
+            </div>
+            <div class="about-card-item card-next" data-index="1">
+              <img src="images/about-team-2.jpg" alt="Đội ngũ chuyên gia VMOS">
+            </div>
+            <div class="about-card-item card-prev" data-index="2">
+              <img src="images/about-office-1.jpg" alt="Không gian văn phòng làm việc VMOS">
+            </div>
+
+            <!-- Nút điều hướng chuyển ảnh nổi 2 bên (Trái ‹ & Phải ›) -->
+            <button class="stack-btn prev-btn" aria-label="Ảnh trước">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <button class="stack-btn next-btn" aria-label="Ảnh kế tiếp">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- ================= DẢI SỐ LIỆU (NỀN XANH) ================= -->
+  <section class="stats-band" data-tone="blue">
+    <div class="container">
+      <div class="about-stats-clean hero-stats">
+        <!-- Mục 1: Dự án hoàn thành -->
+        <div class="stat-clean-item stat-item">
+          <div class="stat-icon icon-cyan">
+            <i class="bi bi-check2-circle"></i>
+          </div>
+          <h3 class="stat-number stat-cyan">150+</h3>
+          <p class="stat-label" data-i18n="about.stat_projects">Dự Án Hoàn Thành</p>
+        </div>
+
+        <!-- Mục 2: Năm kinh nghiệm -->
+        <div class="stat-clean-item stat-item">
+          <div class="stat-icon icon-purple">
+            <i class="bi bi-award-fill"></i>
+          </div>
+          <h3 class="stat-number stat-purple">5+</h3>
+          <p class="stat-label" data-i18n="about.stat_experience">Năm Kinh Nghiệm</p>
+        </div>
+
+        <!-- Mục 3: Khách hàng hài lòng -->
+        <div class="stat-clean-item stat-item">
+          <div class="stat-icon icon-blue">
+            <i class="bi bi-emoji-smile-fill"></i>
+          </div>
+          <h3 class="stat-number stat-blue">99%</h3>
+          <p class="stat-label" data-i18n="about.stat_satisfaction">Khách Hàng Hài Lòng</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider-gradient"></div>
+
+  <!-- ================= TỔNG QUAN MOS GROUP ================= -->
+  <section class="section-glow" style="padding: 4rem 0;">
+    <div class="bg-glow-right"></div>
+    <div class="container">
+      <div class="section-badge badge-blue">
+        <i class="bi bi-diagram-3-fill"></i>
+        <span data-i18n="about.group_badge">Mạng Lưới Tập Đoàn</span>
+      </div>
+      <h2 class="section-title-compact reveal" data-i18n="about.group_title">Tổng Quan MOS Group</h2>
+      <div class="reveal">
+        <img src="images/mos-group-logo.png" alt="MOS Group - Machine Original Service" class="about-group-parent-logo"
+          style="height: 100px; width: auto; display: block; margin: 0.75rem 0 1.5rem 0;">
+      </div>
+
+      <div class="about-overview-grid reveal" style="margin-top: 1.5rem;">
+        <div>
+          <p style="color: var(--text-muted);" data-i18n="about.group_mos_p1">
+            MOS là doanh nghiệp hoạt động toàn diện trong lĩnh vực tự động hóa nhà máy (FA), cung cấp giải pháp trọn gói
+            từ thiết kế cơ khí, chế tạo, lắp ráp cho đến vận hành các thiết bị và hệ thống máy móc tự động hóa trong nhà
+            xưởng.
+          </p>
+          <p style="color: var(--text-muted); margin-top: 1rem;" data-i18n="about.group_mos_p2">
+            Được thành lập từ năm 2010, MOS đặt trụ sở chính tại tỉnh Shizuoka, Nhật Bản. Hiện nay, công ty có khoảng 60
+            nhân sự và đang vận hành 03 cơ sở sản xuất, bao gồm nhà xưởng tại trụ sở chính, 精密工場 (Nhà máy gia công chính
+            xác) và FA工場 (Nhà máy FA).
+          </p>
+        </div>
+
+        <div class="about-group-diagram">
+          <div class="venn-diagram-container" role="img"
+            aria-label="Sơ đồ Venn 3 công ty thành viên JMOS, KJI, VMOS giao nhau tại MOS Group trung tâm">
+            <div class="venn-diagram-viewport">
+
+              <!-- JMOS Circle (Top) -->
+              <div class="venn-circle venn-jmos">
+                <span class="venn-circle-title">JMOS</span>
+                <span class="venn-circle-sub" data-i18n="about.venn_japan">Nhật Bản</span>
+              </div>
+
+              <!-- KJI Circle (Bottom-Left) -->
+              <div class="venn-circle venn-kji">
+                <span class="venn-circle-title">KJI</span>
+                <span class="venn-circle-sub" data-i18n="about.venn_japan">Nhật Bản</span>
+              </div>
+
+              <!-- VMOS Circle (Bottom-Right) -->
+              <div class="venn-circle venn-vmos">
+                <span class="venn-circle-title">VMOS</span>
+                <span class="venn-circle-sub" data-i18n="about.venn_vietnam">Việt Nam</span>
+              </div>
+
+              <!-- MOS Central Circle (White, Small, Center Intersection) -->
+              <div class="venn-circle venn-mos-center">
+                <span class="venn-center-title">MOS</span>
+                <span class="venn-center-sub" data-i18n="about.venn_hq">Trụ sở chính</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-group-members reveal">
+
+        <div class="about-group-member">
+          <div class="about-group-avatar avatar-vmos">VMOS</div>
+          <p data-i18n="about.group_vmos_desc">
+            VMOS là công ty thành viên trực thuộc MOS Group tại thị trường Việt Nam, chuyên cung cấp các giải pháp công
+            nghệ toàn diện: thiết kế phần mềm, tư vấn tự động hóa quy trình (RPA) và làm chủ hệ thống công nghệ lõi phục
+            vụ sản xuất, quản trị doanh nghiệp.
+          </p>
+        </div>
+
+        <div class="about-group-divider"></div>
+
+        <div class="about-group-member">
+          <div class="about-group-avatar avatar-jmos">JMOS</div>
+          <p data-i18n="about.group_jmos_desc">
+            JMOS là công ty thành viên trực thuộc MOS Group, có trụ sở tại tỉnh Shizuoka, Nhật Bản. Công ty tập trung
+            cung cấp hai nhóm dịch vụ chính gồm BPO thiết kế kỹ thuật và phái cử giới thiệu nguồn nhân lực kỹ sư cho các
+            doanh nghiệp sản xuất tại Nhật Bản.
+          </p>
+        </div>
+
+        <div class="about-group-divider"></div>
+
+        <div class="about-group-member">
+          <div class="about-group-avatar avatar-kji">KJI</div>
+          <p data-i18n="about.group_kji_desc">
+            Nghiệp đoàn Phát triển Nguồn nhân lực Nước ngoài (KJI) có trụ sở tại tỉnh Shizuoka, Nhật Bản, hoạt động
+            trong lĩnh vực kết nối và giới thiệu nguồn nhân lực trẻ Việt Nam đến làm việc tại các doanh nghiệp sản xuất
+            của Nhật Bản.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider-gradient"></div>
+
+  <!-- ================= SỨ MỆNH - TẦM NHÌN - GIÁ TRỊ CỐT LÕI ================= -->
+  <section class="section-glow" style="padding: 4rem 0; background: var(--bg-secondary);">
+    <div class="bg-glow-left"></div>
+    <div class="container">
+      <!-- Subtitle cũ: Kim chỉ nam cho mọi hoạt động và quyết định phát triển tại VMOS. -->
+      <h2 class="section-title-compact reveal" data-i18n="about.strategy_title">Sứ Mệnh - Tầm Nhìn - Giá Trị Cốt Lõi
+      </h2>
+
+      <!-- ================= PHẦN 1: GIÁ TRỊ CỐT LÕI (FIXED DARK CARD BANNER) ================= -->
+      <div class="core-values-dark-card reveal-scale">
+        <div class="dark-glow-cyan"></div>
+        <div class="dark-glow-purple"></div>
+
+        <div class="core-values-header reveal">
+          <h2 class="core-values-title" data-i18n="about.values_main_title">GIÁ TRỊ CỐT LÕI</h2>
+          <p class="core-values-desc" data-i18n="about.values_main_desc">Nền tảng văn hóa và nguyên tắc hành động xuyên
+            suốt làm nên uy tín và sự phát triển bền vững của VMOS.</p>
+        </div>
+
+        <div class="core-values-grid">
+          <!-- Mục 1: Tín - Tâm - Tốc -->
+          <div class="core-value-item reveal">
+            <div class="strategy-card-header">
+              <div class="strategy-number-badge badge-cyan">1</div>
+              <h3 class="strategy-card-title" data-i18n="about.value_item1_title">Tín - Tâm - Tốc</h3>
+            </div>
+            <ul class="strategy-list list-cyan">
+              <li>
+                <i class="bi bi-check2-square"></i>
+                <span data-i18n="about.value_item1_desc">Đặt chữ Tín lên hàng đầu, tận tâm trong mọi giải pháp và hành
+                  động tốc độ, linh hoạt.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Mục 2: Trí - Nhân -->
+          <div class="core-value-item reveal">
+            <div class="strategy-card-header">
+              <div class="strategy-number-badge badge-blue">2</div>
+              <h3 class="strategy-card-title" data-i18n="about.value_item2_title">Trí - Nhân</h3>
+            </div>
+            <ul class="strategy-list list-blue">
+              <li>
+                <i class="bi bi-check2-square"></i>
+                <span data-i18n="about.value_item2_desc">Phát huy trí tuệ sáng tạo công nghệ và lấy tinh thần nhân văn,
+                  đồng đội làm cốt lõi.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Mục 3: Nền tảng bền vững -->
+          <div class="core-value-item reveal">
+            <div class="strategy-card-header">
+              <div class="strategy-number-badge badge-purple">3</div>
+              <h3 class="strategy-card-title" data-i18n="about.value_item3_title">Bền Vững</h3>
+            </div>
+            <ul class="strategy-list list-purple">
+              <li>
+                <i class="bi bi-check2-square"></i>
+                <span data-i18n="about.value_item3_desc">Tín - Tâm - Tốc - Trí - Nhân làm nền tảng phát triển bền vững
+                  và mang lại giá trị thực cho đối tác.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= PHẦN 2: TẦM NHÌN & SỨ MỆNH (2 CỘT SONG SONG) ================= -->
+      <div class="vision-mission-grid">
+
+        <!-- CỘT TRÁI: TẦM NHÌN & SỨ MỆNH -->
+        <div class="vision-mission-col reveal">
+          <!-- Tầm Nhìn -->
+          <div class="vision-mission-subblock">
+            <h3 class="section-title-compact" style="margin-bottom: 0.75rem;" data-i18n="about.vision_title">TẦM NHÌN
+            </h3>
+            <div class="subblock-header">
+              <i class="bi bi-check2-square"></i>
+              <span data-i18n="about.vision_sub_header">Tầm nhìn chiến lược của VIET.MOS COMPANY LIMITED</span>
+            </div>
+            <ul class="strategy-list list-cyan" style="margin-top: 0.5rem;">
+              <li>
+                <i class="bi bi-check2-circle"></i>
+                <span data-i18n="about.vision_desc_1">JMOS và VMOS cùng kiến tạo nền tảng vận hành độc lập, chủ động và
+                  bền vững, từng bước nâng cao năng lực tự chủ trong hệ thống MOS.</span>
+              </li>
+              <li>
+                <i class="bi bi-check2-circle"></i>
+                <span data-i18n="about.vision_desc_2">Không ngừng trau dồi kỹ năng, tạo ra kết quả vượt trên kỳ vọng của
+                  khách hàng, thúc đẩy hoạt động kinh doanh bền vững.</span>
+              </li>
+              <li>
+                <i class="bi bi-check2-circle"></i>
+                <span data-i18n="about.vision_desc_3">Mang lại giá trị và đóng góp cho xã hội, hướng tới nâng cao chất
+                  lượng cuộc sống, tạo dựng niềm tin và sự ổn định cho nhân viên.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Sứ Mệnh -->
+          <div class="vision-mission-subblock" style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+            <h3 class="section-title-compact" style="margin-bottom: 0.75rem;" data-i18n="about.mission_title">SỨ MỆNH
+            </h3>
+            <div class="subblock-header">
+              <i class="bi bi-check2-square"></i>
+              <span data-i18n="about.mission_sub_header">Sứ mệnh đồng hành cùng doanh nghiệp</span>
+            </div>
+            <ul class="strategy-list list-blue" style="margin-top: 0.5rem;">
+              <li>
+                <i class="bi bi-check2-circle"></i>
+                <span data-i18n="about.mission_desc_1">Phát triển con người là nền tảng cho sự phát triển bền vững,
+                  hướng tới xây dựng đội ngũ có năng lực hành động và tinh thần trách nhiệm cao.</span>
+              </li>
+              <li>
+                <i class="bi bi-check2-circle"></i>
+                <span data-i18n="about.mission_desc_2">Kế thừa và phát huy tư duy kỹ thuật từ Nhật Bản cùng đội ngũ
+                  người Việt, luôn học hỏi, đổi mới và hướng tới những giá trị tốt đẹp hơn.</span>
+              </li>
+              <li>
+                <i class="bi bi-check2-circle"></i>
+                <span data-i18n="about.mission_desc_3">Kiến tạo cầu nối giữa Việt Nam và Nhật Bản, kết nối không chỉ thị
+                  trường mà còn là những giá trị văn hóa bền vững giữa hai quốc gia.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- CỘT PHẢI: PHONG CÁCH LÀM VIỆC -->
+        <div class="vision-mission-col reveal">
+          <h3 class="section-title-compact" style="margin-bottom: 0.75rem;" data-i18n="about.workstyle_title">PHONG CÁCH
+            LÀM VIỆC</h3>
+          <div class="subblock-header">
+            <i class="bi bi-check2-square"></i>
+            <span data-i18n="about.workstyle_sub_header">Văn hóa & Phương châm hoạt động</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin: 0.5rem 0 0 0;"
+            data-i18n="about.workstyle_intro">
+            Phong cách làm việc tại VMOS được xây dựng trên nền tảng tinh thần Nhật Bản, kết hợp sự tận tâm và linh hoạt
+            của con người Việt Nam.
+          </p>
+          <ul class="strategy-list list-purple" style="margin-top: 0.75rem;">
+            <li>
+              <i class="bi bi-check2-circle"></i>
+              <span data-i18n="about.workstyle_item1">Kaizen - Cải tiến liên tục: Không ngừng tối ưu quy trình, nâng cao
+                chất lượng trong từng chi tiết công việc.</span>
+            </li>
+            <li>
+              <i class="bi bi-check2-circle"></i>
+              <span data-i18n="about.workstyle_item2">Hourensou - Báo cáo, Liên lạc, Bàn bạc: Duy trì trao đổi minh
+                bạch, kịp thời giữa các bộ phận và với khách hàng trong suốt dự án.</span>
+            </li>
+            <li>
+              <i class="bi bi-check2-circle"></i>
+              <span data-i18n="about.workstyle_item3">Kỷ luật & Đúng hẹn: Tôn trọng thời gian, tuân thủ quy trình làm
+                việc và cam kết tiến độ đã thỏa thuận.</span>
+            </li>
+            <li>
+              <i class="bi bi-check2-circle"></i>
+              <span data-i18n="about.workstyle_item4">Omotenashi - Tận tâm phục vụ: Đặt sự hài lòng và lợi ích lâu dài
+                của khách hàng làm trọng tâm trong mọi quyết định.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider-gradient"></div>
+
+  <!-- ================= TRIẾT LÝ KINH DOANH ================= -->
+  <section class="philosophy-simple-section reveal-scale">
+    <!-- Họa tiết đường lượn sóng mờ làm nền trang trí -->
+    <svg class="philosophy-waves-pattern" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="none">
+      <path d="M-100 60 C 250 180, 650 -20, 1050 140 C 1250 220, 1480 90, 1600 130" stroke="rgba(0, 242, 254, 0.16)"
+        stroke-width="1.5" />
+      <path d="M-100 100 C 200 220, 600 20, 1000 180 C 1200 260, 1450 130, 1600 170" stroke="rgba(255, 255, 255, 0.12)"
+        stroke-width="1" />
+      <path d="M-100 140 C 150 260, 550 60, 950 220 C 1150 300, 1420 170, 1600 210" stroke="rgba(0, 242, 254, 0.14)"
+        stroke-width="1.2" />
+      <path d="M-100 180 C 300 80, 700 240, 1100 120 C 1300 50, 1500 190, 1600 240" stroke="rgba(255, 255, 255, 0.09)"
+        stroke-width="1" />
+      <path d="M-100 220 C 250 120, 650 280, 1050 160 C 1250 90, 1480 230, 1600 280" stroke="rgba(0, 242, 254, 0.11)"
+        stroke-width="1" />
+      <path d="M-100 260 C 200 160, 600 320, 1000 200 C 1200 130, 1450 270, 1600 310" stroke="rgba(255, 255, 255, 0.07)"
+        stroke-width="1" />
+    </svg>
+
+    <div class="philosophy-simple-grid">
+      <div class="philosophy-simple-image-wrap">
+        <div class="philosophy-simple-image">
+          <img src="images/about-ceo-otaki-masahide.jpg" alt="CEO Otaki Masahide - VIET.MOS COMPANY LIMITED"
+            class="philosophy-simple-img">
+        </div>
+        <div class="philosophy-ceo-badge">
+          <i class="bi bi-person-badge-fill"></i>
+          <span>CEO &middot; Otaki Masahide</span>
+        </div>
+      </div>
+
+      <div class="philosophy-simple-content">
+        <h2 class="philosophy-simple-title" data-i18n="about.philosophy_title">Triết Lý Kinh Doanh</h2>
+        <p class="philosophy-simple-desc" data-i18n="about.philosophy_subtitle">Dưới sự dẫn dắt của CEO Otaki Masahide,
+          VMOS xây dựng triết lý làm việc xoay quanh ba giá trị cốt lõi: con người, sự tiến bộ không ngừng và khách
+          hàng.</p>
+
+        <ul class="philosophy-simple-list">
+          <li>
+            <i class="bi bi-people-fill"></i>
+            <span><strong data-i18n="about.philosophy_item1_title">Tin Vào Con Người:</strong> <span
+                data-i18n="about.philosophy_item1_desc">Công việc là hành trình nuôi dưỡng đam mê, nơi mỗi thành viên
+                được phát huy năng lực, hoàn thiện bản thân và tìm thấy niềm hạnh phúc khi tạo ra giá trị thực
+                sự.</span></span>
+          </li>
+          <li>
+            <i class="bi bi-graph-up-arrow"></i>
+            <span><strong data-i18n="about.philosophy_item2_title">Không Ngừng Tiến Bộ:</strong> <span
+                data-i18n="about.philosophy_item2_desc">Tại VIET.MOS, chúng tôi tin rằng một đội ngũ vững vàng, không
+                ngừng tiến bộ chính là chìa khóa mang lại sự hài lòng và tin cậy tuyệt đối cho khách hàng.</span></span>
+          </li>
+          <li>
+            <i class="bi bi-award-fill"></i>
+            <span><strong data-i18n="about.philosophy_item3_title">Giải Pháp Vì Khách Hàng:</strong> <span
+                data-i18n="about.philosophy_item3_desc">Mỗi sản phẩm, dịch vụ tạo ra là sự tận tâm cao nhất, hướng đến
+                việc giải quyết trọn vẹn bài toán của khách hàng và cùng nhau kiến tạo những thành công vượt
+                bậc.</span></span>
+          </li>
+        </ul>
+
+        <div
+          style="margin-top: 1.5rem; padding: 1.25rem 1.5rem; background: rgba(255,255,255,0.08); border-left: 3px solid #ffffff; border-radius: 12px;">
+          <i class="bi bi-quote" style="font-size: 1.4rem; color: rgba(255,255,255,0.6);"></i>
+          <p style="margin: 0.4rem 0 0 0; font-size: 0.95rem; line-height: 1.7; font-style: italic; color: #ffffff;"
+            data-i18n="about.philosophy_quote">Chúng tôi tin rằng một đội ngũ vững vàng, không ngừng tiến bộ chính là
+            chìa khóa mang lại sự hài lòng và tin cậy tuyệt đối cho khách hàng.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider-gradient"></div>
+
+  <!-- ================= LỊCH SỬ HÌNH THÀNH (TIMELINE) ================= -->
+  <section class="history-timeline-section section-glow" style="padding: 5rem 0; background: var(--bg-secondary);">
+    <div class="bg-glow-left"></div>
+    <div class="container">
+      <h2 class="section-title-compact reveal" data-i18n="about.history_title">Lịch Sử Hình Thành</h2>
+
+      <div class="history-timeline-wrapper">
+        <div class="history-timeline-line"></div>
+
+        <!-- Mốc 1 (Trái) -->
+        <div class="history-timeline-item history-timeline-item-left reveal">
+          <div class="history-timeline-dot dot-cyan"></div>
+          <div class="history-timeline-card">
+            <span class="history-timeline-year badge-cyan" data-i18n="about.history_item1_year">[Năm sẽ cập nhật]</span>
+            <h3 class="history-timeline-title" data-i18n="about.history_item1_title">[Tên cột mốc sẽ cập nhật]</h3>
+            <p class="history-timeline-desc" data-i18n="about.history_item1_desc">[Mô tả chi tiết cột mốc sẽ cập nhật]
+            </p>
+          </div>
+        </div>
+
+        <!-- Mốc 2 (Phải) -->
+        <div class="history-timeline-item history-timeline-item-right reveal">
+          <div class="history-timeline-dot dot-purple"></div>
+          <div class="history-timeline-card">
+            <span class="history-timeline-year badge-purple" data-i18n="about.history_item2_year">[Năm sẽ cập
+              nhật]</span>
+            <h3 class="history-timeline-title" data-i18n="about.history_item2_title">[Tên cột mốc sẽ cập nhật]</h3>
+            <p class="history-timeline-desc" data-i18n="about.history_item2_desc">[Mô tả chi tiết cột mốc sẽ cập nhật]
+            </p>
+          </div>
+        </div>
+
+        <!-- Mốc 3 (Trái) -->
+        <div class="history-timeline-item history-timeline-item-left reveal">
+          <div class="history-timeline-dot dot-cyan"></div>
+          <div class="history-timeline-card">
+            <span class="history-timeline-year badge-cyan" data-i18n="about.history_item3_year">[Năm sẽ cập nhật]</span>
+            <h3 class="history-timeline-title" data-i18n="about.history_item3_title">[Tên cột mốc sẽ cập nhật]</h3>
+            <p class="history-timeline-desc" data-i18n="about.history_item3_desc">[Mô tả chi tiết cột mốc sẽ cập nhật]
+            </p>
+          </div>
+        </div>
+
+        <!-- Mốc 4 (Phải) -->
+        <div class="history-timeline-item history-timeline-item-right reveal">
+          <div class="history-timeline-dot dot-purple"></div>
+          <div class="history-timeline-card">
+            <span class="history-timeline-year badge-purple" data-i18n="about.history_item4_year">[Năm sẽ cập
+              nhật]</span>
+            <h3 class="history-timeline-title" data-i18n="about.history_item4_title">[Tên cột mốc sẽ cập nhật]</h3>
+            <p class="history-timeline-desc" data-i18n="about.history_item4_desc">[Mô tả chi tiết cột mốc sẽ cập nhật]
+            </p>
+          </div>
+        </div>
+
+        <!-- Mốc 5 (Trái) -->
+        <div class="history-timeline-item history-timeline-item-left reveal">
+          <div class="history-timeline-dot dot-cyan"></div>
+          <div class="history-timeline-card">
+            <span class="history-timeline-year badge-cyan" data-i18n="about.history_item5_year">[Năm sẽ cập nhật]</span>
+            <h3 class="history-timeline-title" data-i18n="about.history_item5_title">[Tên cột mốc sẽ cập nhật]</h3>
+            <p class="history-timeline-desc" data-i18n="about.history_item5_desc">[Mô tả chi tiết cột mốc sẽ cập nhật]
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider-gradient"></div>
+
+  <!-- ================= SƠ ĐỒ CƠ CẤU TỔ CHỨC ================= -->
+  <section class="section-glow" data-tone="blue" style="padding: 5rem 0; background: var(--bg-secondary);">
+    <div class="bg-glow-left"></div>
+    <div class="bg-glow-right"></div>
+    <div class="container">
+      <div class="section-badge badge-blue reveal">
+        <i class="bi bi-diagram-3-fill"></i>
+        <span data-i18n="about.orgchart_badge">Cơ Cấu Vận Hành</span>
+      </div>
+      <h2 class="section-title-compact reveal" data-i18n="about.orgchart_title">Sơ Đồ Cơ Cấu Tổ Chức</h2>
+      <p class="reveal" style="max-width: 640px; color: var(--text-muted); margin: -1rem 0 2rem 0;"
+        data-i18n="about.orgchart_subtitle">
+        Mô hình quản trị tinh gọn, phân quyền rõ ràng giữa các bộ phận chuyên môn, giúp VMOS vận hành hiệu quả và phối
+        hợp chặt chẽ trong từng dự án.
+      </p>
+
+      <div class="oc-panel reveal">
+        <div class="oc-chart">
+          <div class="oc-legend">
+            <span class="oc-legend-item"><i></i> <span data-i18n="about.orgchart_legend_tech">Bộ phận Kỹ
+                thuật</span></span>
+            <span class="oc-legend-item"><i class="oc-legend--admin"></i> <span
+                data-i18n="about.orgchart_legend_admin">Bộ phận Hành chính - Kế toán</span></span>
+          </div>
+
+          <!-- Mỗi <li> có --w = số cột lá của nhánh đó (quyết định độ rộng). Thêm/bớt phòng ban: thêm/bớt <li>. -->
+          <ul class="oc-tree" role="tree" aria-label="Sơ đồ cơ cấu tổ chức VMOS">
+            <li>
+              <div class="oc-node oc-node--root"><span class="oc-label" data-i18n="about.orgchart_ceo">Tổng Giám
+                  Đốc</span></div>
+              <ul>
+                <li style="--w:4">
+                  <div class="oc-node"><span class="oc-label" data-i18n="about.orgchart_tech_dept">Bộ Phận Kỹ
+                      Thuật</span></div>
+                  <ul>
+                    <li style="--w:1">
+                      <div class="oc-node"><span class="oc-label" data-i18n="about.orgchart_mechanical">Thiết Kế Cơ
+                          Khí</span></div>
+                    </li>
+                    <li style="--w:3">
+                      <div class="oc-node"><span class="oc-label" data-i18n="about.orgchart_electrical_control">Thiết Kế
+                          Điện Điều Khiển</span></div>
+                      <ul>
+                        <li>
+                          <div class="oc-node"><span class="oc-label" data-i18n="about.orgchart_electrical_design">Thiết
+                              Kế Điện</span></div>
+                        </li>
+                        <li>
+                          <div class="oc-node"><span class="oc-label" data-i18n="about.orgchart_control_programming">Lập
+                              Trình Điều Khiển</span></div>
+                        </li>
+                        <li>
+                          <div class="oc-node"><span class="oc-label" data-i18n="about.orgchart_simulation_3d">Mô Phỏng
+                              3D</span></div>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li style="--w:1">
+                  <div class="oc-node oc-node--admin"><span class="oc-label" data-i18n="about.orgchart_admin_dept">Bộ
+                      Phận Hành Chính - Kế Toán</span></div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <!-- CỘT CHÚ THÍCH (bên phải sơ đồ): điền nội dung vào đây, ví dụ:
+             <h3>Tiêu đề chú thích</h3>
+             <p>Đoạn mô tả...</p>
+             <ul><li>Ý 1</li><li>Ý 2</li></ul> -->
+        <aside class="oc-notes">
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider-gradient"></div>
+  <section class="section-glow" style="padding: 5rem 0;">
+    <div class="bg-glow-right"></div>
+    <div class="container">
+      <div class="team-header-row">
+        <!-- Subtitle cũ: Những người thuyền trưởng dẫn dắt VMOS chinh phục các mốc chuyển đổi số thành công. -->
+        <h2 class="section-title-compact reveal" style="margin-bottom: 0;" data-i18n="about.team_title">Nhân Sự</h2>
+
+        <!-- Nút bấm điều hướng Trái / Phải -->
+        <div class="team-slider-nav">
+          <button class="btn-icon team-nav-btn prev-btn" aria-label="Cuộn trái">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button class="btn-icon team-nav-btn next-btn" aria-label="Cuộn phải">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="team-slider-wrapper">
+        <div class="team-slider-track">
+          <!-- Thành viên 1 -->
+          <div class="project-card team-card reveal">
+            <div class="team-avatar avatar-cyan">
+              <i class="bi bi-person-fill"></i>
+            </div>
+            <h4>Lê Thanh Phương</h4>
+            <span class="role-cyan">Quản lý điều hành, Trưởng nhóm thiết kế mô phỏng 3D</span>
+            <p data-i18n="about.member_desc">[Mô tả ngắn kinh nghiệm / chuyên môn]</p>
+          </div>
+
+          <!-- Thành viên 2 -->
+          <div class="project-card team-card reveal">
+            <div class="team-avatar avatar-purple">
+              <i class="bi bi-person-fill"></i>
+            </div>
+            <h4>Hà Văn Đạo</h4>
+            <span class="role-purple">Trưởng nhóm thiết kế điện và lập trình PLC</span>
+            <p data-i18n="about.member_desc">[Mô tả ngắn kinh nghiệm / chuyên môn]</p>
+          </div>
+
+          <!-- Thành viên 3 -->
+          <div class="project-card team-card reveal">
+            <div class="team-avatar avatar-blue">
+              <i class="bi bi-person-fill"></i>
+            </div>
+            <h4>Lê Văn Long</h4>
+            <span class="role-blue">Thiết kế cơ khí</span>
+            <p data-i18n="about.member_desc">[Mô tả ngắn kinh nghiệm / chuyên môn]</p>
+          </div>
+
+          <!-- Thành viên 4 -->
+          <div class="project-card team-card reveal">
+            <div class="team-avatar avatar-cyan">
+              <i class="bi bi-person-fill"></i>
+            </div>
+            <h4>Lê Văn Nam</h4>
+            <span class="role-cyan">Thiết kế cơ khí</span>
+            <p data-i18n="about.member_desc">[Mô tả ngắn kinh nghiệm / chuyên môn]</p>
+          </div>
+
+          <!-- Thành viên 5 -->
+          <div class="project-card team-card reveal">
+            <div class="team-avatar avatar-purple">
+              <i class="bi bi-person-fill"></i>
+            </div>
+            <h4>Nguyễn Đăng Hưng</h4>
+            <span class="role-purple">Thiết kế mô phỏng 3D và lập trình PLC</span>
+            <p data-i18n="about.member_desc">[Mô tả ngắn kinh nghiệm / chuyên môn]</p>
+          </div>
+
+          <!-- Thành viên 6 -->
+          <div class="project-card team-card reveal">
+            <div class="team-avatar avatar-blue">
+              <i class="bi bi-person-fill"></i>
+            </div>
+            <h4>Phạm Hồng Quân</h4>
+            <span class="role-blue">Thiết kế mô phỏng 3D và lập trình PLC</span>
+            <p data-i18n="about.member_desc">[Mô tả ngắn kinh nghiệm / chuyên môn]</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-col-main">
+          <a href="index.html" class="logo" style="margin-bottom: 1rem;">
+            <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED" class="logo-img">
+          </a>
+
+          <div class="footer-legal">
+            <p><strong data-i18n="footer.tax_label">Mã số doanh nghiệp:</strong><br>
+              <span data-i18n="footer.tax_val">0109873066 do Sở Kế hoạch và Đầu tư Thành phố Hà Nội cấp phép.</span>
+            </p>
+
+            <p><strong data-i18n="footer.address_label">Địa chỉ:</strong><br>
+              <span data-i18n="footer.address_val">Tầng 3 (sàn văn phòng cho thuê), Tòa nhà Rainbow, Khu đô thị mới Văn
+                Quán - Yên Phúc, Phường Hà Đông, Thành phố Hà Nội, Việt Nam.</span>
+            </p>
+          </div>
+
+          <div class="footer-contact-row">
+            <a href="tel:+842436688679"><i class="bi bi-telephone-fill"></i> (+84) 24-3668-8679</a>
+            <a href="mailto:viet.mos@v-mos.com"><i class="bi bi-envelope-fill"></i> viet.mos@v-mos.com</a>
+          </div>
+
+          <div class="footer-social">
+            <a href="#" class="social-icon" aria-label="Zalo">Zalo</a>
+            <a href="#" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social-icon" aria-label="Youtube"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="footer.quick_links">Liên Kết Nhanh</h4>
+          <ul class="footer-links">
+            <li><a href="index.html" data-i18n="nav.home">Trang chủ</a></li>
+            <li><a href="index.html#services" data-i18n="services.title">Dịch vụ trọng tâm</a></li>
+            <li><a href="about.html" data-i18n="nav.about">Về VMOS</a></li>
+            <li><a href="du-an.html" data-i18n="portfolio.title">Dự án triển khai</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="footer.info_pages">Trang Thông Tin</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html" data-i18n="nav.blog">Tin tức & Công nghệ</a></li>
+            <li><a href="contact.html" data-i18n="nav.contact">Liên hệ tư vấn</a></li>
+            <li><a href="#" data-i18n="footer.privacy">Chính sách bảo mật</a></li>
+            <li><a href="#" data-i18n="footer.terms">Điều khoản sử dụng</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p data-i18n="footer.copyright">&copy; 2026 VIET.MOS COMPANY LIMITED. Tất cả quyền được bảo lưu.</p>
+        <p data-i18n="footer.developed_by">Phát triển bởi Đội Ngũ VMOS</p>
+      </div>
+    </div>
+  </footer>
+  <!-- ================= FLOATING CONTACT WIDGET ================= -->
+  <div class="floating-contact-widget">
+    <!-- Nút Zalo -->
+    <a href="zalo-qr.html" target="_blank" rel="noopener noreferrer" class="floating-btn btn-zalo"
+      aria-label="Kết nối Zalo">
+      <span class="floating-tooltip">Quét mã QR Zalo</span>
+      <span class="zalo-text-badge">Zalo</span>
+    </a>
+
+    <!-- Nút Gọi điện -->
+    <a href="tel:+842436688679" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn">
+      <span class="floating-tooltip">(+84) 24-3668-8679</span>
+      <i class="bi bi-telephone-fill"></i>
+    </a>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

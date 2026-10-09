@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.style.backgroundColor = t === 'dark' ? '#0a0f1d' : '#f8fafc';
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thiết Kế Cơ Khí | VMOS - VIET.MOS COMPANY LIMITED</title>
+  <meta name="description"
+    content="Dịch vụ tư vấn, thiết kế máy móc và chi tiết cơ khí tự động hóa chuyên sâu từ VMOS (VIET.MOS COMPANY LIMITED).">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Custom Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=rx16">
+</head>
+
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar scrolled">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED" class="logo-img">
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="desktop-nav-menu">
+        <a href="index.html" class="nav-link" data-i18n="nav.home">Trang chủ</a>
+        <a href="about.html" class="nav-link" data-i18n="nav.about">Về chúng tôi</a>
+
+        <div class="nav-dropdown">
+          <a href="dich-vu-thiet-ke-co-khi.html" class="nav-link nav-dropdown-toggle active" data-i18n="nav.services">
+            <span data-i18n="nav.services">Dịch vụ</span>
+            <i class="bi bi-chevron-down"></i>
+          </a>
+          <div class="nav-dropdown-menu">
+            <a href="dich-vu-thiet-ke-co-khi.html" data-i18n="services.mechanical">Thiết Kế Cơ Khí</a>
+            <a href="dich-vu-thiet-ke-dien.html" data-i18n="services.electrical">Thiết Kế Điện - Lập Trình Điều
+              Khiển</a>
+            <a href="dich-vu-thiet-ke-mo-phong.html" data-i18n="services.simulation">Thiết Kế Mô Phỏng</a>
+          </div>
+        </div>
+
+        <a href="index.html#portfolio" class="nav-link" data-i18n="nav.portfolio">Dự án</a>
+        <a href="blog.html" class="nav-link" data-i18n="nav.blog">Tin tức</a>
+        <a href="contact.html" class="nav-link" data-i18n="nav.contact">Liên hệ</a>
+      </nav>
+
+      <div class="nav-tools">
+        <button id="theme-toggle" class="fixed-theme-btn" aria-label="Chuyển đổi giao diện Sáng/Tối"
+          data-i18n-attr="aria-label:nav.theme_toggle">
+          <i class="bi bi-sun-fill"></i>
+        </button>
+        <div class="lang-dropdown">
+          <button class="fixed-lang-btn" aria-label="Ngôn ngữ" data-i18n-attr="aria-label:nav.lang_toggle">
+            <span class="lang-current-label">VI</span>
+          </button>
+          <div class="lang-menu">
+            <button class="lang-select-btn active" data-lang="vi" onclick="window.setLanguage('vi')">VI - Tiếng
+              Việt</button>
+            <button class="lang-select-btn" data-lang="en" onclick="window.setLanguage('en')">EN - English</button>
+            <button class="lang-select-btn" data-lang="ja" onclick="window.setLanguage('ja')">JA - 日本語</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= VINGROUP-STYLE FIXED NAVIGATION CONTROLS ================= -->
+  <!-- Fixed Left Middle: Hamburger Button (3 lines line-only) -->
+  <button class="sidebar-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="side-menu">
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+  </button>
+
+  <!-- Fixed Left Bottom: Theme Toggle + Language Selector (Vertical Stack) -->
+  </div>
+
+  <!-- ================= UNIFIED LEFT SIDEBAR NAVIGATION ================= -->
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <aside class="side-menu" id="side-menu" aria-label="Menu điều hướng" role="dialog" aria-modal="true">
+    <div class="side-menu-header">
+      <a href="index.html" class="logo">
+        <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED">
+      </a>
+      <button class="side-menu-close" aria-label="Đóng menu"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <nav class="side-menu-nav">
+      <a href="index.html" class="side-menu-link" data-i18n="nav.home">Trang chủ</a>
+      <a href="about.html" class="side-menu-link" data-i18n="nav.about">Về chúng tôi</a>
+      <div class="side-menu-group">
+        <button class="side-menu-link side-menu-group-toggle open" data-i18n="nav.services">Dịch vụ</button>
+        <div class="side-menu-submenu">
+          <a href="dich-vu-thiet-ke-co-khi.html" class="active" data-i18n="services.mechanical">Thiết Kế Cơ Khí</a>
+          <a href="dich-vu-thiet-ke-dien.html" data-i18n="services.electrical">Thiết Kế Điện - Lập Trình Điều Khiển</a>
+          <a href="dich-vu-thiet-ke-mo-phong.html" data-i18n="services.simulation">Thiết Kế Mô Phỏng</a>
+        </div>
+      </div>
+      <a href="index.html#portfolio" class="side-menu-link" data-i18n="nav.portfolio">Dự án</a>
+      <a href="blog.html" class="side-menu-link" data-i18n="nav.blog">Tin tức</a>
+      <div class="side-menu-cta-wrapper">
+        <a href="contact.html" class="side-menu-link side-menu-cta" data-i18n="nav.contact">
+          <span data-i18n="nav.contact">Liên hệ</span>
+          <i class="bi bi-arrow-right-circle-fill"></i>
+        </a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ================= BREADCRUMB ================= -->
+  <nav class="service-detail-breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+      <ul class="service-detail-breadcrumb-list">
+        <li><a href="index.html" data-i18n="service_detail.breadcrumb_home">Trang chủ</a></li>
+        <li class="separator"><i class="bi bi-chevron-right"></i></li>
+        <li><a href="index.html#services" data-i18n="service_detail.breadcrumb_services">Lĩnh Vực Hoạt Động</a></li>
+        <li class="separator"><i class="bi bi-chevron-right"></i></li>
+        <li class="current" data-i18n="service_detail.mechanical.hero_title">THIẾT KẾ CƠ KHÍ</li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ================= HERO BANNER FULL-BLEED (100VW) ================= -->
+  <section class="service-detail-hero">
+    <img src="images/service-co-khi.jpg" alt="Thiết Kế Cơ Khí" class="service-detail-hero-bg">
+    <div class="service-detail-hero-overlay"></div>
+    <div class="service-detail-hero-content">
+      <h1 class="service-detail-hero-title" data-i18n="service_detail.mechanical.hero_title">THIẾT KẾ CƠ KHÍ</h1>
+      <p class="service-detail-hero-desc" data-i18n="service_detail.mechanical.hero_desc">
+        [Đoạn giới thiệu năng lực Thiết Kế Cơ Khí sẽ cập nhật]
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= GIỚI THIỆU MẢNG DỊCH VỤ ================= -->
+  <section class="service-detail-intro-section">
+    <div class="container">
+      <h2 class="section-title-compact reveal" data-i18n="service_detail.mechanical.intro_title">THIẾT KẾ CƠ KHÍ</h2>
+
+      <div class="service-detail-intro-grid">
+        <!-- Cột Trái: Văn bản giới thiệu -->
+        <div class="service-detail-intro-text reveal">
+          <p data-i18n="service_detail.mechanical.intro_desc">
+            [Đoạn giới thiệu chi tiết năng lực Thiết Kế Cơ Khí sẽ cập nhật]
+          </p>
+        </div>
+
+        <!-- Cột Phải: Dải 10 ô ảnh kéo ngang tràn viền -->
+        <div class="service-detail-intro-scroll">
+          <div class="service-detail-intro-card reveal">
+            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 1]</span></div>
+            <img src="images/co-khi-intro-1.jpg" onerror="this.classList.add('img-hidden')"
+              alt="Mô hình thiết kế 3D hệ thống máy cơ khí tự động hóa trên SolidWorks" class="service-detail-intro-img"
+              loading="lazy">
+          </div>
+          <div class="service-detail-intro-card reveal">
+            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 2]</span></div>
+            <img src="images/co-khi-intro-2.jpg" onerror="this.classList.add('img-hidden')"
+              alt="Gia công CNC chi tiết cơ khí chính xác tiêu chuẩn công nghiệp" class="service-detail-intro-img"
+              loading="lazy">
+          </div>
+          <div class="service-detail-intro-card reveal">
+            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 3]</span></div>
+            <img src="images/co-khi-intro-3.jpg" onerror="this.classList.add('img-hidden')"
+              alt="Bản vẽ kỹ thuật 2D cơ khí và sơ đồ lắp ráp chi tiết" class="service-detail-intro-img" loading="lazy">
+          </div>
+          <div class="service-detail-intro-card reveal">
+            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 4]</span></div>
+            <img src="images/co-khi-intro-4.jpg" onerror="this.classList.add('img-hidden')"
+              alt="Dây chuyền cơ khí tự động hóa lắp ráp linh kiện sản xuất" class="service-detail-intro-img"
+              loading="lazy">
+          </div>
+          <div class="service-detail-intro-card reveal">
+            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 5]</span></div>
+            <img src="images/co-khi-intro-5.jpg" onerror="this.classList.add('img-hidden')"
+              alt="Thiết kế khuôn mẫu cơ khí và bộ gá Jig gia công" class="service-detail-intro-img" loading="lazy">
+          </div>
+          <div class="service-detail-intro-card reveal">
+            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 6]</span></div>
+            <img src="images/co-khi-intro-6.jpg" onerror="this.classList.add('img-hidden')"
+              alt="Kiểm định chất lượng và đo lường kích thước chi tiết cơ khí chính xác"
+              class="service-detail-intro-img" loading="lazy">
+          </div>
+          <div class="service-detail-intro-card reveal">
+            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 7]</span></div>
+            <img src="images/co-khi-intro-7.jpg" onerror="this.classList.add('img-hidden')"
+              alt="Hệ thống cơ cấu truyền động và cánh tay robot công nghiệp" class="service-detail-intro-img"
+              loading="lazy">
+          </div>
+          <div class="service-detail-intro-card reveal">
+            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 8]</span></div>
+            <img src="images/co-khi-intro-8.jpg" onerror="this.classList.add('img-hidden')"
+              alt="Lắp ráp chạy thử cụm cơ khí trong xưởng chế tạo" class="service-detail-intro-img" loading="lazy">
+          </div>
+          <div class="service-detail-intro-card reveal">
+            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 9]</span></div>
+            <img src="images/co-khi-intro-9.jpg" onerror="this.classList.add('img-hidden')"
+              alt="Mô phỏng động lực học và phân tích ứng suất kết cấu cơ khí" class="service-detail-intro-img"
+              loading="lazy">
+          </div>
+          <div class="service-detail-intro-card reveal">
+            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 10]</span></div>
+            <img src="images/co-khi-intro-10.jpg" onerror="this.classList.add('img-hidden')"
+              alt="Giải pháp tự động hóa cơ khí toàn diện cho nhà máy sản xuất" class="service-detail-intro-img"
+              loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MẢNG DỊCH VỤ CHUYÊN SÂU (XEN KẼ 2 CỘT) ================= -->
+  <section class="service-detail-features-section">
+    <div class="container">
+      <h2 class="section-title-compact reveal" data-i18n="service_detail.mechanical.features_title">Các Mảng Dịch Vụ
+        Chuyên Sâu</h2>
+
+      <!-- Khối 1: Ảnh trái - Nội dung phải -->
+      <div class="service-detail-feature-row reveal">
+        <div class="service-detail-feature-image">
+          <div class="placeholder-box"><i class="bi bi-lightbulb"></i><span>[Ảnh Mảng 1]</span></div>
+          <img src="images/service-co-khi-y-tuong.jpg" onerror="this.classList.add('img-hidden')"
+            alt="Bản vẽ kỹ thuật và mô hình 3D phương án thiết kế tổng thể cụm cơ khí"
+            class="service-detail-feature-img" loading="lazy">
+        </div>
+        <div class="service-detail-feature-content">
+          <h3>
+            <i class="bi bi-lightbulb-fill feature-title-icon"></i>
+            <span data-i18n="service_detail.mechanical.feature1_title">Thiết kế ý tưởng và xây dựng phương án tổng
+              thể</span>
+          </h3>
+          <p data-i18n="service_detail.mechanical.feature1_desc">
+            Nghiên cứu yêu cầu công nghệ, khảo sát mặt bằng sản xuất và đề xuất phương án nguyên lý tối ưu. Chúng tôi
+            xây dựng mô hình khái niệm 3D, phân tích tính khả thi kỹ thuật và dự toán chi phí giúp doanh nghiệp định
+            hình giải pháp thiết bị trước khi đầu tư.
+          </p>
+        </div>
+      </div>
+
+      <!-- Khối 2: Nội dung trái - Ảnh phải (Đảo chiều) -->
+      <div class="service-detail-feature-row row-reverse reveal">
+        <div class="service-detail-feature-image">
+          <div class="placeholder-box"><i class="bi bi-gear-wide-connected"></i><span>[Ảnh Mảng 2]</span></div>
+          <img src="images/service-co-khi-chi-tiet-may.jpg" onerror="this.classList.add('img-hidden')"
+            alt="Mô hình 3D cụm máy công nghiệp và kết cấu thiết bị hoàn chỉnh" class="service-detail-feature-img"
+            loading="lazy">
+        </div>
+        <div class="service-detail-feature-content">
+          <h3>
+            <i class="bi bi-gear-wide-connected feature-title-icon"></i>
+            <span data-i18n="service_detail.mechanical.feature2_title">Thiết kế chi tiết máy, cụm máy và kết cấu thiết
+              bị</span>
+          </h3>
+          <p data-i18n="service_detail.mechanical.feature2_desc">
+            Thiết kế chuyên sâu các bộ phận cơ khí chính xác, cụm truyền động và kết cấu khung vỏ thiết bị. Từng chi
+            tiết được tối ưu hóa độ bền, kiểm soát dung sai lắp ghép và lựa chọn vật liệu đáp ứng tiêu chuẩn vận hành
+            công nghiệp.
+          </p>
+        </div>
+      </div>
+
+      <!-- Khối 3: Ảnh trái - Nội dung phải -->
+      <div class="service-detail-feature-row reveal">
+        <div class="service-detail-feature-image">
+          <div class="placeholder-box"><i class="bi bi-file-earmark-ruled"></i><span>[Ảnh Mảng 3]</span></div>
+          <img src="images/service-co-khi-ban-ve-gia-cong.jpg" onerror="this.classList.add('img-hidden')"
+            alt="Bản vẽ lắp và bản vẽ gia công chi tiết kèm bảng kê vật tư phục vụ sản xuất"
+            class="service-detail-feature-img service-detail-feature-img--contain" loading="lazy">
+        </div>
+        <div class="service-detail-feature-content">
+          <h3>
+            <i class="bi bi-file-earmark-ruled-fill feature-title-icon"></i>
+            <span data-i18n="service_detail.mechanical.feature3_title">Triển khai bản vẽ lắp, bản vẽ gia công phục vụ
+              sản xuất</span>
+          </h3>
+          <p data-i18n="service_detail.mechanical.feature3_desc">
+            Xuất hồ sơ kỹ thuật đầy đủ gồm bản vẽ lắp ráp (Assembly Drawing), bản vẽ chi tiết gia công (Detail Drawing),
+            danh mục vật tư BOM và dữ liệu xuất CNC sẵn sàng chuyển giao trực tiếp cho nhà xưởng gia công chế tạo.
+          </p>
+        </div>
+      </div>
+
+      <!-- Khối 4: Nội dung trái - Ảnh phải (Đảo chiều) -->
+      <div class="service-detail-feature-row row-reverse reveal">
+        <div class="service-detail-feature-image">
+          <div class="placeholder-box"><i class="bi bi-arrow-repeat"></i><span>[Ảnh Mảng 4]</span></div>
+          <img src="images/service-co-khi-2d-3d.jpg" onerror="this.classList.add('img-hidden')"
+            alt="Chuyển đổi bản vẽ kỹ thuật 2D sang mô hình 3D chi tiết cơ khí và ngược lại"
+            class="service-detail-feature-img" loading="lazy">
+        </div>
+        <div class="service-detail-feature-content">
+          <h3>
+            <i class="bi bi-arrow-repeat feature-title-icon"></i>
+            <span data-i18n="service_detail.mechanical.feature4_title">Chuyển đổi bản vẽ 2D thành mô hình 3D và ngược
+              lại</span>
+          </h3>
+          <p data-i18n="service_detail.mechanical.feature4_desc">
+            Số hóa và chuyển đổi linh hoạt giữa bản vẽ 2D truyền thống (AutoCAD, bản vẽ giấy) sang mô hình 3D hình học
+            chính xác (SolidWorks, iCAD), kiểm tra xung đột không gian và chuẩn hóa tài liệu kỹ thuật theo yêu cầu khách
+            hàng.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NỀN TẢNG CÔNG NGHỆ ================= -->
+  <section class="service-tech-section reveal">
+    <div class="container">
+      <div class="tech-section-header">
+        <span class="tech-header-decorator">‹ ···</span>
+        <h2 class="tech-section-title" data-i18n="service_detail.mechanical.platforms_title">NỀN TẢNG CÔNG NGHỆ</h2>
+        <span class="tech-header-decorator">··· ›</span>
+      </div>
+
+      <div class="tech-logos-grid">
+        <!-- Logo 1: SolidWorks -->
+        <div class="tech-logo-item reveal">
+          <img src="images/tech-solidworks.png" onerror="this.style.display='none'" alt="Logo phần mềm SolidWorks"
+            class="tech-logo-img" loading="lazy" data-i18n-attr="alt:service_detail.mechanical.tech_solidworks_alt">
+        </div>
+
+        <!-- Logo 2: rapid PRO (CAD/CAM) -->
+        <div class="tech-logo-item reveal">
+          <img src="images/tech-cadpro.png" onerror="this.style.display='none'" alt="Logo phần mềm rapid PRO"
+            class="tech-logo-img" loading="lazy" data-i18n-attr="alt:service_detail.mechanical.tech_cadpro_alt">
+        </div>
+
+        <!-- Logo 3: iCAD -->
+        <div class="tech-logo-item reveal">
+          <img src="images/tech-icad.png" onerror="this.style.display='none'" alt="Logo phần mềm iCAD"
+            class="tech-logo-img" loading="lazy" data-i18n-attr="alt:service_detail.mechanical.tech_icad_alt">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LĨNH VỰC LIÊN QUAN ================= -->
+  <div class="container">
+    <section class="service-detail-related-section reveal-scale">
+      <!-- Họa tiết đường lượn sóng mờ làm nền trang trí -->
+      <svg class="philosophy-waves-pattern" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none">
+        <path d="M-100 60 C 250 180, 650 -20, 1050 140 C 1250 220, 1480 90, 1600 130" stroke="rgba(0, 242, 254, 0.16)"
+          stroke-width="1.5" />
+        <path d="M-100 100 C 200 220, 600 20, 1000 180 C 1200 260, 1450 130, 1600 170"
+          stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" />
+        <path d="M-100 140 C 150 260, 550 60, 950 220 C 1150 300, 1420 170, 1600 210" stroke="rgba(0, 242, 254, 0.14)"
+          stroke-width="1.2" />
+        <path d="M-100 180 C 300 80, 700 240, 1100 120 C 1300 50, 1500 190, 1600 240" stroke="rgba(255, 255, 255, 0.09)"
+          stroke-width="1" />
+      </svg>
+
+      <div
+        style="position: relative; z-index: 1; text-align: center; max-width: 900px; margin: 0 auto; padding: 0 1rem;">
+        <h2
+          style="font-size: 2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; color: #ffffff !important;"
+          data-i18n="service_detail.related_title">Lĩnh Vực Hoạt Động Liên Quan</h2>
+
+        <div class="service-detail-related-grid">
+          <a href="dich-vu-thiet-ke-dien.html" class="service-detail-related-card reveal">
+            <h4 data-i18n="services.electrical">Thiết Kế Điện - Lập Trình Điều Khiển</h4>
+            <i class="bi bi-arrow-right-circle-fill"></i>
+          </a>
+
+          <a href="dich-vu-thiet-ke-mo-phong.html" class="service-detail-related-card reveal">
+            <h4 data-i18n="services.simulation">Thiết Kế Mô Phỏng 3D</h4>
+            <i class="bi bi-arrow-right-circle-fill"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-col-main">
+          <a href="index.html" class="logo" style="margin-bottom: 1rem;">
+            <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED" class="logo-img">
+          </a>
+
+          <div class="footer-legal">
+            <p><strong data-i18n="footer.tax_label">Mã số doanh nghiệp:</strong><br>
+              <span data-i18n="footer.tax_val">0109873066 do Sở Kế hoạch và Đầu tư Thành phố Hà Nội cấp phép.</span>
+            </p>
+
+            <p><strong data-i18n="footer.address_label">Địa chỉ:</strong><br>
+              <span data-i18n="footer.address_val">Tầng 3 (sàn văn phòng cho thuê), Tòa nhà Rainbow, Khu đô thị mới Văn
+                Quán - Yên Phúc, Phường Hà Đông, Thành phố Hà Nội, Việt Nam.</span>
+            </p>
+          </div>
+
+          <div class="footer-contact-row">
+            <a href="tel:+842436688679"><i class="bi bi-telephone-fill"></i> (+84) 24-3668-8679</a>
+            <a href="mailto:viet.mos@v-mos.com"><i class="bi bi-envelope-fill"></i> viet.mos@v-mos.com</a>
+          </div>
+
+          <div class="footer-social">
+            <a href="#" class="social-icon" aria-label="Zalo">Zalo</a>
+            <a href="#" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social-icon" aria-label="Youtube"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="footer.quick_links">Liên Kết Nhanh</h4>
+          <ul class="footer-links">
+            <li><a href="index.html" data-i18n="nav.home">Trang chủ</a></li>
+            <li><a href="index.html#services" data-i18n="services.title">Dịch vụ trọng tâm</a></li>
+            <li><a href="about.html" data-i18n="nav.about">Về VMOS</a></li>
+            <li><a href="index.html#portfolio" data-i18n="portfolio.title">Dự án triển khai</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="footer.info_pages">Trang Thông Tin</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html" data-i18n="nav.blog">Tin tức & Công nghệ</a></li>
+            <li><a href="contact.html" data-i18n="nav.contact">Liên hệ tư vấn</a></li>
+            <li><a href="#" data-i18n="footer.privacy">Chính sách bảo mật</a></li>
+            <li><a href="#" data-i18n="footer.terms">Điều khoản sử dụng</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p data-i18n="footer.copyright">&copy; 2026 VIET.MOS COMPANY LIMITED. Tất cả quyền được bảo lưu.</p>
+        <p data-i18n="footer.developed_by">Phát triển bởi Đội Ngũ VMOS</p>
+      </div>
+    </div>
+  </footer>
+  <!-- ================= FLOATING CONTACT WIDGET ================= -->
+  <div class="floating-contact-widget">
+    <!-- Nút Zalo -->
+    <a href="zalo-qr.html" target="_blank" rel="noopener noreferrer" class="floating-btn btn-zalo"
+      aria-label="Kết nối Zalo">
+      <span class="floating-tooltip">Quét mã QR Zalo</span>
+      <span class="zalo-text-badge">Zalo</span>
+    </a>
+
+    <!-- Nút Gọi điện -->
+    <a href="tel:+842436688679" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn">
+      <span class="floating-tooltip">(+84) 24-3668-8679</span>
+      <i class="bi bi-telephone-fill"></i>
+    </a>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

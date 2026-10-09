@@ -1,0 +1,743 @@
+/* ==========================================================================
+   vmos-layout.css  -  FILE BỔ SUNG (nạp SAU style.css và hero-dashboard.css)
+   Chứa: hệ thống bố cục (lề, căn giữa/trải đều) và nền xanh dương sáng.
+   File này chỉ THÊM quy tắc, không thay thế style.css.
+   ========================================================================== */
+
+/* ==========================================================================
+   HỆ THỐNG BỐ CỤC - TỰ CÂN CHỈNH LỀ VÀ CĂN GIỮA / TRẢI ĐỀU
+   --------------------------------------------------------------------------
+   A. CHỈNH LỀ (các biến ngay bên dưới):
+      --page-pad       lề hai bên của nội dung, hero, footer
+      --nav-pad        lề riêng của thanh điều hướng (logo cách mép bao nhiêu)
+      --content-narrow bề rộng tối đa của khối "căn giữa"
+      --page-max       bề rộng tối đa của toàn trang trên màn rất lớn
+
+   B. CHỌN KIỂU CĂN CHO TỪNG MỤC (đặt thuộc tính trong index.html):
+      <section data-layout="spread"> : nội dung trải đều hai lề (mặc định)
+      <section data-layout="center"> : tiêu đề và nội dung nằm giữa màn hình,
+                                       gọn trong --content-narrow
+   ========================================================================== */
+:root {
+  --page-max: 1920px;
+  --page-pad: clamp(1.5rem, 5vw, 6rem);
+  --nav-pad: var(--page-pad);
+  --content-narrow: 1280px;
+  --page-edge: max(var(--page-pad), calc((100vw - var(--page-max)) / 2 + var(--page-pad)));
+  --nav-edge: max(var(--nav-pad), calc((100vw - var(--page-max)) / 2 + var(--nav-pad)));
+}
+
+.container {
+  max-width: var(--page-max) !important;
+  padding-left: var(--page-pad) !important;
+  padding-right: var(--page-pad) !important;
+}
+
+.navbar .nav-container {
+  max-width: none !important;
+  padding-left: var(--nav-edge) !important;
+  padding-right: var(--nav-edge) !important;
+}
+
+@media (min-width: 993px) {
+  .vh-wrap {
+    padding-left: var(--page-edge) !important;
+    padding-right: var(--page-edge) !important;
+  }
+}
+
+/* --- Kiểu "trải đều hai lề" (mặc định) --- */
+[data-layout="spread"] .container>* {
+  max-width: none;
+}
+
+/* --- Kiểu "căn giữa": tiêu đề + nội dung nằm giữa màn hình --- */
+[data-layout="center"] .container>* {
+  max-width: var(--content-narrow);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rx-section[data-layout="center"] .section-title-compact,
+[data-layout="center"] .section-title-compact {
+  text-align: center !important;
+  align-items: center !important;
+}
+
+.rx-section[data-layout="center"] .section-title-compact::before,
+[data-layout="center"] .section-title-compact::before {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Lưới dự án: 3 cột đều nhau khi đủ rộng */
+@media (min-width: 1100px) {
+  .portfolio-section .portfolio-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+/* ==========================================================================
+   NỀN XANH DƯƠNG SÁNG - thêm class "bg-bright-blue" vào bất kỳ <section> nào
+   Ví dụ: <section class="section-glow bg-bright-blue" ...>  hoặc  <section data-tone="blue" ...>
+   Đổi màu nền: chỉnh --bb-from / --bb-to (giữ chữ trắng đạt tương phản >= 4.5:1).
+   Lớp này tự đổi màu chữ, viền, thẻ bên trong sang tông sáng để dễ đọc trên nền xanh.
+   ========================================================================== */
+:is(.bg-bright-blue, [data-tone="blue"]) {
+  --bb-from: #0050d8;
+  --bb-to: #0a6cff;
+  background: linear-gradient(135deg, var(--bb-from) 0%, var(--bb-to) 100%) !important;
+
+  --bg-card: rgba(255, 255, 255, 0.14);
+  --bg-card-hover: rgba(255, 255, 255, 0.22);
+  --text-main: #ffffff;
+  --text-primary: #ffffff;
+  --text-heading: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.92);
+  --accent-sky: #ffffff;
+  --accent-cyan: #ffffff;
+  --border-color: rgba(255, 255, 255, 0.45);
+  --orgchart-line: rgba(255, 255, 255, 0.75);
+  color: #ffffff;
+}
+
+/* Bỏ các vệt sáng nền tối bên trong mục xanh */
+:is(.bg-bright-blue, [data-tone="blue"]) .bg-glow-left,
+:is(.bg-bright-blue, [data-tone="blue"]) .bg-glow-right,
+:is(.bg-bright-blue, [data-tone="blue"]) .orgchart-panel-glow {
+  display: none !important;
+}
+
+:is(.bg-bright-blue, [data-tone="blue"]) .section-badge {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.55) !important;
+  color: #ffffff !important;
+}
+
+:is(.bg-bright-blue, [data-tone="blue"]) .orgchart-panel {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 12px 40px rgba(0, 20, 90, 0.25);
+}
+
+/* Vòng icon, chấm chú thích: đổi sang trắng để nổi trên nền xanh */
+:is(.bg-bright-blue, [data-tone="blue"]) .orgchart-icon-ring-inner {
+  background: #ffffff !important;
+}
+
+:is(.bg-bright-blue, [data-tone="blue"]) .orgchart-icon-ring-inner i {
+  color: #0050d8 !important;
+}
+
+:is(.bg-bright-blue, [data-tone="blue"]) .orgchart-legend-dot--cyan {
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+
+:is(.bg-bright-blue, [data-tone="blue"]) .orgchart-legend-dot--purple {
+  background: rgba(255, 255, 255, 0.55) !important;
+  box-shadow: none !important;
+}
+
+
+/* ==========================================================================
+   DẢI SỐ LIỆU (.stats-band) trên nền xanh
+   ========================================================================== */
+.stats-band {
+  position: relative;
+  padding: 3.5rem 0;
+}
+
+.stats-band .about-stats-clean {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+:is(.bg-bright-blue, [data-tone="blue"]) .stat-clean-item .stat-number,
+:is(.bg-bright-blue, [data-tone="blue"]) .stat-clean-item .stat-icon {
+  color: #ffffff !important;
+  filter: none !important;
+}
+
+:is(.bg-bright-blue, [data-tone="blue"]) .stat-clean-item .stat-label {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* ==========================================================================
+   SƠ ĐỒ CƠ CẤU TỔ CHỨC (oc-*)
+   Thêm/bớt phòng ban: thêm/bớt <li>. Mỗi <li> có style="--w:N" với N = số cột lá
+   của nhánh đó (quyết định độ rộng). Đổi khoảng cách các tầng: chỉnh --oc-gap.
+   ========================================================================== */
+.oc-panel {
+  /* Mặc định: theme tối */
+  --oc-gap: 22px;
+  --oc-line: rgba(255, 255, 255, 0.5);
+  --oc-border: rgba(255, 255, 255, 0.85);
+  --oc-border-admin: rgba(255, 255, 255, 0.4);
+  --oc-fill: rgba(255, 255, 255, 0.04);
+  --oc-fill-admin: rgba(255, 255, 255, 0.04);
+  --oc-text: #ffffff;
+  --oc-dot: #ffffff;
+  --oc-dot-admin: rgba(255, 255, 255, 0.45);
+  --oc-root-bg: linear-gradient(90deg, #1a8cff 0%, #4f46e5 100%);
+  --oc-root-text: #ffffff;
+
+  /* Bố cục 2 cột: sơ đồ thu gọn bên trái, cột chú thích bên phải.
+     Đổi tỉ lệ ở --oc-cols (ví dụ 1.3fr / 1fr cho sơ đồ hẹp hơn, 2fr / 1fr cho rộng hơn). */
+  --oc-cols: minmax(0, 1.65fr) minmax(0, 1fr);
+  display: grid;
+  grid-template-columns: var(--oc-cols);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+}
+
+[data-theme="light"] .oc-panel {
+  --oc-line: rgba(15, 23, 42, 0.35);
+  --oc-border: #0062ff;
+  --oc-border-admin: #94a3b8;
+  --oc-fill: #ffffff;
+  --oc-fill-admin: #f1f5f9;
+  --oc-text: #0f172a;
+  --oc-dot: #0062ff;
+  --oc-dot-admin: #94a3b8;
+}
+
+:is(.bg-bright-blue, [data-tone="blue"]) .oc-panel {
+  --oc-line: rgba(255, 255, 255, 0.8);
+  --oc-border: #ffffff;
+  --oc-border-admin: rgba(255, 255, 255, 0.55);
+  --oc-fill: rgba(255, 255, 255, 0.14);
+  --oc-fill-admin: rgba(0, 30, 110, 0.35);
+  --oc-text: #ffffff;
+  --oc-dot: #ffffff;
+  --oc-dot-admin: rgba(255, 255, 255, 0.55);
+  --oc-root-bg: #ffffff;
+  --oc-root-text: #0050d8;
+}
+
+/* Cột chú thích bên phải sơ đồ (<aside class="oc-notes">): luôn chừa sẵn chỗ.
+   Điền nội dung bằng <h3>, <p>, <ul><li> bên trong thẻ aside. */
+.oc-notes {
+  min-width: 0;
+  color: var(--oc-text);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.oc-notes:has(> *) {
+  padding-left: clamp(1.25rem, 2.5vw, 2.5rem);
+  border-left: 1px solid var(--oc-line);
+}
+
+.oc-notes h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--oc-text);
+}
+
+.oc-notes p {
+  margin: 0 0 1rem 0;
+  color: var(--oc-text);
+  opacity: 0.92;
+}
+
+.oc-notes ul {
+  margin: 0 0 1rem 0;
+  padding-left: 1.2rem;
+  list-style: disc;
+}
+
+.oc-notes li {
+  margin-bottom: 0.4rem;
+}
+
+.oc-notes> :last-child {
+  margin-bottom: 0;
+}
+
+/* Màn hình hẹp: xếp dọc, cột chú thích xuống dưới sơ đồ (ẩn nếu còn trống) */
+@media (max-width: 992px) {
+  .oc-panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .oc-notes:not(:has(> *)) {
+    display: none;
+  }
+
+  .oc-notes:has(> *) {
+    padding-left: 0;
+    border-left: 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--oc-line);
+  }
+}
+
+.oc-chart {
+  min-width: 0;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+/* Chú thích màu */
+.oc-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.5rem;
+  margin: 0 0 1.75rem 0;
+}
+
+.oc-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--oc-text);
+}
+
+.oc-legend-item i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: var(--oc-dot);
+  flex-shrink: 0;
+}
+
+.oc-legend-item i.oc-legend--admin {
+  background: var(--oc-dot-admin);
+}
+
+/* Cây sơ đồ */
+.oc-tree,
+.oc-tree ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.oc-tree {
+  min-width: 560px;
+}
+
+.oc-tree ul {
+  position: relative;
+  width: 100%;
+  padding-top: var(--oc-gap);
+}
+
+.oc-tree ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: var(--oc-gap);
+  border-left: 1px solid var(--oc-line);
+}
+
+.oc-tree li {
+  position: relative;
+  box-sizing: border-box;
+  flex: var(--w, 1) 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: var(--oc-gap) 6px 0 6px;
+}
+
+.oc-tree>li {
+  padding: 0;
+}
+
+/* Đường nối ngang + nhánh xuống từng ô */
+.oc-tree li::before,
+.oc-tree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: var(--oc-gap);
+  border-top: 1px solid var(--oc-line);
+}
+
+.oc-tree li::before {
+  right: 50%;
+}
+
+.oc-tree li::after {
+  left: 50%;
+  border-left: 1px solid var(--oc-line);
+}
+
+.oc-tree li:first-child::before,
+.oc-tree li:last-child::after {
+  border: 0 none;
+}
+
+.oc-tree li:last-child::before {
+  border-right: 1px solid var(--oc-line);
+}
+
+.oc-tree li:only-child::before,
+.oc-tree li:only-child::after,
+.oc-tree>li::before,
+.oc-tree>li::after {
+  display: none;
+}
+
+/* Ô phòng ban */
+.oc-node {
+  align-self: center;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--oc-border);
+  border-radius: 4px;
+  background: var(--oc-fill);
+  color: var(--oc-text);
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.3;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.oc-node:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 20, 90, 0.22);
+}
+
+.oc-node--admin {
+  border-color: var(--oc-border-admin);
+  background: var(--oc-fill-admin);
+}
+
+.oc-node--root {
+  padding: 0.75rem 1.6rem;
+  border-color: transparent;
+  background: var(--oc-root-bg);
+  color: var(--oc-root-text);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.oc-label {
+  display: block;
+}
+
+/* ==========================================================================
+   CHỮ GIÃN THEO KHUNG - các khối chữ mô tả không bị khống chế bề rộng cứng,
+   khung rộng ra thì dòng chữ dài ra theo, cỡ chữ tăng nhẹ theo màn hình.
+   Áp dụng cho mọi trang có nạp file này.
+   Chỉnh cỡ chữ mô tả: sửa --desc-font. Muốn giới hạn lại một khối: đặt max-width cho khối đó.
+   ========================================================================== */
+:root {
+  --desc-font: clamp(0.96rem, 0.5rem + 0.6vw, 1.3rem);
+}
+
+/* Khối giới thiệu xanh ở trang dịch vụ (Điện, và các trang dịch vụ dùng .dien-hero-*) */
+.dien-intro-desc-col,
+.dien-hero-desc-col {
+  max-width: none !important;
+  width: 100%;
+}
+
+.dien-intro-desc-text,
+.dien-hero-desc-text {
+  font-size: var(--desc-font) !important;
+  line-height: 1.7;
+}
+
+/* Phần mở đầu trang dịch vụ chi tiết */
+.service-detail-hero-content,
+.service-detail-hero-desc {
+  max-width: none !important;
+}
+
+.service-detail-hero-desc {
+  font-size: var(--desc-font);
+}
+
+/* Tiêu đề + mô tả đầu mỗi mục, tiêu đề khối giá trị cốt lõi */
+.section-header,
+.core-values-dark-card .core-values-header {
+  max-width: none !important;
+}
+
+.section-header p {
+  font-size: var(--desc-font);
+}
+
+/* Các khối bị khống chế bề rộng trong trang Về chúng tôi */
+.philosophy-simple-grid,
+.history-timeline-wrapper,
+.orgchart-panel {
+  max-width: none !important;
+}
+
+
+/* ==========================================================================
+   LĨNH VỰC HOẠT ĐỘNG - 3 THẺ, RÊ CHUỘT: BÌA NGHIÊNG HÉ MỞ NHƯ SÁCH (.svc-*)
+   Bìa (ảnh + tên) bản lề ở cạnh trái, chỉ nghiêng nhẹ để lộ mép trang phía sau,
+   viền sáng lên và hiện mô tả ngắn. Bấm vào thẻ là chuyển sang trang dịch vụ.
+   Chỉnh nhanh:
+     --svc-open     góc nghiêng của bìa (độ): lớn hơn = mở rộng hơn
+     --svc-speed    thời gian chuyển động
+     --svc-persp    độ "sâu" phối cảnh (nhỏ hơn = méo mạnh hơn)
+   ========================================================================== */
+.svc-grid {
+  --svc-open: 22deg;
+  --svc-speed: 0.55s;
+  --svc-persp: 1500px;
+  --svc-ratio: 3 / 4;
+  --svc-radius: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 3rem);
+  max-width: 1200px;
+  margin: 2.25rem auto 0;
+}
+
+.svc-card {
+  position: relative;
+  aspect-ratio: var(--svc-ratio);
+  perspective: var(--svc-persp);
+  border-radius: var(--svc-radius);
+}
+
+/* ---- Trang phía sau bìa: chỉ lộ mép khi bìa nghiêng ---- */
+.svc-page {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  box-sizing: border-box;
+  border-radius: var(--svc-radius);
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.3));
+  background: #0b1220;
+  overflow: hidden;
+  transition: border-color var(--svc-speed) ease, box-shadow var(--svc-speed) ease;
+}
+
+/* Nội dung chữ của trang giữ lại cho trình đọc màn hình, không hiển thị */
+.svc-page>*:not(.svc-link) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Liên kết phủ toàn bộ thẻ */
+.svc-link {
+  position: static;
+  display: block;
+  color: transparent;
+  font-size: 0;
+  text-decoration: none;
+}
+
+.svc-link>* {
+  display: none;
+}
+
+.svc-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: var(--svc-radius);
+}
+
+.svc-link:focus-visible {
+  outline: none;
+}
+
+.svc-link:focus-visible::after {
+  outline: 3px solid var(--c1, #facc15);
+  outline-offset: 3px;
+}
+
+/* ---- Bìa (bản lề bên trái) ---- */
+.svc-cover {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform var(--svc-speed) cubic-bezier(0.22, 0.8, 0.3, 1);
+  will-change: transform;
+}
+
+.svc-cover-front {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--svc-radius);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  background: #0b1220;
+  color: #fff;
+  transition: border-color var(--svc-speed) ease, box-shadow var(--svc-speed) ease;
+}
+
+.svc-cover-back {
+  display: none;
+}
+
+/* Nền dự phòng khi chưa có ảnh trong thư mục images/ */
+.svc-bg-co-khi {
+  background: linear-gradient(160deg, #1a1306, #4a3410 60%, #0b1220);
+}
+
+.svc-bg-dien {
+  background: linear-gradient(160deg, #04182b, #0b3a63 60%, #0b1220);
+}
+
+.svc-bg-mo-phong {
+  background: linear-gradient(160deg, #150f2e, #36247a 60%, #0b1220);
+}
+
+.svc-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.svc-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(0deg, rgba(3, 8, 18, 0.95) 0%, rgba(3, 8, 18, 0.6) 26%, rgba(3, 8, 18, 0) 55%);
+  transition: opacity var(--svc-speed) ease;
+}
+
+/* Biểu tượng vuông màu (như icon sản phẩm trong ảnh mẫu) */
+.svc-badge {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 1.35rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--c1, #38bdf8), var(--c2, #2563eb));
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.svc-label {
+  position: absolute;
+  left: clamp(0.9rem, 1.6vw, 1.5rem);
+  right: clamp(0.9rem, 1.6vw, 1.5rem);
+  bottom: clamp(0.9rem, 1.6vw, 1.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 0.85rem;
+  font-weight: 700;
+  font-size: clamp(1.05rem, 1.5vw, 1.45rem);
+  line-height: 1.25;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+/* Mô tả ngắn: nằm trên hàng tên, hiện khi thẻ mở */
+.svc-front-desc {
+  order: -1;
+  flex: 0 0 100%;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
+  transition: max-height var(--svc-speed) ease, opacity var(--svc-speed) ease, margin var(--svc-speed) ease;
+}
+
+/* ---- Trạng thái mở: bìa nghiêng nhẹ, viền sáng, hiện mô tả ---- */
+.svc-card:focus-within .svc-cover {
+  transform: rotateY(var(--svc-open));
+}
+
+.svc-card:focus-within .svc-cover-front,
+.svc-card:focus-within .svc-page {
+  border-color: var(--c1, #facc15);
+}
+
+.svc-card:focus-within .svc-cover-front {
+  box-shadow: 0 0 0 1px var(--c1, #facc15), 0 0 28px color-mix(in srgb, var(--c1, #facc15) 45%, transparent);
+}
+
+.svc-card:focus-within .svc-front-desc {
+  max-height: 6em;
+  opacity: 1;
+  margin-bottom: 0.9rem;
+}
+
+@media (hover: hover) {
+  .svc-card:hover .svc-cover {
+    transform: rotateY(var(--svc-open));
+  }
+
+  .svc-card:hover .svc-cover-front,
+  .svc-card:hover .svc-page {
+    border-color: var(--c1, #facc15);
+  }
+
+  .svc-card:hover .svc-cover-front {
+    box-shadow: 0 0 0 1px var(--c1, #facc15), 0 0 28px color-mix(in srgb, var(--c1, #facc15) 45%, transparent);
+  }
+
+  .svc-card:hover .svc-front-desc {
+    max-height: 6em;
+    opacity: 1;
+    margin-bottom: 0.9rem;
+  }
+}
+
+/* Máy cảm ứng không có hover: luôn hiện mô tả */
+@media (hover: none) {
+  .svc-front-desc {
+    max-height: 6em;
+    opacity: 1;
+    margin-bottom: 0.9rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .svc-grid {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 420px;
+    --svc-ratio: 4 / 5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .svc-cover,
+  .svc-cover-front,
+  .svc-page,
+  .svc-front-desc {
+    transition: none;
+  }
+}
+
+.svc-label-text {
+  flex: 1 1 0;
+  min-width: 0;
+}

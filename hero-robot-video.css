@@ -1,0 +1,172 @@
+/* ==========================================================================
+   VMOS HERO - ROBOT VIDEO  (load AFTER style.css)
+   ========================================================================== */
+
+.rx-hero .rx-hero-media.rx-hero-media--robot {
+  position: absolute !important;
+  inset: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  transform: none !important;
+  filter: none !important;
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  z-index: 1 !important;
+}
+
+/* The tab column and capability card were removed from the markup; keep a single text column. */
+.rx-hero.rx-hero--robot .rx-hero-inner {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.rx-robot-stage {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.rx-robot-stage.is-ready { opacity: 1; }
+
+/* ---- Wall slab at the screen edge ---- */
+.rx-robot-wall {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  background: linear-gradient(90deg, #172036 0%, #111a2e 35%, #0d1527 100%);
+  border-left: 1px solid rgba(56, 189, 248, 0.38);
+  box-shadow: inset 14px 0 28px rgba(0, 0, 0, 0.28);
+}
+html[data-theme="light"] .rx-robot-wall {
+  background: linear-gradient(90deg, #e3e9f1 0%, #ecf0f6 40%, #f2f5fa 100%);
+  border-left-color: rgba(10, 77, 255, 0.28);
+  box-shadow: inset 14px 0 28px rgba(15, 35, 60, 0.12);
+}
+
+/* ---- Ground shadow ---- */
+.rx-robot-ground {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 70%);
+  opacity: 0;
+  pointer-events: none;
+}
+html[data-theme="light"] .rx-robot-ground {
+  background: radial-gradient(ellipse at center, rgba(15, 35, 60, 0.28) 0%, rgba(15, 35, 60, 0) 70%);
+}
+
+/* ---- Robot body wrapper (canvases) ---- */
+.rx-robot-body {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform;
+}
+.rx-robot-body canvas,
+.rx-robot-body img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+.rx-robot-body img[hidden] { display: none; }
+.rx-robot-video {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 2px;
+  opacity: 0.01;
+  pointer-events: none;
+}
+
+/* ---- Speech bubble ---- */
+.rx-robot-bubble {
+  position: absolute;
+  z-index: 4;
+  max-width: 240px;
+  padding: 0.55rem 0.85rem;
+  border-radius: 12px;
+  background: var(--ae-card-bg, #fff);
+  color: var(--ae-ink, #0b3b4c);
+  border: 1px solid var(--ae-line, #e2e8f0);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  transform: translate(-50%, calc(-100% - 8px)) scale(0.92);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.rx-robot-bubble.is-visible {
+  opacity: 1;
+  transform: translate(-50%, calc(-100% - 8px)) scale(1);
+}
+.rx-robot-bubble::after {
+  content: "";
+  position: absolute;
+  left: calc(50% + var(--tail, 0px));
+  bottom: -6px;
+  width: 10px;
+  height: 10px;
+  background: inherit;
+  border-right: 1px solid var(--ae-line, #e2e8f0);
+  border-bottom: 1px solid var(--ae-line, #e2e8f0);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* ---- Keyboard access ---- */
+.rx-robot-kbd {
+  position: absolute;
+  right: 1rem;
+  bottom: 4rem;
+  z-index: 5;
+  width: 2px;
+  height: 2px;
+  opacity: 0;
+  border: 0;
+  padding: 0;
+  pointer-events: auto;
+}
+.rx-robot-kbd:focus-visible {
+  width: auto;
+  height: auto;
+  opacity: 1;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  background: var(--ae-blue, #0a4dff);
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+/* ---- Hint (bottom centre) ---- */
+.rx-hero.rx-hero--robot .rx-hero-hint {
+  opacity: 0 !important;
+  transition: opacity 0.6s ease !important;
+}
+.rx-hero.rx-hero--robot .rx-hero-hint.is-shown { opacity: 1 !important; }
+.rx-hero.rx-hero--robot .rx-hero-hint.is-faded { opacity: 0 !important; }
+
+/* ---- Mobile / tablet ---- */
+@media (max-width: 992px) {
+  .rx-robot-bubble { max-width: 190px; font-size: 0.78rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rx-robot-stage, .rx-robot-bubble { transition: none; }
+}
