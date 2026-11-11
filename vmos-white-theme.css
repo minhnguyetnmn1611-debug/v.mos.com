@@ -1,0 +1,73 @@
+/* ==========================================================================
+   vmos-white-theme.css - ĐỒNG BỘ MÀU: xanh dương giữ nguyên, mọi nền khác = TRẮNG
+   Nạp CUỐI CÙNG trên mọi trang (sau vmos-text-blue.css / service-banner.css).
+   Chỉ áp dụng cho giao diện SÁNG. Giao diện TỐI giữ nguyên như cũ.
+   Muốn quay về như cũ: gỡ dòng <link> của file này khỏi các trang.
+
+   Nguyên nhân hai trang khác màu trước đây:
+   - Trang chủ: các mục dùng .rx-band-a => nền xám nhạt #f4f6f7 + viền trên/dưới.
+   - Trang Về chúng tôi: nền xám đậm hơn #e8ebed (từ body / --bg-secondary).
+   Giờ cả hai đều dùng chung biến --white-bg bên dưới.
+
+   Chỉnh nhanh:
+     --white-bg    màu nền chung (mặc định #ffffff)
+     --white-line  màu đường kẻ / viền thẻ trên nền trắng
+   ========================================================================== */
+
+html[data-theme="light"] {
+  --white-bg: #ffffff;
+  --white-line: #dde3ea;
+
+  /* Ghi đè các biến "sàn xám" của vmos-factory-theme.css */
+  --fx-floor: var(--white-bg);
+  --fx-floor-2: var(--white-bg);
+  --fx-card: #ffffff;
+  --fx-line: var(--white-line);
+
+  --bg-primary: var(--white-bg);
+  --bg-secondary: var(--white-bg);
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --border-color: var(--white-line);
+  --reflective-border: var(--white-line);
+  --ae-bg: var(--white-bg);
+  --ae-card-bg: #ffffff;
+  --ae-line: var(--white-line);
+}
+
+/* ---- Nền trang ---- */
+html[data-theme="light"]:root body {
+  background: var(--white-bg) !important;
+}
+
+/* ---- Các mục nội dung: cùng một nền trắng, bỏ viền xám riêng của trang chủ ----
+   (.section-glow = trang con, .rx-band-a = trang chủ). Mục có nền xanh
+   ([data-tone="blue"], .bg-bright-blue, stats-band, khối năng lực...) KHÔNG bị đụng tới. */
+html[data-theme="light"]:root body :is(.section-glow, .portfolio-section, .services-section, .intro-section, .clients-section, .rx-band-a, .rx-band-b):not([data-tone="blue"]):not(.bg-bright-blue) {
+  background: var(--white-bg) !important;
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+}
+
+/* ---- Banner đầu các trang con (Liên hệ, Dự án, Tin tức, Chính sách...) ---- */
+html[data-theme="light"]:root body section.hero {
+  background: var(--white-bg) !important;
+}
+
+/* ---- Chân trang: nền trắng, ngăn cách bằng một đường kẻ mảnh ---- */
+html[data-theme="light"]:root body footer.footer {
+  background: var(--white-bg) !important;
+  border-top: 1px solid var(--white-line) !important;
+}
+
+/* ---- Họa tiết chấm xám trên nền: bỏ để nền thật sự trắng ---- */
+html[data-theme="light"] .dot-pattern,
+html[data-theme="light"] .orgchart-dot-pattern {
+  display: none !important;
+}
+
+/* ---- Màu chuyển ở đáy hero trang chủ (ảnh mờ dần vào nền) ---- */
+html[data-theme="light"] body section.vh-hero:is(#hero-video, .vh-hero) {
+  --hero-fade: #ffffff;
+  --hero-fade-rgb: 255, 255, 255;
+}

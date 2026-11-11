@@ -1,31 +1,14 @@
 import os
 import sys
 import socket
-import subprocess
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
-
-
-def kill_process_on_port(port):
-    """Find and kill any process listening on the target port (Windows & Cross-platform)."""
-    try:
-        if sys.platform == 'win32':
-            output = subprocess.check_output(f'netstat -ano | findstr :{port}', shell=True, text=True)
-            pids = set()
-            for line in output.strip().splitlines():
-                parts = line.split()
-                if len(parts) >= 5 and ('LISTENING' in line or 'ESTABLISHED' in line):
-                    pids.add(parts[-1])
-            for pid in pids:
-                if pid != '0' and str(os.getpid()) != pid:
-                    subprocess.run(f'taskkill /PID {pid} /F', shell=True, capture_output=True)
-    except Exception:
-        pass
 
 
 class ReliableHTTPServer(ThreadingHTTPServer):
     address_family = socket.AF_INET
     daemon_threads = True
-    allow_reuse_address = False  # Set to False on Windows to prevent dual-process port hijacking
+    # On Windows SO_REUSEADDR lets two processes bind the same port, so keep it off there.
+    allow_reuse_address = sys.platform != 'win32'
 
 
 class CustomHandler(SimpleHTTPRequestHandler):
@@ -61,7 +44,6 @@ class CustomHandler(SimpleHTTPRequestHandler):
         self._range = (start, end)
         self.send_response(206)
         self.send_header('Content-Type', self.guess_type(path))
-        self.send_header('Accept-Ranges', 'bytes')
         self.send_header('Content-Range', f'bytes {start}-{end}/{size}')
         self.send_header('Content-Length', str(end - start + 1))
         self.end_headers()
@@ -94,28 +76,34 @@ class CustomHandler(SimpleHTTPRequestHandler):
         except (ConnectionResetError, BrokenPipeError):
             pass
 
-    def log_message(self, format, *args):
-        super().log_message(format, *args)
-
 
 if __name__ == '__main__':
     web_dir = os.path.dirname(os.path.abspath(__file__))
     os.chdir(web_dir)
-    port = 8000
-    server_address = ('0.0.0.0', port)
+    start_port = 8000
+    # Mặc định chỉ nghe trên máy này. Muốn thử trên điện thoại cùng Wi-Fi: đặt biến môi trường VMOS_HOST=0.0.0.0
+    host = os.environ.get('VMOS_HOST', '127.0.0.1')
+    httpd = None
+    port = start_port
 
-    # First clean up any leftover zombie processes on port 8000
-    kill_process_on_port(port)
+    # Never kill other programs: if the port is busy, just try the next one.
+    for port in range(start_port, start_port + 11):
+        try:
+            httpd = ReliableHTTPServer((host, port), CustomHandler)
+            break
+        except OSError:
+            print(f"Port {port} is busy, trying {port + 1}...")
 
-    try:
-        httpd = ReliableHTTPServer(server_address, CustomHandler)
-    except OSError:
-        # Retry once after forceful cleanup
-        kill_process_on_port(port)
-        httpd = ReliableHTTPServer(server_address, CustomHandler)
+    if httpd is None:
+        sys.exit(f"No free port found in range {start_port}-{start_port + 10}.")
 
     print(f"Server started at http://localhost:{port} and http://127.0.0.1:{port}")
     print(f"Serving files from: {web_dir}")
+    try:
+        import webbrowser
+        webbrowser.open(f"http://localhost:{port}")
+    except Exception:
+        pass
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

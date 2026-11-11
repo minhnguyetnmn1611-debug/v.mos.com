@@ -1,0 +1,57 @@
+/* ==========================================================================
+   service-banner.css - MÀU XANH CHUNG CHO 3 TRANG DỊCH VỤ
+   (Cơ khí / Điện / Mô phỏng) - cùng màu xanh với các trang còn lại của site.
+   Muốn đổi màu: chỉ sửa 2 biến dưới đây (nhớ sửa cả 2 cho cùng một màu).
+   Nạp file này SAU vmos-blue-theme.css (đã thêm sẵn vào 3 trang).
+   ========================================================================== */
+:root {
+  --svc-blue: #0062ff;
+  /* xanh thương hiệu của site (dạng hex)  */
+  --svc-banner-rgb: 0, 98, 255;
+  /* CÙNG màu trên, dạng R, G, B           */
+  --svc-banner-bg: var(--svc-blue);
+}
+
+/* ---- Banner đầu trang: nền xanh đặc, cả giao diện Sáng lẫn Tối ---- */
+html[data-theme] body :is(.co-khi-banner, .dien-banner, .mo-phong-banner) {
+  background: var(--svc-banner-bg) !important;
+}
+
+/* Lớp phủ bên trái: CHỈ đủ dày ở vùng chữ và tắt hẳn trước khi tới ảnh,
+   để ảnh hiện rõ nét. (Lớp phủ cùng màu nền nên trên nền xanh không nhìn thấy,
+   nó chỉ làm dịu phần ảnh nằm dưới chữ.)
+   Chỉnh nhanh: --svc-shade-max = độ đậm (0 = không phủ), --svc-shade-end = điểm tắt hẳn. */
+html[data-theme] body :is(.co-khi-banner, .dien-banner, .mo-phong-banner) {
+  --svc-shade-max: 0.45;
+  --svc-shade-end: 42%;
+}
+
+html[data-theme] body :is(.co-khi-banner, .dien-banner, .mo-phong-banner)::after {
+  background: linear-gradient(90deg,
+      rgba(var(--svc-banner-rgb), var(--svc-shade-max)) 0%,
+      rgba(var(--svc-banner-rgb), calc(var(--svc-shade-max) * 0.55)) calc(var(--svc-shade-end) * 0.6),
+      rgba(var(--svc-banner-rgb), 0) var(--svc-shade-end)) !important;
+}
+
+/* Điện thoại: chữ nằm đè lên ảnh nên cần phủ nhẹ toàn chiều ngang */
+@media (max-width: 768px) {
+  html[data-theme] body :is(.co-khi-banner, .dien-banner, .mo-phong-banner)::after {
+    background: linear-gradient(90deg,
+        rgba(var(--svc-banner-rgb), 0.50) 0%,
+        rgba(var(--svc-banner-rgb), 0.25) 100%) !important;
+  }
+}
+
+/* ---- Các khối xanh khác trên trang Điện: đồng bộ về cùng màu ---- */
+html[data-theme] body .dsv-cta-band {
+  background: var(--svc-blue) !important;
+}
+
+html[data-theme] body .dsv-step-no,
+html[data-theme] body .dsv-fallback {
+  background: var(--svc-blue) !important;
+}
+
+html[data-theme]:root:root:root body .dien-intro-banner .dien-intro-strip-overlay {
+  background: rgba(var(--svc-banner-rgb), 0.97) !important;
+}

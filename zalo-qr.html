@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html lang="vi" data-theme="light">
+<html lang="vi">
 
 <head>
   <meta charset="UTF-8">
+  <script>
+    (function () {
+      var t = 'light';
+      try { t = localStorage.getItem('theme') || 'light'; } catch (e) { }
+      if (t !== 'dark' && t !== 'light') t = 'light';
+      document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.style.backgroundColor = t === 'dark' ? '#0a0f1d' : '#f8fafc';
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hồ Sơ Zalo Business - VIET.MOS COMPANY LIMITED (VMOS)</title>
-  <meta name="description" content="Hồ sơ kinh doanh Zalo Business chính thức của VIET.MOS COMPANY LIMITED (VMOS). Kết nối tư vấn tự động hóa và giải pháp phần mềm.">
+  <title data-i18n="zalo.page_title">Hồ Sơ Zalo Business - VIET.MOS COMPANY LIMITED (VMOS)</title>
+  <meta name="description"
+    content="Hồ sơ kinh doanh Zalo Business chính thức của VIET.MOS COMPANY LIMITED (VMOS). Kết nối tư vấn tự động hóa và giải pháp phần mềm."
+    data-i18n-attr="content:zalo.meta_desc">
 
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -13,13 +24,36 @@
   <!-- Main CSS System -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=rx12">
+  <link rel="stylesheet" href="style.css?v=rx30">
+  <link rel="stylesheet" href="vmos-layout.css?v=16">
+  <link rel="stylesheet" href="vmos-blue-theme.css?v=2">
+  <link rel="stylesheet" href="vmos-factory-theme.css?v=2">
+  <link rel="stylesheet" href="vmos-text-blue.css?v=1">
+  <link rel="stylesheet" href="vmos-white-theme.css?v=1">
 
   <style>
     html[data-theme="light"] {
       color-scheme: light;
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+    }
+
+    html[data-theme="dark"] body {
+      background: #0a0f1d;
+    }
+
+    html[data-theme="dark"] .zalo-nav {
+      background: rgba(10, 15, 29, 0.85);
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
+    html[data-theme="dark"] .zalo-dot-pattern {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1.5px, transparent 1.5px);
     }
 
     body {
@@ -61,7 +95,8 @@
       transition: color 0.2s ease;
     }
 
-    .zalo-nav-link:hover, .zalo-nav-link.active {
+    .zalo-nav-link:hover,
+    .zalo-nav-link.active {
       color: #0068ff;
     }
 
@@ -133,8 +168,15 @@
     }
 
     @keyframes zaloCardIn {
-      from { opacity: 0; transform: translateY(20px) scale(0.96); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     /* Left Column: Business Profile Info */
@@ -357,29 +399,45 @@
       <a href="index.html" class="logo">
         <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED" class="logo-img">
       </a>
+
+      <div class="nav-tools">
+        <button id="theme-toggle" class="fixed-theme-btn" aria-label="Chuyển đổi giao diện Sáng/Tối"
+          data-i18n-attr="aria-label:nav.theme_toggle">
+          <i class="bi bi-sun-fill"></i>
+        </button>
+        <div class="lang-dropdown">
+          <button class="fixed-lang-btn" aria-label="Ngôn ngữ" data-i18n-attr="aria-label:nav.lang_toggle">
+            <span class="lang-current-label">VI</span>
+          </button>
+          <div class="lang-menu">
+            <button class="lang-select-btn active" data-lang="vi" onclick="window.setLanguage('vi')">VI - Tiếng
+              Việt</button>
+            <button class="lang-select-btn" data-lang="en" onclick="window.setLanguage('en')">EN - English</button>
+            <button class="lang-select-btn" data-lang="ja" onclick="window.setLanguage('ja')">JA - 日本語</button>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
   <!-- ================= VINGROUP-STYLE FIXED NAVIGATION CONTROLS ================= -->
   <!-- Fixed Left Middle: Hamburger Button (3 lines line-only) -->
-  <button class="sidebar-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="side-menu">
+  <button class="sidebar-toggle" aria-label="Mở menu" data-i18n-attr="aria-label:nav.open_menu" aria-expanded="false" aria-controls="side-menu">
     <span class="hamburger-line"></span>
     <span class="hamburger-line"></span>
     <span class="hamburger-line"></span>
   </button>
 
-  <!-- Fixed Left Bottom: Theme Toggle + Language Selector (Vertical Stack) -->
-  </div>
 
   <!-- ================= UNIFIED LEFT SIDEBAR NAVIGATION ================= -->
   <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
 
-    <aside class="side-menu" id="side-menu" aria-label="Menu điều hướng" role="dialog" aria-modal="true">
+  <aside class="side-menu" id="side-menu" aria-label="Menu điều hướng" data-i18n-attr="aria-label:nav.menu_label" role="dialog" aria-modal="true">
     <div class="side-menu-header">
       <a href="index.html" class="logo">
         <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED">
       </a>
-      <button class="side-menu-close" aria-label="Đóng menu"><i class="bi bi-x-lg"></i></button>
+      <button class="side-menu-close" aria-label="Đóng menu" data-i18n-attr="aria-label:nav.close_menu"><i class="bi bi-x-lg"></i></button>
     </div>
     <nav class="side-menu-nav">
       <a href="index.html" class="side-menu-link" data-i18n="nav.home">Trang chủ</a>
@@ -392,10 +450,10 @@
           <a href="dich-vu-thiet-ke-mo-phong.html" data-i18n="services.simulation">Thiết Kế Mô Phỏng</a>
         </div>
       </div>
-      <a href="index.html#portfolio" class="side-menu-link" data-i18n="nav.portfolio">Dự án</a>
+      <a href="du-an.html" class="side-menu-link" data-i18n="nav.portfolio">Dự án</a>
       <a href="blog.html" class="side-menu-link" data-i18n="nav.blog">Tin tức</a>
       <div class="side-menu-cta-wrapper">
-        <a href="contact.html" class="side-menu-link side-menu-cta" data-i18n="nav.contact">
+        <a href="contact.html" class="side-menu-link side-menu-cta">
           <span data-i18n="nav.contact">Liên hệ</span>
           <i class="bi bi-arrow-right-circle-fill"></i>
         </a>
@@ -415,18 +473,18 @@
     <div class="zalo-business-card">
       <!-- CỘT TRÁI: THÔNG TIN HỒ SƠ KINH DOANH -->
       <div class="zalo-col-main">
-        
+
         <!-- Header Profile: Avatar + Name + Business Badge -->
         <div class="zalo-profile-header">
           <div class="zalo-avatar-box">
-            <img src="images/vmos-logo.png" alt="VMOS Avatar">
+            <img src="images/vmos-logo.png" alt="VMOS Avatar" data-i18n-attr="alt:zalo.avatar_alt">
           </div>
           <div class="zalo-title-group">
             <div class="zalo-name-row">
               <h1 class="zalo-company-name">VIET.MOS COMPANY LIMITED</h1>
               <span class="zalo-badge-business"><i class="bi bi-patch-check-fill"></i> Business</span>
             </div>
-            <span class="zalo-category-tag">Công nghệ & Tự động hóa công nghiệp</span>
+            <span class="zalo-category-tag" data-i18n="zalo.category">Công nghệ &amp; Tự động hóa công nghiệp</span>
           </div>
         </div>
 
@@ -434,28 +492,31 @@
         <div class="zalo-action-row">
           <a href="https://zalo.me/0867153701" target="_blank" rel="noopener noreferrer" class="zalo-btn-message">
             <i class="bi bi-chat-dots-fill"></i>
-            <span>Nhắn tin</span>
+            <span data-i18n="zalo.btn_message">Nhắn tin</span>
           </a>
         </div>
 
         <div class="zalo-divider"></div>
 
         <!-- Tiêu đề Hồ sơ kinh doanh -->
-        <h2 class="zalo-section-title">Hồ sơ kinh doanh</h2>
+        <h2 class="zalo-section-title" data-i18n="zalo.section_title">Hồ sơ kinh doanh</h2>
 
         <!-- Danh sách chi tiết địa chỉ (icon ghim), website (icon globe), email (icon phong bì) -->
         <div class="zalo-details-list">
           <div class="zalo-detail-item">
             <i class="bi bi-geo-alt-fill"></i>
-            <span><strong>Địa chỉ:</strong> Tầng 3 (sàn văn phòng cho thuê), Tòa nhà Rainbow, Khu đô thị mới Văn Quán - Yên Phúc, Phường Hà Đông, Thành phố Hà Nội, Việt Nam</span>
+            <span><strong data-i18n="footer.address_label">Địa chỉ:</strong> <span data-i18n="footer.address_val">Tầng 3
+                (sàn văn phòng cho thuê), Tòa nhà Rainbow, Khu đô thị mới Văn Quán -
+                Yên Phúc, Phường Hà Đông, Thành phố Hà Nội, Việt Nam</span></span>
           </div>
           <div class="zalo-detail-item">
             <i class="bi bi-globe"></i>
-            <span><strong>Website:</strong> <a href="index.html" target="_blank">v-mos.com</a></span>
+            <span><strong data-i18n="zalo.website_label">Website:</strong> <a href="https://v-mos.com" target="_blank" rel="noopener noreferrer">v-mos.com</a></span>
           </div>
           <div class="zalo-detail-item">
             <i class="bi bi-envelope-fill"></i>
-            <span><strong>Email:</strong> <a href="mailto:viet.mos@v-mos.com">viet.mos@v-mos.com</a></span>
+            <span><strong data-i18n="zalo.email_label">Email:</strong> <a
+                href="mailto:viet.mos@v-mos.com">viet.mos@v-mos.com</a></span>
           </div>
         </div>
 
@@ -464,17 +525,18 @@
       <!-- CỘT PHẢI: MÃ QR ZALO KÍCH THƯỚC NHỎ (~130x130px) -->
       <div class="zalo-col-qr">
         <div class="zalo-qr-compact-box">
-          <img src="images/zalo-qr.png" alt="Mã QR Zalo VMOS" class="zalo-qr-compact-img">
+          <img src="images/zalo-qr.png" alt="Mã QR Zalo VMOS" class="zalo-qr-compact-img"
+            data-i18n-attr="alt:zalo.qr_alt">
         </div>
         <div class="zalo-qr-instruction">
           <i class="bi bi-qr-code-scan"></i>
-          <span>Mở Zalo, bấm quét QR để quét và xem trên điện thoại</span>
+          <span data-i18n="zalo.qr_hint">Mở Zalo, bấm quét QR để quét và xem trên điện thoại</span>
         </div>
       </div>
     </div>
   </main>
-  <script src="i18n.js"></script>
-  <script src="script.js"></script>
+  <script src="i18n.js?v=11"></script>
+  <script src="script.js?v=11"></script>
 </body>
 
 </html>

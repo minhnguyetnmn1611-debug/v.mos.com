@@ -1,0 +1,637 @@
+/* ==========================================================================
+   service-layout.css - Bố cục nội dung chung cho 3 trang dịch vụ (Cơ khí / Điện / Mô phỏng)
+   Bố cục tham khảo: siemens.com/ja-jp/technology/design-simulation
+   Thứ tự khối: Giới thiệu -> Lợi ích -> Đặc điểm (xen kẽ) -> Giải pháp liên quan
+                -> Tư vấn/Demo -> Tìm hiểu thêm
+   Tiền tố .sl-  Phần cuối file giữ nguyên các thành phần cũ (.dsv-*, .ck-*) nhưng đổi dáng cho đồng bộ.
+   Nạp SAU vmos-white-theme.css.
+   Chỉnh nhanh:
+     --sl-accent   màu nhấn (mặc định theo xanh thương hiệu --svc-blue)
+     --sl-ratio    tỉ lệ khung ảnh/ảnh giữ chỗ
+   Đổi ảnh giữ chỗ -> ảnh thật: trong HTML thay <div class="sl-media ..."> bằng
+   <div class="sl-media"><img src="images/xxx.jpg" alt="..."></div>
+   ========================================================================== */
+.sl-page {
+  --sl-accent: var(--svc-blue, #0062ff);
+  --sl-accent-hover: var(--ui-blue-hover, #0050d6);
+  --sl-ratio: 16 / 9;
+  --sl-ink: var(--text-heading, #0f172a);
+  --sl-muted: var(--text-muted, #475569);
+  --sl-line: var(--border-color, #e2e8f0);
+  --sl-card: var(--bg-card, #ffffff);
+  --sl-alt: var(--bg-secondary, #f1f5f9);
+  color: var(--sl-ink);
+}
+
+.sl-section {
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.sl-section--alt {
+  background: var(--sl-alt);
+}
+
+.sl-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* vmos-margins.css ép .container/.sl-container rộng tới 1920px khiến ảnh ở 3 trang dịch vụ quá to trên màn hình lớn.
+   Giới hạn lại chiều rộng nội dung ở đây (selector đủ mạnh để thắng !important của vmos-margins.css).
+   Muốn nội dung/ảnh rộng hơn hay hẹp hơn: sửa --sl-max (mặc định 1400px). */
+html body .sl-page .sl-container {
+  --sl-max: 1400px;
+  max-width: var(--sl-max) !important;
+}
+
+/* ---- Tiêu đề khối ---- */
+.sl-head {
+  max-width: 760px;
+  margin-bottom: clamp(1.75rem, 3vw, 3rem);
+}
+
+.sl-head h2 {
+  margin: 0 0 0.9rem;
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--sl-ink);
+}
+
+.sl-head h2::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin-top: 0.9rem;
+  background: var(--sl-accent);
+}
+
+.sl-head p {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--sl-muted);
+}
+
+/* ---- Khung ảnh (giữ chỗ bằng gradient + icon, hoặc <img> thật) ---- */
+.sl-media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: var(--sl-ratio);
+  overflow: hidden;
+  margin: 0;
+  background: linear-gradient(135deg, #38bdf8, #0062ff);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+}
+
+.sl-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sl-media--navy {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+}
+
+.sl-media--teal {
+  background: linear-gradient(135deg, #0284c7, #1d4ed8);
+}
+
+.sl-media--ink {
+  background: linear-gradient(135deg, #0f172a, #1d4ed8);
+}
+
+/* ---- 1. Giới thiệu: chữ trái, ảnh phải ---- */
+.sl-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.sl-intro-text p {
+  margin: 0 0 1.1rem;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--sl-muted);
+}
+
+.sl-intro-text .sl-lead {
+  font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+  line-height: 1.7;
+  font-weight: 500;
+  color: var(--sl-ink);
+}
+
+.sl-related-line {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--sl-line);
+  font-size: 0.98rem;
+  line-height: 1.8;
+  color: var(--sl-muted);
+}
+
+.sl-related-line strong {
+  color: var(--sl-ink);
+}
+
+.sl-related-line a {
+  color: var(--sl-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sl-related-line a:hover {
+  text-decoration: underline;
+}
+
+/* ---- 2. Lợi ích: 3 cột ---- */
+.sl-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+}
+
+.sl-benefit {
+  padding: 2rem 1.75rem;
+  background: var(--sl-card);
+  border: 1px solid var(--sl-line);
+  border-top: 4px solid var(--sl-accent);
+}
+
+.sl-benefit i {
+  display: block;
+  margin-bottom: 1.1rem;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--sl-accent);
+}
+
+.sl-benefit h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--sl-ink);
+}
+
+.sl-benefit p {
+  margin: 0;
+  line-height: 1.75;
+  color: var(--sl-muted);
+}
+
+/* ---- 3. Đặc điểm: ảnh + chữ xen kẽ trái/phải ---- */
+.sl-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.75rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.sl-feature+.sl-feature {
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.sl-feature:nth-of-type(even) .sl-media {
+  order: 2;
+}
+
+.sl-feature h3 {
+  margin: 0 0 0.9rem;
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--sl-ink);
+}
+
+.sl-feature p {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--sl-muted);
+}
+
+/* ---- 4. Giải pháp liên quan: lưới thẻ ---- */
+.sl-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: clamp(1.1rem, 2vw, 1.75rem);
+}
+
+.sl-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--sl-card);
+  border: 1px solid var(--sl-line);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.sl-card:hover,
+.sl-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--sl-accent);
+  box-shadow: 0 14px 32px rgba(0, 98, 255, 0.14);
+}
+
+.sl-card .sl-media {
+  --sl-ratio: 16 / 9;
+  font-size: 3rem;
+}
+
+.sl-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.4rem 1.4rem 1.6rem;
+}
+
+.sl-card-tag {
+  margin-bottom: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sl-accent);
+}
+
+.sl-card h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--sl-ink);
+}
+
+.sl-card p {
+  flex: 1;
+  margin: 0 0 1rem;
+  line-height: 1.7;
+  color: var(--sl-muted);
+}
+
+.sl-card-more {
+  font-weight: 700;
+  color: var(--sl-accent);
+}
+
+/* ---- 5. Tư vấn / Demo (tương ứng khối "dùng thử miễn phí") ---- */
+.sl-trial {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  align-items: center;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  background: var(--sl-card);
+  border: 1px solid var(--sl-line);
+  border-left: 6px solid var(--sl-accent);
+}
+
+.sl-trial h2 {
+  margin: 0 0 1.1rem;
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--sl-ink);
+}
+
+.sl-trial ul {
+  margin: 0 0 1.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.sl-trial li {
+  position: relative;
+  padding: 0 0 0.75rem 1.9rem;
+  line-height: 1.7;
+  color: var(--sl-muted);
+}
+
+.sl-trial li::before {
+  content: "\F26A";
+  /* bi-check-circle-fill */
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  font-family: "bootstrap-icons";
+  color: var(--sl-accent);
+}
+
+.sl-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+}
+
+html[data-theme] body .sl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1rem 2rem;
+  border: 0;
+  border-radius: 0 !important;
+  background: var(--sl-accent) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  font-size: 0.95rem;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.2s ease !important;
+}
+
+html[data-theme] body .sl-btn:hover,
+html[data-theme] body .sl-btn:focus-visible {
+  background: var(--sl-accent-hover) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+.sl-hotline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  color: var(--sl-ink);
+  text-decoration: none;
+}
+
+.sl-hotline i {
+  color: var(--sl-accent);
+}
+
+/* ---- 6. Tìm hiểu thêm: Xem / Đọc / Tham khảo ---- */
+.sl-more {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.sl-more-col h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid var(--sl-accent);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--sl-ink);
+}
+
+.sl-more-col h3 i {
+  color: var(--sl-accent);
+}
+
+.sl-more-col ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sl-more-col li+li {
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--sl-line);
+}
+
+.sl-more-col a {
+  display: block;
+  text-decoration: none;
+  color: var(--sl-ink);
+  line-height: 1.6;
+}
+
+.sl-more-col a small {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--sl-accent);
+}
+
+.sl-more-col a:hover span {
+  text-decoration: underline;
+}
+
+/* ---- Điện thoại / máy tính bảng ---- */
+@media (max-width: 992px) {
+
+  .sl-intro,
+  .sl-feature,
+  .sl-trial {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sl-feature:nth-of-type(even) .sl-media {
+    order: 0;
+  }
+
+  .sl-benefits,
+  .sl-more {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .sl-card,
+  html[data-theme] body .sl-btn {
+    transition: none !important;
+  }
+
+  .sl-card:hover,
+  .sl-card:focus-visible {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   BỔ SUNG CHO TRANG CƠ KHÍ & ĐIỆN
+   Giữ nguyên các thành phần cũ (.dsv-*, .ck-*: ảnh chụp màn hình, logo phần mềm,
+   danh sách phạm vi, quy trình...) nhưng đổi dáng cho cùng phong cách vuông vức,
+   viền nhấn xanh như trang Mô phỏng. Chỉ có tác dụng bên trong .sl-page.
+   ========================================================================== */
+.sl-page [id] {
+  scroll-margin-top: 6.5rem;
+}
+
+/* ---- Mục lục "Nội dung chính" (cột phải khối giới thiệu) ---- */
+.sl-toc {
+  padding: 1.5rem 1.5rem 0.5rem;
+  background: var(--sl-card);
+  border: 1px solid var(--sl-line);
+  border-top: 4px solid var(--sl-accent);
+}
+
+.sl-toc h3 {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sl-accent);
+}
+
+.sl-toc ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: sltoc;
+}
+
+.sl-toc li {
+  border-top: 1px solid var(--sl-line);
+}
+
+.sl-toc li:first-child {
+  border-top: 0;
+}
+
+.sl-toc a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding: 0.85rem 0;
+  font-weight: 600;
+  line-height: 1.45;
+  text-decoration: none;
+  color: var(--sl-ink);
+}
+
+.sl-toc a::before {
+  counter-increment: sltoc;
+  content: "0" counter(sltoc);
+  flex: 0 0 auto;
+  font-weight: 800;
+  color: var(--sl-accent);
+}
+
+.sl-toc a:hover span {
+  color: var(--sl-accent);
+  text-decoration: underline;
+}
+
+/* ---- Khối tư vấn không có ảnh (trang Điện) ---- */
+.sl-trial--simple {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.sl-trial--simple p {
+  margin: 0 0 1.5rem;
+  max-width: 720px;
+  line-height: 1.75;
+  color: var(--sl-muted);
+}
+
+/* ---- Các thành phần cũ: bo góc -> vuông, bỏ đổ bóng ---- */
+.sl-page .dsv-block {
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  padding: clamp(2rem, 4vw, 3.5rem) 0;
+  border-top: 1px solid var(--sl-line);
+}
+
+.sl-page .dsv-block:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.sl-page .dsv-title {
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--sl-ink);
+}
+
+.sl-page .dsv-lead {
+  color: var(--sl-muted);
+}
+
+.sl-page .dsv-sub {
+  padding-left: 0.7rem;
+  border-left: 4px solid var(--sl-accent);
+  color: var(--sl-ink);
+}
+
+.sl-page .dsv-media,
+.sl-page .dsv-shot,
+.sl-page .dsv-stat,
+.sl-page .dsv-logos li,
+.sl-page .dsv-chips span,
+.sl-page .ck-steps li,
+.sl-page .dsv-checks i,
+.sl-page .dsv-steps li>i,
+.sl-page .dsv-step-no,
+.sl-page .ck-steps li::before {
+  border-radius: 0;
+}
+
+.sl-page .dsv-media,
+.sl-page .dsv-shot,
+.sl-page .dsv-stat,
+.sl-page .dsv-logos li,
+.sl-page .ck-steps li {
+  box-shadow: none;
+}
+
+.sl-page .dsv-step-no,
+.sl-page .ck-steps li::before {
+  background: var(--sl-accent);
+}
+
+.sl-page .ck-steps li {
+  border-top: 4px solid var(--sl-accent);
+}
+
+.sl-page .ck-steps h4 {
+  color: var(--sl-ink);
+}
+
+.sl-page .ck-steps p {
+  color: var(--sl-muted);
+}
+
+.sl-page .dsv-ind {
+  border-radius: 0;
+  box-shadow: none;
+  border-top: 4px solid var(--sl-accent);
+}
+
+.sl-page .dsv-ind:hover {
+  border-color: var(--sl-accent);
+}
+
+.sl-page .dsv-ind h4 {
+  color: var(--sl-ink);
+}
+
+.sl-page .dsv-ind p {
+  color: var(--sl-muted);
+}
+
+.sl-page .ck-tech .dsv-logos,
+.sl-page .sl-tech .dsv-logos {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+html[data-theme] body .sl-page .dsv-cta {
+  border-radius: 0 !important;
+}

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /zalo-qr.html
+
+Sitemap: https://v-mos.com/sitemap.xml

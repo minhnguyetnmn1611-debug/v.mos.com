@@ -5,7 +5,9 @@
   <meta charset="UTF-8">
   <script>
     (function () {
-      var t = localStorage.getItem('theme') || 'dark';
+      var t = 'light';
+      try { t = localStorage.getItem('theme') || 'light'; } catch (e) { }
+      if (t !== 'dark' && t !== 'light') t = 'light';
       document.documentElement.setAttribute('data-theme', t);
       document.documentElement.style.backgroundColor = t === 'dark' ? '#0a0f1d' : '#f8fafc';
     })();
@@ -13,7 +15,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dự Án Tiêu Biểu | VMOS - VIET.MOS COMPANY LIMITED</title>
   <meta name="description"
-    content="Các dự án chuyển đổi số, phần mềm và tự động hóa đã triển khai bởi VMOS (VIET.MOS COMPANY LIMITED).">
+    content="Máy móc chính xác, thiết bị kiểm tra, tự động hóa dây chuyền, robot và mô phỏng 3D do VMOS (VIET.MOS COMPANY LIMITED) thiết kế và triển khai.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VMOS - VIET.MOS COMPANY LIMITED">
+  <meta property="og:title" content="Dự Án Tiêu Biểu | VMOS - VIET.MOS COMPANY LIMITED">
+  <meta property="og:description"
+    content="Máy móc chính xác, thiết bị kiểm tra, tự động hóa dây chuyền, robot và mô phỏng 3D do VMOS thiết kế và triển khai.">
 
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -24,11 +31,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=rx16">
-  <link rel="stylesheet" href="vmos-layout.css?v=4">
+  <link rel="stylesheet" href="style.css?v=rx30">
+  <link rel="stylesheet" href="vmos-layout.css?v=16">
+  <link rel="stylesheet" href="vmos-blue-theme.css?v=2">
+  <link rel="stylesheet" href="vmos-factory-theme.css?v=2">
+  <link rel="stylesheet" href="vmos-text-blue.css?v=1">
+  <link rel="stylesheet" href="vmos-white-theme.css?v=1">
+  <link rel="canonical" href="https://v-mos.com/du-an.html">
+  <meta property="og:url" content="https://v-mos.com/du-an.html">
+  <meta property="og:image" content="https://v-mos.com/images/vmos-logo.png">
+  <link rel="stylesheet" href="vmos-margins.css?v=1">
 </head>
 
-<body>
+<body class="breadcrumb-below">
 
   <!-- ================= NAVBAR ================= -->
   <header class="navbar scrolled">
@@ -38,12 +53,12 @@
       </a>
 
       <!-- Desktop Navigation Menu -->
-      <nav class="desktop-nav-menu">
+      <nav class="desktop-nav-menu" aria-label="Menu chính" data-i18n-attr="aria-label:nav.main_label">
         <a href="index.html" class="nav-link" data-i18n="nav.home">Trang chủ</a>
         <a href="about.html" class="nav-link" data-i18n="nav.about">Về chúng tôi</a>
 
         <div class="nav-dropdown">
-          <a href="dich-vu-thiet-ke-co-khi.html" class="nav-link nav-dropdown-toggle" data-i18n="nav.services">
+          <a href="dich-vu-thiet-ke-co-khi.html" class="nav-link nav-dropdown-toggle">
             <span data-i18n="nav.services">Dịch vụ</span>
             <i class="bi bi-chevron-down"></i>
           </a>
@@ -82,30 +97,31 @@
 
   <!-- ================= VINGROUP-STYLE FIXED NAVIGATION CONTROLS ================= -->
   <!-- Fixed Left Middle: Hamburger Button (3 lines line-only) -->
-  <button class="sidebar-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="side-menu">
+  <button class="sidebar-toggle" aria-label="Mở menu" data-i18n-attr="aria-label:nav.open_menu" aria-expanded="false"
+    aria-controls="side-menu">
     <span class="hamburger-line"></span>
     <span class="hamburger-line"></span>
     <span class="hamburger-line"></span>
   </button>
 
-  <!-- Fixed Left Bottom: Theme Toggle + Language Selector (Vertical Stack) -->
-  </div>
-
   <!-- ================= UNIFIED LEFT SIDEBAR NAVIGATION ================= -->
   <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
 
-  <aside class="side-menu" id="side-menu" aria-label="Menu điều hướng" role="dialog" aria-modal="true">
+  <aside class="side-menu" id="side-menu" aria-label="Menu điều hướng" data-i18n-attr="aria-label:nav.menu_label"
+    role="dialog" aria-modal="true">
     <div class="side-menu-header">
       <a href="index.html" class="logo">
         <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED">
       </a>
-      <button class="side-menu-close" aria-label="Đóng menu"><i class="bi bi-x-lg"></i></button>
+      <button class="side-menu-close" aria-label="Đóng menu" data-i18n-attr="aria-label:nav.close_menu"><i
+          class="bi bi-x-lg"></i></button>
     </div>
     <nav class="side-menu-nav">
       <a href="index.html" class="side-menu-link" data-i18n="nav.home">Trang chủ</a>
       <a href="about.html" class="side-menu-link" data-i18n="nav.about">Về chúng tôi</a>
       <div class="side-menu-group">
-        <button class="side-menu-link side-menu-group-toggle" data-i18n="nav.services">Dịch vụ</button>
+        <button class="side-menu-link side-menu-group-toggle" aria-expanded="false" data-i18n="nav.services">Dịch
+          vụ</button>
         <div class="side-menu-submenu">
           <a href="dich-vu-thiet-ke-co-khi.html" data-i18n="services.mechanical">Thiết Kế Cơ Khí</a>
           <a href="dich-vu-thiet-ke-dien.html" data-i18n="services.electrical">Thiết Kế Điện - Lập Trình
@@ -116,7 +132,7 @@
       <a href="du-an.html" class="side-menu-link active" data-i18n="nav.portfolio">Dự án</a>
       <a href="blog.html" class="side-menu-link" data-i18n="nav.blog">Tin tức</a>
       <div class="side-menu-cta-wrapper">
-        <a href="contact.html" class="side-menu-link side-menu-cta" data-i18n="nav.contact">
+        <a href="contact.html" class="side-menu-link side-menu-cta">
           <span data-i18n="nav.contact">Liên hệ</span>
           <i class="bi bi-arrow-right-circle-fill"></i>
         </a>
@@ -124,7 +140,8 @@
     </nav>
   </aside>
 
-  <!-- ================= BREADCRUMB ================= -->
+
+  <!-- ================= BREADCRUMB (ngay dưới banner) ================= -->
   <nav class="service-detail-breadcrumb" aria-label="Breadcrumb">
     <div class="container">
       <ul class="service-detail-breadcrumb-list">
@@ -135,88 +152,780 @@
     </div>
   </nav>
 
-  <!-- ================= HERO DỰ ÁN ================= -->
-  <section class="hero" style="min-height: 35vh; padding-top: 2rem; padding-bottom: 2rem;">
-    <div class="hero-bg-glow"></div>
-    <div class="container" style="text-align: center;">
-      <div class="section-badge badge-magenta">
-        <i class="bi bi-kanban-fill"></i>
-        <span data-i18n="portfolio.badge">Dự Án Tiêu Biểu</span>
+
+  <!-- ================= DỰ ÁN: LỌC NGÀNH + LƯỚI THẺ + CỬA SỔ CHI TIẾT =================
+       THÊM / SỬA DỰ ÁN: chỉ cần sửa mảng PROJECTS trong thẻ script ở cuối khối này.
+       Đổi màu nhấn: sửa --pj-accent. Hiện đang là DỮ LIỆU MẪU, sẽ thay bằng dự án thật. -->
+  <main class="pj-page" id="pj-page">
+    <h1 class="pj-sr">Dự án tiêu biểu của VMOS</h1>
+
+    <!-- Thanh lọc ngành -->
+    <div class="pj-filterbar">
+      <div class="container pj-filter-inner">
+        <span class="pj-filter-label"><i class="bi bi-sliders"></i> Lọc dịch vụ</span>
+        <div class="pj-chips" id="pj-chips" role="group" aria-label="Lọc dự án theo dịch vụ"></div>
       </div>
-      <h1 style="font-size: 2.75rem;"><span class="gradient-text" data-i18n="portfolio.title">Sản Phẩm Đã Triển
-          Khai</span></h1>
-      <p style="margin: 1rem auto 0 auto; color: var(--text-muted);" data-i18n="portfolio.subtitle">
-        Minh chứng thực tế cho năng lực và chất lượng giải pháp từ VMOS (VIET.MOS COMPANY LIMITED).
-      </p>
     </div>
-  </section>
 
-  <!-- ================= DANH SÁCH DỰ ÁN ================= -->
-  <section id="portfolio" class="section-glow portfolio-section" style="padding: 3rem 0 6rem 0;">
-    <div class="bg-glow-left"></div>
-    <div class="container">
-
-      <!-- Bộ lọc theo nhóm dự án -->
-      <div class="portfolio-tabs"
-        style="display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem;">
-        <button class="tab-btn active" data-filter="all" data-i18n="portfolio.tab_all">Tất cả</button>
-        <button class="tab-btn" data-filter="digital" data-i18n="portfolio.tab_digital">Chuyển đổi số</button>
-        <button class="tab-btn" data-filter="software" data-i18n="portfolio.tab_software">Phần mềm Web/App</button>
-        <button class="tab-btn" data-filter="automation" data-i18n="portfolio.tab_automation">Tự động hóa RPA</button>
+    <!-- Lưới dự án -->
+    <section class="pj-section" aria-label="Danh sách dự án">
+      <div class="container">
+        <div class="pj-grid" id="pj-grid"></div>
+        <p class="pj-empty" id="pj-empty" hidden>Chưa có dự án nào trong nhóm này.</p>
       </div>
+    </section>
+  </main>
 
-      <div class="portfolio-grid">
-        <div class="project-card reveal" data-category="digital">
-          <div class="project-thumb">
-            <i class="bi bi-buildings"></i>
-            <div class="project-thumb-overlay">
-              <span class="btn btn-primary" style="padding: 0.5rem 1.25rem;" data-i18n="portfolio.view_detail">Xem chi
-                tiết</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag" data-i18n="portfolio.card1_tag">Chuyển đổi số</span>
-            <h4 data-i18n="portfolio.card1_title">Hệ Thống ERP Cho Tập Đoàn Sản Xuất</h4>
-            <p data-i18n="portfolio.card1_desc">Quản lý toàn bộ kho bãi, nhân sự và chuỗi cung ứng trên một nền tảng duy
-              nhất.</p>
-          </div>
+  <!-- Cửa sổ chi tiết dự án -->
+  <div class="pj-modal" id="pj-modal" hidden>
+    <div class="pj-backdrop" data-close></div>
+    <div class="pj-dialog" role="dialog" aria-modal="true" aria-labelledby="pj-m-title">
+      <button type="button" class="pj-x" data-close aria-label="Đóng"><i class="bi bi-x-lg"></i></button>
+      <div class="pj-m-media">
+        <img id="pj-m-img" alt="">
+      </div>
+      <div class="pj-m-body">
+        <h2 id="pj-m-title"></h2>
+        <p class="pj-m-client" id="pj-m-client"></p>
+        <div id="pj-m-desc-wrap">
+          <h3 class="pj-m-label">Mô tả dự án</h3>
+          <p class="pj-m-desc" id="pj-m-desc"></p>
         </div>
-
-        <div class="project-card reveal" data-category="automation">
-          <div class="project-thumb">
-            <i class="bi bi-cpu"></i>
-            <div class="project-thumb-overlay">
-              <span class="btn btn-primary" style="padding: 0.5rem 1.25rem;" data-i18n="portfolio.view_detail">Xem chi
-                tiết</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag" data-i18n="portfolio.card2_tag">Tự động hóa RPA</span>
-            <h4 data-i18n="portfolio.card2_title">Robot Xử Lý Báo Cáo Tài Chính</h4>
-            <p data-i18n="portfolio.card2_desc">Tự động đối soát hóa đơn hàng ngày, tích hợp trực tiếp vào phần mềm kế
-              toán MISA.</p>
-          </div>
+        <div id="pj-m-specs-wrap">
+          <h3 class="pj-m-label">Thông số kỹ thuật</h3>
+          <dl class="pj-specs" id="pj-m-specs"></dl>
         </div>
-
-        <div class="project-card reveal" data-category="software">
-          <div class="project-thumb">
-            <i class="bi bi-phone-vibrate"></i>
-            <div class="project-thumb-overlay">
-              <span class="btn btn-primary" style="padding: 0.5rem 1.25rem;" data-i18n="portfolio.view_detail">Xem chi
-                tiết</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag" data-i18n="portfolio.card3_tag">Phần mềm Web/App</span>
-            <h4 data-i18n="portfolio.card3_title">Ứng Dụng Đặt Lịch & Chăm Sóc Khách Hàng</h4>
-            <p data-i18n="portfolio.card3_desc">Hệ thống Mobile App nền tảng iOS & Android với hơn 50.000 người dùng
-              hàng tháng.</p>
-          </div>
+        <div class="pj-m-actions">
+          <button type="button" class="pj-close-btn" data-close>Đóng</button>
         </div>
       </div>
-
     </div>
-  </section>
+  </div>
+
+  <style>
+    .pj-page,
+    .pj-modal {
+      --pj-accent: #0062ff;
+      --pj-accent-dark: #0050d6;
+      --pj-ink: var(--text-heading, #0f172a);
+      --pj-muted: var(--text-muted, #475569);
+      --pj-line: var(--border-color, #e2e8f0);
+      --pj-surface: var(--bg-card, #ffffff);
+      --pj-mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, "Liberation Mono", monospace;
+    }
+
+    .pj-sr {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    /* ---- Thanh lọc ngành ---- */
+    .pj-filterbar {
+      border-top: 1px solid var(--pj-line);
+      border-bottom: 1px solid var(--pj-line);
+    }
+
+    .pj-filter-inner {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding-top: 0.9rem;
+      padding-bottom: 0.9rem;
+    }
+
+    .pj-filter-label {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--pj-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pj-muted);
+    }
+
+    .pj-chips {
+      display: flex;
+      gap: 0.6rem;
+      overflow-x: auto;
+      padding: 2px;
+      scrollbar-width: none;
+    }
+
+    .pj-chips::-webkit-scrollbar {
+      display: none;
+    }
+
+    .pj-chip {
+      flex: 0 0 auto;
+      padding: 0.5rem 1.1rem;
+      border: 1px solid var(--pj-line);
+      border-radius: 999px;
+      background: var(--pj-surface);
+      color: var(--pj-ink);
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .pj-chip:hover {
+      border-color: var(--pj-accent);
+    }
+
+    .pj-chip[aria-pressed="true"] {
+      background: var(--pj-accent);
+      border-color: var(--pj-accent);
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .pj-chip:focus-visible,
+    .pj-card:focus-visible,
+    .pj-x:focus-visible,
+    .pj-close-btn:focus-visible {
+      outline: 2px solid var(--pj-accent);
+      outline-offset: 2px;
+    }
+
+    /* ---- Lưới thẻ ---- */
+    .pj-section {
+      padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(3rem, 6vw, 5rem);
+    }
+
+    .pj-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .pj-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1e3a8a, #0062ff);
+      color: #ffffff;
+      text-align: left;
+      font: inherit;
+      cursor: pointer;
+      isolation: isolate;
+    }
+
+    .pj-card[hidden] {
+      display: none;
+    }
+
+    /* Mọi thẻ cùng một định dạng: ảnh (hiện trọn, tỉ lệ cố định) ở trên, tên dự án trên nền xanh ở dưới */
+    .pj-card-img {
+      display: block;
+      flex: 0 0 auto;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      background: #ffffff;
+      transition: transform 0.5s ease;
+    }
+
+    .pj-card:hover .pj-card-img {
+      transform: scale(1.02);
+    }
+
+    .pj-card-top {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      right: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .pj-pill {
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .pj-year {
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.72);
+      font-family: var(--pj-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .pj-card-bottom {
+      position: static;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      flex: 1 1 auto;
+      padding: 1rem 1.1rem;
+      background: linear-gradient(135deg, #1e3a8a, #0062ff);
+    }
+
+    .pj-client {
+      display: block;
+      margin: 0 0 0.4rem;
+      font-family: var(--pj-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7fb2ff;
+    }
+
+    .pj-card-title {
+      display: block;
+      margin: 0 0 0.9rem;
+      font-size: 1.12rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: #ffffff;
+    }
+
+    .pj-card-more {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .pj-card-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.16);
+      font-size: 0.8rem;
+    }
+
+    .pj-empty {
+      padding: 3rem 0;
+      text-align: center;
+      color: var(--pj-muted);
+    }
+
+    /* ---- Cửa sổ chi tiết ---- */
+    .pj-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+    }
+
+    .pj-modal[hidden] {
+      display: none;
+    }
+
+    .pj-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(8, 15, 32, 0.62);
+      backdrop-filter: blur(4px);
+    }
+
+    .pj-dialog {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      width: 100%;
+      max-width: 1000px;
+      max-height: min(90vh, 640px);
+      overflow: hidden;
+      border-radius: 20px;
+      background: var(--pj-surface, #fff);
+      color: var(--pj-ink);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
+
+    .pj-m-media {
+      position: relative;
+      min-height: 420px;
+      background: #ffffff;
+    }
+
+    .pj-m-media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      /* hiện trọn ảnh, không cắt */
+    }
+
+    .pj-m-tag {
+      position: absolute;
+      left: 1rem;
+      bottom: 1rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      background: var(--pj-accent);
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .pj-m-body {
+      overflow-y: auto;
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+    }
+
+    .pj-x {
+      position: absolute;
+      top: 0.9rem;
+      right: 0.9rem;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--pj-line);
+      border-radius: 50%;
+      background: var(--pj-surface, #fff);
+      color: var(--pj-ink);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .pj-m-year {
+      margin: 0 0 0.6rem;
+      font-family: var(--pj-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pj-accent);
+    }
+
+    .pj-m-body h2 {
+      margin: 0 2.5rem 0.5rem 0;
+      font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--pj-ink);
+    }
+
+    .pj-m-client {
+      margin: 0 0 1.5rem;
+      font-family: var(--pj-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pj-muted);
+    }
+
+    .pj-m-label {
+      margin: 0 0 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--pj-line);
+      font-family: var(--pj-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pj-muted);
+    }
+
+    .pj-m-desc {
+      margin: 0 0 1.5rem;
+      line-height: 1.7;
+      color: var(--pj-ink);
+    }
+
+    .pj-specs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.1rem 1.5rem;
+      margin: 0 0 1.5rem;
+      padding: 1.1rem 1.25rem;
+      border: 1px solid var(--pj-line);
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--pj-ink) 3%, transparent);
+    }
+
+    .pj-spec {
+      padding-left: 0.75rem;
+      border-left: 3px solid var(--pj-accent);
+    }
+
+    .pj-spec dt {
+      margin: 0 0 0.15rem;
+      font-family: var(--pj-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--pj-muted);
+    }
+
+    .pj-spec dd {
+      margin: 0;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--pj-ink);
+    }
+
+    .pj-m-actions {
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--pj-line);
+    }
+
+    .pj-close-btn {
+      padding: 0.7rem 1.6rem;
+      border: 1px solid var(--pj-line);
+      border-radius: 999px;
+      background: var(--pj-surface, #fff);
+      color: var(--pj-ink);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .pj-close-btn:hover {
+      border-color: var(--pj-accent);
+    }
+
+    body.pj-lock {
+      overflow: hidden;
+    }
+
+    /* ---- Ghi đè CSS chung của site (vmos-text-blue.css... ép màu chữ xanh và cỡ chữ cho h2/h3/p/span) ---- */
+    html[data-theme]:root:root:root body .pj-card .pj-card-title,
+    html[data-theme]:root:root:root body .pj-card .pj-card-more,
+    html[data-theme]:root:root:root body .pj-card .pj-year {
+      color: #ffffff !important;
+    }
+
+    html[data-theme]:root:root:root body .pj-card .pj-client {
+      color: #8dbbff !important;
+      font-size: 0.7rem !important;
+      letter-spacing: 0.08em !important;
+      text-transform: uppercase !important;
+    }
+
+    html[data-theme]:root:root:root body .pj-card .pj-card-title {
+      font-size: 1.12rem !important;
+      line-height: 1.35 !important;
+      letter-spacing: 0 !important;
+      text-transform: none !important;
+    }
+
+    html[data-theme]:root:root:root body .pj-card .pj-pill {
+      color: #0f172a !important;
+    }
+
+    html[data-theme]:root:root:root body .pj-filterbar .pj-filter-label {
+      color: var(--pj-muted) !important;
+      font-size: 0.78rem !important;
+    }
+
+    html[data-theme]:root:root:root body .pj-filterbar .pj-chip[aria-pressed="true"] {
+      color: #ffffff !important;
+    }
+
+    html[data-theme]:root:root:root body .pj-modal .pj-m-year {
+      color: var(--pj-accent) !important;
+      font-size: 0.8rem !important;
+      letter-spacing: 0.08em !important;
+    }
+
+    html[data-theme]:root:root:root body .pj-modal .pj-m-body h2 {
+      color: var(--pj-ink) !important;
+      font-size: clamp(1.4rem, 2.4vw, 1.9rem) !important;
+      letter-spacing: 0 !important;
+      text-transform: none !important;
+    }
+
+    html[data-theme]:root:root:root body .pj-modal .pj-m-client,
+    html[data-theme]:root:root:root body .pj-modal .pj-m-label {
+      color: var(--pj-muted) !important;
+      font-size: 0.75rem !important;
+      letter-spacing: 0.08em !important;
+    }
+
+    html[data-theme]:root:root:root body .pj-modal .pj-m-desc {
+      color: var(--pj-ink) !important;
+      font-size: 1rem !important;
+    }
+
+    html[data-theme]:root:root:root body .pj-modal .pj-spec dt {
+      color: var(--pj-muted) !important;
+      font-size: 0.68rem !important;
+      letter-spacing: 0.06em !important;
+    }
+
+    html[data-theme]:root:root:root body .pj-modal .pj-spec dd {
+      color: var(--pj-ink) !important;
+      font-size: 0.92rem !important;
+    }
+
+    html[data-theme]:root:root:root body .pj-modal .pj-m-tag {
+      background: var(--pj-accent) !important;
+      color: #ffffff !important;
+      font-size: 0.7rem !important;
+      letter-spacing: 0.04em !important;
+    }
+
+    html[data-theme]:root:root:root body .pj-modal .pj-close-btn,
+    html[data-theme]:root:root:root body .pj-modal .pj-x {
+      color: var(--pj-ink) !important;
+    }
+
+    /* ---- Co giãn ---- */
+    @media (max-width: 1200px) {
+      .pj-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .pj-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pj-dialog {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: 220px minmax(0, 1fr);
+        max-height: 92vh;
+      }
+
+      .pj-m-media {
+        min-height: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .pj-filter-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+      }
+
+      .pj-chips {
+        max-width: 100%;
+      }
+
+      .pj-specs {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .pj-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .pj-card-img,
+      .pj-chip {
+        transition: none;
+      }
+
+      .pj-card:hover .pj-card-img {
+        transform: none;
+      }
+    }
+  </style>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ========================================================================
+         DỮ LIỆU DỰ ÁN - ĐANG LÀ DỮ LIỆU MẪU. Sửa/thêm/xóa ở đây, không cần động vào HTML.
+         title/image : tên và ảnh dự án; client, desc, specs để trống thì ẩn mục đó trong cửa sổ chi tiết
+         industry : khóa nhóm dịch vụ (co-khi, dien, mo-phong), phải trùng một khóa trong FILTERS bên dưới
+           image    : đường dẫn ảnh (không có ảnh thì thẻ hiện nền xanh)
+         specs    : tối đa 4-6 cặp [nhãn, giá trị]; để [] nếu không muốn hiện khối thông số
+         ======================================================================== */
+      var FILTERS = [
+        ['all', 'Tất cả'],
+        ['co-khi', 'Thiết kế cơ khí'],
+        ['dien', 'Thiết kế điện & lập trình điều khiển'],
+        ['mo-phong', 'Thiết kế mô phỏng 3D']
+      ];
+
+      var SPEC_SAMPLE = [['PLC', 'Thông số mẫu'], ['Robot', 'Thông số mẫu'], ['HMI', 'Thông số mẫu'], ['Camera', 'Thông số mẫu']];
+
+      var PROJECTS = [
+        { industry: 'mo-phong', title: 'Máy dập zíc zắc', image: 'images/mp-may-dap-zic-zac.jpg', client: '', desc: '', specs: [] },
+        { industry: 'mo-phong', title: 'Máy lắp ráp và kiểm tra van an toàn', image: 'images/mp-van-an-toan.jpg', client: '', desc: '', specs: [] },
+        { industry: 'mo-phong', title: 'Máy xếp pallet', image: 'images/mp-xep-pallet.jpg', client: '', desc: '', specs: [] },
+        { industry: 'mo-phong', title: 'Máy ép thủy lực gia công chuốt', image: 'images/mp-ep-thuy-luc-chuot.jpg', client: '', desc: '', specs: [] },
+        { industry: 'mo-phong', title: 'Thiết bị kiểm tra tự động', image: 'images/mp-kiem-tra-tu-dong.jpg', client: '', desc: '', specs: [] },
+        { industry: 'dien', title: 'Máy kiểm tra ngoại quan TTVI', image: 'images/dien-kiem-tra-ngoai-quan-ttvi.jpg', client: '', desc: '', specs: [] },
+        { industry: 'dien', title: 'Máy bôi keo', image: 'images/dien-may-boi-keo.jpg', client: '', desc: '', specs: [] },
+        { industry: 'dien', title: 'Máy vận chuyển', image: 'images/dien-may-van-chuyen.jpg', client: '', desc: '', specs: [] },
+        { industry: 'dien', title: 'Máy lấy sản phẩm tự động', image: 'images/dien-may-lay-san-pham.jpg', client: '', desc: '', specs: [] },
+        { industry: 'co-khi', client: 'Tên khách hàng - Địa điểm', title: 'Dự án mẫu 01: Dây chuyền lắp ráp tự động', image: 'images/dien-robot-dual-arm.jpg', desc: 'Mô tả ngắn về dự án: yêu cầu của khách hàng, giải pháp VMOS thực hiện và kết quả đạt được. Nội dung này là chữ mẫu, sẽ thay bằng thông tin thật.', specs: SPEC_SAMPLE },
+        { industry: 'co-khi', client: 'Tên khách hàng - Địa điểm', title: 'Dự án mẫu 03: Máy kiểm tra ngoại quan bằng camera', image: 'images/dien-robot-cobot-picking.jpg', desc: 'Mô tả ngắn về dự án: yêu cầu của khách hàng, giải pháp VMOS thực hiện và kết quả đạt được. Nội dung này là chữ mẫu, sẽ thay bằng thông tin thật.', specs: SPEC_SAMPLE },
+        { industry: 'co-khi', client: 'Tên khách hàng - Địa điểm', title: 'Dự án mẫu 05: Thiết bị kiểm tra và chiết rót', image: 'images/dien-robot-dual-arm.jpg', desc: 'Mô tả ngắn về dự án: yêu cầu của khách hàng, giải pháp VMOS thực hiện và kết quả đạt được. Nội dung này là chữ mẫu, sẽ thay bằng thông tin thật.', specs: SPEC_SAMPLE },
+      ];
+
+      /* ======================== Phần xử lý (không cần sửa) ======================== */
+      var chipsEl = document.getElementById('pj-chips');
+      var gridEl = document.getElementById('pj-grid');
+      var emptyEl = document.getElementById('pj-empty');
+      var modal = document.getElementById('pj-modal');
+      var dialog = modal.querySelector('.pj-dialog');
+      var lastFocus = null;
+
+      function el(tag, cls, text) {
+        var n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (text != null) n.textContent = text;
+        return n;
+      }
+
+      function showImage(img, src, alt) {
+        img.onerror = function () { img.style.display = 'none'; };
+        img.style.display = '';
+        img.alt = alt || '';
+        img.src = src || '';
+        if (!src) img.style.display = 'none';
+      }
+
+      // ---- Bộ lọc ----
+      var current = 'all';
+      FILTERS.forEach(function (f) {
+        var b = el('button', 'pj-chip', f[1]);
+        b.type = 'button';
+        b.setAttribute('data-filter', f[0]);
+        b.setAttribute('aria-pressed', f[0] === 'all' ? 'true' : 'false');
+        b.addEventListener('click', function () { applyFilter(f[0]); });
+        chipsEl.appendChild(b);
+      });
+
+      function applyFilter(key) {
+        current = key;
+        var chips = chipsEl.children;
+        for (var i = 0; i < chips.length; i++) {
+          chips[i].setAttribute('aria-pressed', chips[i].getAttribute('data-filter') === key ? 'true' : 'false');
+        }
+        var shown = 0;
+        var cards = gridEl.children;
+        for (var j = 0; j < cards.length; j++) {
+          var ok = key === 'all' || cards[j].getAttribute('data-industry') === key;
+          cards[j].hidden = !ok;
+          if (ok) shown++;
+        }
+        emptyEl.hidden = shown !== 0;
+      }
+
+      // ---- Thẻ dự án ----
+      PROJECTS.forEach(function (p, idx) {
+        var card = el('button', 'pj-card');
+        card.type = 'button';
+        card.setAttribute('data-industry', p.industry);
+        card.setAttribute('aria-haspopup', 'dialog');
+        card.setAttribute('aria-label', p.title + ' - xem chi tiết');
+
+        var img = el('img', 'pj-card-img');
+        img.loading = 'lazy';
+        showImage(img, p.image, '');
+        card.appendChild(img);
+
+        var bottom = el('span', 'pj-card-bottom');
+        if (p.client) bottom.appendChild(el('span', 'pj-client', p.client));
+        bottom.appendChild(el('span', 'pj-card-title', p.title));
+        var more = el('span', 'pj-card-more');
+        more.appendChild(el('span', null, 'Xem chi tiết'));
+        var arrow = el('span', 'pj-card-arrow');
+        arrow.innerHTML = '<i class="bi bi-arrow-up-right" aria-hidden="true"></i>';
+        more.appendChild(arrow);
+        bottom.appendChild(more);
+        card.appendChild(bottom);
+
+        card.addEventListener('click', function () { openModal(idx); });
+        gridEl.appendChild(card);
+      });
+
+      // ---- Cửa sổ chi tiết ----
+      function openModal(idx) {
+        var p = PROJECTS[idx];
+        lastFocus = document.activeElement;
+        showImage(document.getElementById('pj-m-img'), p.image, p.title);
+        document.getElementById('pj-m-title').textContent = p.title;
+        var clientEl = document.getElementById('pj-m-client');
+        clientEl.textContent = p.client || '';
+        clientEl.hidden = !p.client;
+        var descWrap = document.getElementById('pj-m-desc-wrap');
+        document.getElementById('pj-m-desc').textContent = p.desc || '';
+        descWrap.hidden = !p.desc;
+
+        var specs = document.getElementById('pj-m-specs');
+        specs.textContent = '';
+        (p.specs || []).forEach(function (s) {
+          var row = el('div', 'pj-spec');
+          row.appendChild(el('dt', null, s[0]));
+          row.appendChild(el('dd', null, s[1]));
+          specs.appendChild(row);
+        });
+        document.getElementById('pj-m-specs-wrap').hidden = !(p.specs && p.specs.length);
+
+        modal.hidden = false;
+        document.body.classList.add('pj-lock');
+        dialog.querySelector('.pj-x').focus();
+      }
+
+      function closeModal() {
+        modal.hidden = true;
+        document.body.classList.remove('pj-lock');
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+
+      modal.addEventListener('click', function (e) {
+        if (e.target.closest('[data-close]')) closeModal();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (modal.hidden) return;
+        if (e.key === 'Escape') { closeModal(); return; }
+        if (e.key === 'Tab') {
+          var f = dialog.querySelectorAll('button, a[href]');
+          if (!f.length) return;
+          var first = f[0], last = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      });
+    })();
+  </script>
 
   <!-- ================= FOOTER ================= -->
   <footer class="footer">
@@ -229,24 +938,26 @@
 
           <div class="footer-legal">
             <p><strong data-i18n="footer.tax_label">Mã số doanh nghiệp:</strong><br>
-              <span data-i18n="footer.tax_val">0109873066 do Sở Kế hoạch và Đầu tư Thành phố Hà Nội cấp phép.</span>
+              <span data-i18n="footer.tax_val">0109873066 do Sở Tài chính Thành phố Hà Nội cấp phép.</span>
             </p>
 
             <p><strong data-i18n="footer.address_label">Địa chỉ:</strong><br>
-              <span data-i18n="footer.address_val">Tầng 3 (sàn văn phòng cho thuê), Tòa nhà Rainbow, Khu đô thị mới Văn
-                Quán - Yên Phúc, Phường Hà Đông, Thành phố Hà Nội, Việt Nam.</span>
+              <span data-i18n="footer.address_val">Tầng 3 (sàn văn phòng cho thuê), Tòa nhà Rainbow, Khu đô thị mới
+                Văn Quán -⁠ Yên Phúc, Phường Hà Đông, Thành phố Hà Nội, Việt Nam.</span>
             </p>
           </div>
 
           <div class="footer-contact-row">
-            <a href="tel:+842436688679"><i class="bi bi-telephone-fill"></i> (+84) 24-3668-8679</a>
+            <a href="tel:+84868966625"><i class="bi bi-telephone-fill"></i> 0868 966 625</a>
             <a href="mailto:viet.mos@v-mos.com"><i class="bi bi-envelope-fill"></i> viet.mos@v-mos.com</a>
           </div>
 
           <div class="footer-social">
-            <a href="#" class="social-icon" aria-label="Zalo">Zalo</a>
+            <!-- Zalo: mở trang hồ sơ Zalo Business -->
+            <a href="zalo-qr.html" target="_blank" rel="noopener noreferrer" class="social-icon"
+              aria-label="Zalo">Zalo</a>
+            <!-- TODO: URL thật -->
             <a href="#" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="social-icon" aria-label="Youtube"><i class="bi bi-youtube"></i></a>
           </div>
         </div>
 
@@ -254,19 +965,19 @@
           <h4 data-i18n="footer.quick_links">Liên Kết Nhanh</h4>
           <ul class="footer-links">
             <li><a href="index.html" data-i18n="nav.home">Trang chủ</a></li>
-            <li><a href="index.html#services" data-i18n="services.title">Dịch vụ trọng tâm</a></li>
-            <li><a href="about.html" data-i18n="nav.about">Về VMOS</a></li>
-            <li><a href="du-an.html" data-i18n="portfolio.title">Dự án triển khai</a></li>
+            <li><a href="index.html#services" data-i18n="footer.link_services">Dịch vụ trọng tâm</a></li>
+            <li><a href="about.html" data-i18n="footer.link_about">Về VMOS</a></li>
+            <li><a href="du-an.html" data-i18n="footer.link_portfolio">Dự án triển khai</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4 data-i18n="footer.info_pages">Trang Thông Tin</h4>
           <ul class="footer-links">
-            <li><a href="blog.html" data-i18n="nav.blog">Tin tức & Công nghệ</a></li>
-            <li><a href="contact.html" data-i18n="nav.contact">Liên hệ tư vấn</a></li>
-            <li><a href="#" data-i18n="footer.privacy">Chính sách bảo mật</a></li>
-            <li><a href="#" data-i18n="footer.terms">Điều khoản sử dụng</a></li>
+            <li><a href="blog.html" data-i18n="footer.link_blog">Tin tức &amp; Công nghệ</a></li>
+            <li><a href="contact.html" data-i18n="footer.link_contact">Liên hệ tư vấn</a></li>
+            <li><a href="privacy.html" data-i18n="footer.privacy">Chính sách bảo mật</a></li>
+            <li><a href="terms.html" data-i18n="footer.terms">Điều khoản sử dụng</a></li>
           </ul>
         </div>
       </div>
@@ -281,20 +992,21 @@
   <div class="floating-contact-widget">
     <!-- Nút Zalo -->
     <a href="zalo-qr.html" target="_blank" rel="noopener noreferrer" class="floating-btn btn-zalo"
-      aria-label="Kết nối Zalo">
-      <span class="floating-tooltip">Quét mã QR Zalo</span>
+      aria-label="Kết nối Zalo" data-i18n-attr="aria-label:float.zalo_label">
+      <span class="floating-tooltip" data-i18n="float.zalo_tooltip">Quét mã QR Zalo</span>
       <span class="zalo-text-badge">Zalo</span>
     </a>
 
     <!-- Nút Gọi điện -->
-    <a href="tel:+842436688679" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn">
-      <span class="floating-tooltip">(+84) 24-3668-8679</span>
+    <a href="tel:+84868966625" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn"
+      data-i18n-attr="aria-label:float.phone_label">
+      <span class="floating-tooltip">0868 966 625</span>
       <i class="bi bi-telephone-fill"></i>
     </a>
   </div>
 
-  <script src="i18n.js"></script>
-  <script src="script.js"></script>
+  <script src="i18n.js?v=11"></script>
+  <script src="script.js?v=11"></script>
 </body>
 
 </html>

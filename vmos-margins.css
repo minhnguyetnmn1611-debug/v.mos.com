@@ -1,0 +1,78 @@
+/* ==========================================================================
+   vmos-margins.css - LỀ TRÁI = LỀ PHẢI trên mọi trang, mọi kích thước màn hình
+   Nạp CUỐI CÙNG (ngay trước </head>) trên tất cả các trang.
+   Chỉ dùng MỘT biến lề duy nhất: --page-pad (khai báo trong vmos-layout.css).
+   Muốn đổi lề cả site: sửa --page-pad ở vmos-layout.css, không sửa từng khối.
+   ========================================================================== */
+
+/* Mọi khối bọc nội dung: cùng một lề, đối xứng hai bên, căn giữa */
+.container,
+.sl-container {
+  width: 100%;
+  max-width: var(--page-max, 1920px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--page-pad, clamp(1.5rem, 5vw, 6rem)) !important;
+  padding-right: var(--page-pad, clamp(1.5rem, 5vw, 6rem)) !important;
+  box-sizing: border-box;
+}
+
+/* Hero trang chủ: trước đây lề trái (6vw) khác lề phải (2rem) khi màn hình < 993px */
+.vh-wrap,
+html[data-theme="dark"] .vh-wrap,
+html[data-theme="light"] .vh-wrap {
+  padding-left: var(--page-edge, var(--page-pad, 1.5rem)) !important;
+  padding-right: var(--page-edge, var(--page-pad, 1.5rem)) !important;
+  box-sizing: border-box;
+}
+
+/* Thanh điều hướng: logo và nút bên phải cách mép bằng nhau */
+.navbar .nav-container {
+  padding-left: var(--nav-edge, var(--page-pad, 1.5rem)) !important;
+  padding-right: var(--nav-edge, var(--page-pad, 1.5rem)) !important;
+}
+
+/* ==========================================================================
+   LOGO CHÂN TRANG - to hơn (trước đây dùng chung cỡ 44px của logo thanh menu)
+   Chỉnh cỡ: sửa --footer-logo-h. Logo trên thanh menu không bị ảnh hưởng.
+   ========================================================================== */
+:root {
+  --footer-logo-h: 84px;
+}
+
+footer.footer .logo-img,
+html[data-theme] body footer.footer .logo .logo-img {
+  height: var(--footer-logo-h) !important;
+  width: auto !important;
+  max-width: 100%;
+  object-fit: contain !important;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --footer-logo-h: 68px;
+  }
+}
+
+/* ==========================================================================
+   CHÂN TRANG - thu hẹp khoảng cách MÉP TRÊN / MÉP DƯỚI (chiều dọc).
+   Không đổi cỡ chữ, cỡ logo, không đổi bố cục các cột.
+   Chỉnh nhanh: --footer-pad-top, --footer-pad-bottom, --footer-grid-gap, --footer-bottom-gap.
+   (Giá trị cũ: 4rem / 2rem / 3rem / 2rem)
+   ========================================================================== */
+footer.footer {
+  --footer-pad-top: 2rem;
+  --footer-pad-bottom: 1rem;
+  --footer-grid-gap: 1.5rem;
+  --footer-bottom-gap: 1rem;
+  padding-top: var(--footer-pad-top) !important;
+  padding-bottom: var(--footer-pad-bottom) !important;
+}
+
+footer.footer .footer-grid {
+  margin-bottom: var(--footer-grid-gap) !important;
+}
+
+footer.footer .footer-bottom {
+  padding-top: var(--footer-bottom-gap) !important;
+}

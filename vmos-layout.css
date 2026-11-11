@@ -77,7 +77,6 @@
   }
 }
 
-
 /* ==========================================================================
    NỀN XANH DƯƠNG SÁNG - thêm class "bg-bright-blue" vào bất kỳ <section> nào
    Ví dụ: <section class="section-glow bg-bright-blue" ...>  hoặc  <section data-tone="blue" ...>
@@ -139,7 +138,6 @@
   background: rgba(255, 255, 255, 0.55) !important;
   box-shadow: none !important;
 }
-
 
 /* ==========================================================================
    DẢI SỐ LIỆU (.stats-band) trên nền xanh
@@ -324,10 +322,6 @@
   align-items: flex-start;
 }
 
-.oc-tree {
-  min-width: 560px;
-}
-
 .oc-tree ul {
   position: relative;
   width: 100%;
@@ -346,7 +340,6 @@
 .oc-tree li {
   position: relative;
   box-sizing: border-box;
-  flex: var(--w, 1) 1 0;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -364,7 +357,6 @@
   content: '';
   position: absolute;
   top: 0;
-  width: 50%;
   height: var(--oc-gap);
   border-top: 1px solid var(--oc-line);
 }
@@ -398,7 +390,6 @@
 .oc-node {
   align-self: center;
   box-sizing: border-box;
-  max-width: 100%;
   padding: 0.6rem 0.9rem;
   border: 1px solid var(--oc-border);
   border-radius: 4px;
@@ -485,7 +476,6 @@
   max-width: none !important;
 }
 
-
 /* ==========================================================================
    LĨNH VỰC HOẠT ĐỘNG - 3 THẺ, RÊ CHUỘT: BÌA NGHIÊNG HÉ MỞ NHƯ SÁCH (.svc-*)
    Bìa (ảnh + tên) bản lề ở cạnh trái, chỉ nghiêng nhẹ để lộ mép trang phía sau,
@@ -496,15 +486,15 @@
      --svc-persp    độ "sâu" phối cảnh (nhỏ hơn = méo mạnh hơn)
    ========================================================================== */
 .svc-grid {
-  --svc-open: 22deg;
+  --svc-open: -14deg;
   --svc-speed: 0.55s;
-  --svc-persp: 1500px;
-  --svc-ratio: 3 / 4;
-  --svc-radius: 8px;
+  --svc-persp: 1800px;
+  --svc-ratio: 4 / 5;
+  --svc-radius: 22px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.25rem, 3vw, 3rem);
-  max-width: 1200px;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  max-width: 620px;
   margin: 2.25rem auto 0;
 }
 
@@ -513,6 +503,12 @@
   aspect-ratio: var(--svc-ratio);
   perspective: var(--svc-persp);
   border-radius: var(--svc-radius);
+}
+
+/* Thẻ đang mở nổi lên trên các thẻ bên cạnh */
+.svc-card:hover,
+.svc-card:focus-within {
+  z-index: 10;
 }
 
 /* ---- Trang phía sau bìa: chỉ lộ mép khi bìa nghiêng ---- */
@@ -722,7 +718,7 @@
 @media (max-width: 900px) {
   .svc-grid {
     grid-template-columns: minmax(0, 1fr);
-    max-width: 420px;
+    max-width: 290px;
     --svc-ratio: 4 / 5;
   }
 }
@@ -740,4 +736,490 @@
 .svc-label-text {
   flex: 1 1 0;
   min-width: 0;
+}
+
+/* ==========================================================================
+   LOGO CÔNG TY - kích thước logo trên thanh điều hướng và menu bên trái
+   Chỉnh nhanh: đổi --logo-h (cao hơn = logo to hơn, thanh menu tự cao theo)
+   ========================================================================== */
+:root {
+  --logo-h: 68px;
+  --logo-h-mobile: 54px;
+  --logo-h-side: 48px;
+}
+
+/* Thanh menu trắng: thu gọn chiều cao (đổi --nav-pad-y để chỉnh); logo giữ nguyên --logo-h */
+:root {
+  --nav-pad-y: 0.3rem;
+}
+
+.navbar,
+.navbar.scrolled {
+  padding-top: var(--nav-pad-y) !important;
+  padding-bottom: var(--nav-pad-y) !important;
+}
+
+.navbar .logo-img {
+  height: var(--logo-h) !important;
+  max-height: none !important;
+  width: auto !important;
+}
+
+.side-menu-header .logo img {
+  height: var(--logo-h-side) !important;
+  width: auto !important;
+}
+
+@media (max-width: 992px) {
+  .navbar .logo-img {
+    height: var(--logo-h-mobile) !important;
+  }
+}
+
+/* Hiệu ứng xuất hiện dùng khi lọc dự án (script.js gọi tên fadeInUp) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   GIỚI THIỆU NGẮN VỀ CÔNG TY (trang chủ, nằm trên "Lĩnh Vực Hoạt Động")
+   Bố cục: bên trái nhãn + ảnh văn phòng, bên phải đoạn giới thiệu + nút.
+   Chỉnh nhanh:
+     --intro-accent   màu chấm tròn và nút (mặc định cam; muốn đồng bộ với
+                      màu chủ đạo của web thì đổi thành #0ea5e9 hoặc #4f46e5)
+     --intro-photo-ratio  tỉ lệ khung ảnh
+   ========================================================================== */
+.intro-section {
+  --intro-accent: #ff6a00;
+  --intro-accent-hover: #e65f00;
+  --intro-photo-ratio: 4 / 3;
+  --intro-photo-max: 520px;
+  /* bề rộng tối đa của ảnh: nhỏ hơn = ảnh bé hơn */
+  --intro-radius: 22px;
+}
+
+.intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  grid-template-areas:
+    "badge ."
+    "photo body";
+  column-gap: clamp(2rem, 5vw, 5rem);
+  row-gap: 1.5rem;
+  align-items: stretch;
+}
+
+/* Bỏ khung bọc để nhãn / ảnh xếp thẳng vào lưới: ảnh và đoạn chữ cùng một hàng */
+.intro-media {
+  display: contents;
+}
+
+.intro-badge {
+  grid-area: badge;
+}
+
+.intro-photo {
+  grid-area: photo;
+}
+
+.intro-body {
+  grid-area: body;
+}
+
+.intro-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: clamp(1.1rem, 2.2vw, 1.25rem);
+  /* bằng .section-title-compact */
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--text-heading, var(--text-main));
+}
+
+.intro-dot {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--intro-accent);
+}
+
+.intro-photo {
+  margin: 0;
+  width: 100%;
+  max-width: var(--intro-photo-max);
+  aspect-ratio: var(--intro-photo-ratio);
+  border-radius: var(--intro-radius);
+  overflow: hidden;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+}
+
+.intro-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.intro-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.intro-text {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.45vw, 1.35rem);
+  line-height: 1.8;
+  text-align: justify;
+  color: var(--text-heading, var(--text-main));
+}
+
+.intro-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.1rem 2.25rem;
+  border-radius: 4px;
+  background: var(--intro-accent);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.intro-btn:hover,
+.intro-btn:focus-visible {
+  background: var(--intro-accent-hover);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+  .intro-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "badge"
+      "photo"
+      "body";
+  }
+
+  .intro-body {
+    gap: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-btn {
+    transition: none;
+  }
+}
+
+/* Blog layout helpers */
+.blog-hero {
+  min-height: 35vh;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.blog-read-more {
+  color: var(--accent-sky);
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 1rem;
+  cursor: default;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   Breadcrumb nằm NGAY DƯỚI banner (áp dụng cho mọi trang có body.breadcrumb-below)
+   Dán vào CUỐI vmos-layout.css (file nạp sau style.css).
+   ========================================================================== */
+
+/* Navbar là position: fixed (cao khoảng 80px) nên banner, giờ là phần tử đầu tiên,
+   cần chừa chỗ phía trên. Trước đây khoảng chừa này nằm trong padding-top 6.5rem của breadcrumb. */
+body.breadcrumb-below {
+  padding-top: 5rem;
+}
+
+/* Breadcrumb mới: sát dưới banner, gọn hơn */
+body.breadcrumb-below .service-detail-breadcrumb {
+  padding: 1rem 0;
+}
+
+/* Banner trang dịch vụ từng có margin-bottom 3.5rem để cách nội dung; giờ breadcrumb nằm trong khoảng đó */
+body.breadcrumb-below .service-detail-hero {
+  margin-bottom: 0;
+}
+
+/* Màn hình nhỏ: logo navbar thấp hơn nên chừa ít hơn */
+@media (max-width: 900px) {
+  body.breadcrumb-below {
+    padding-top: 4.5rem;
+  }
+}
+
+/* ==========================================================================
+   GIÁ TRỊ CỐT LÕI → NỀN XANH DƯƠNG (trang about.html)
+   Dán vào CUỐI vmos-layout.css (hoặc file CSS nạp sau cùng), rồi tăng ?v= của file đó.
+
+   Vì sao chữ trước đây bị xanh đậm trên nền tối:
+   quy tắc "Nội dung" trong vmos-blue-theme.css (và khối <style> trong about.html) đặt
+   màu chữ = var(--tb-text) (xanh navy) với !important và độ ưu tiên cao hơn quy tắc
+   chữ trắng của khối này. Cách sửa gọn nhất: đổi chính 3 biến --tb-* BÊN TRONG thẻ,
+   nên mọi quy tắc dùng biến đó tự có chữ sáng, không cần cuộc chạy đua !important.
+
+   Chỉnh nhanh:
+     --cv-bg-1/2/3   3 màu của nền chuyển sắc (đậm → sáng)
+     --cv-icon       màu dấu tick đầu mỗi dòng
+   ========================================================================== */
+body .core-values-dark-card {
+  --cv-bg-1: #0a2a82;
+  --cv-bg-2: #0043bd;
+  --cv-bg-3: #0a50d0;
+  --cv-icon: #cfe6ff;
+
+  /* Chữ sáng bên trong thẻ (ghi đè biến màu chữ của giao diện) */
+  --tb-heading: #ffffff;
+  --tb-text: #eef5ff;
+  --tb-muted: #d3e4ff;
+  --ui-heading: #ffffff;
+  --ui-text: #eef5ff;
+  --ui-muted: #d3e4ff;
+  --text-heading: #ffffff;
+  --text-main: #eef5ff;
+  --text-muted: #d3e4ff;
+
+  background: linear-gradient(135deg, var(--cv-bg-1) 0%, var(--cv-bg-2) 55%, var(--cv-bg-3) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 20px 45px rgba(0, 62, 180, 0.35);
+}
+
+/* Quầng sáng góc: từ cyan/tím sang xanh nhạt */
+body .core-values-dark-card .dark-glow-cyan {
+  background: radial-gradient(circle, rgba(147, 210, 255, 0.40) 0%, transparent 70%);
+}
+
+body .core-values-dark-card .dark-glow-purple {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.18) 0%, transparent 70%);
+}
+
+/* Tiêu đề + mô tả */
+body .core-values-dark-card .core-values-title {
+  color: #ffffff !important;
+}
+
+body .core-values-dark-card .core-values-desc {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Ba ô giá trị: kính mờ trắng trên nền xanh */
+body .core-values-dark-card .core-value-item {
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+body .core-values-dark-card .core-value-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+/* Tên giá trị + nội dung */
+body .core-values-dark-card .strategy-card-title {
+  color: #ffffff !important;
+}
+
+body .core-values-dark-card .strategy-list li,
+body .core-values-dark-card .strategy-list li span {
+  color: #eef5ff !important;
+}
+
+/* Dấu tick */
+body .core-values-dark-card .strategy-list li i {
+  color: var(--cv-icon) !important;
+}
+
+/* Số 1-2-3: ô trắng / xanh nhạt, chữ số xanh đậm (nền xanh nên không dùng ô xanh nữa) */
+body .core-values-dark-card .strategy-number-badge {
+  color: #0a3fb8 !important;
+  box-shadow: 0 6px 16px rgba(0, 30, 110, 0.35);
+}
+
+body .core-values-dark-card .strategy-number-badge.badge-cyan {
+  background: #ffffff;
+}
+
+body .core-values-dark-card .strategy-number-badge.badge-blue {
+  background: #e0efff;
+}
+
+body .core-values-dark-card .strategy-number-badge.badge-purple {
+  background: #c7e0ff;
+}
+
+/* ==========================================================================
+   TRIẾT LÝ KINH DOANH (CEO) - sửa chữ khó đọc trong khung trích dẫn (about.html)
+   Dán vào CUỐI vmos-layout.css, rồi tăng ?v= của file đó.
+
+   Nguyên nhân: câu trích dẫn là thẻ <p>. Quy tắc "Nội dung" trong vmos-blue-theme.css
+   và khối <style> của about.html ép mọi <p>/<li>/<blockquote> về xanh navy
+   (color: var(--tb-text) !important), nên màu trắng viết inline (style="color:#fff")
+   bị thua. Ba dòng triết lý phía trên vẫn trắng vì chúng nằm trong <span>/<strong>
+   (không bị quy tắc đó chạm tới).
+   Cách sửa: đổi các biến màu chữ --tb-* BÊN TRONG khối này thành trắng, nên mọi quy tắc
+   dùng biến đó tự ra chữ sáng, không cần cuộc đua !important.
+   ========================================================================== */
+body .philosophy-simple-section {
+  --tb-heading: #ffffff;
+  --tb-text: #ffffff;
+  --tb-muted: #e6f0ff;
+  --ui-heading: #ffffff;
+  --ui-text: #ffffff;
+  --ui-muted: #e6f0ff;
+  --text-heading: #ffffff;
+  --text-main: #ffffff;
+  --text-muted: #e6f0ff;
+}
+
+/* Khung trích dẫn: nền xanh đậm hơn một chút để chữ trắng đạt tương phản chuẩn */
+body .philosophy-simple-section .philosophy-quote {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(4, 28, 110, 0.32);
+  border-left: 3px solid #ffffff;
+  border-radius: 12px;
+}
+
+body .philosophy-simple-section .philosophy-quote i {
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+body .philosophy-simple-section .philosophy-quote p {
+  margin: 0.4rem 0 0 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  font-style: italic;
+  font-weight: 500;
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   SƠ ĐỒ CƠ CẤU TỔ CHỨC (about.html) - sửa nền và màu chữ khó nhìn
+   Dán vào CUỐI vmos-layout.css, rồi tăng ?v= của file đó trên các trang nạp nó.
+
+   Có 3 nguyên nhân gộp lại (đã dò trong các file CSS):
+   1) Nền xanh bị tắt: vmos-blue-theme.css (và 2 file factory/text-blue) có quy tắc
+        html[data-theme] body :is(.section-glow, ...) { background: transparent !important }
+      mạnh hơn quy tắc nền xanh [data-tone="blue"] của vmos-layout.css. Khối sơ đồ vừa
+      là "section-glow" vừa là "data-tone=blue" nên mất nền xanh, chỉ còn nền xám của trang,
+      trong khi chữ/viền vẫn bị đổi sang trắng => trắng trên xám.
+   2) Ô "Tổng Giám Đốc" nền trắng nhưng chữ bị ép trắng (rule chữ trắng trên nền xanh bắt
+      cả <span class="oc-label">) => chữ trắng trên nền trắng, không thấy gì.
+   3) Quy tắc "Nội dung" ép <p> về xanh navy trên mọi mục xanh (đoạn mô tả phía trên sơ đồ).
+   ========================================================================== */
+
+/* 1) Trả lại nền xanh cho mục có cả "section-glow" lẫn data-tone="blue" / bg-bright-blue */
+html[data-theme] body :is(.section-glow, .portfolio-section, .services-section, .intro-section, .clients-section):is([data-tone="blue"], .bg-bright-blue) {
+  background: linear-gradient(135deg, var(--bb-from, #0050d8) 0%, var(--bb-to, #0a6cff) 100%) !important;
+}
+
+/* 3) Mọi mục nền xanh: biến màu chữ về trắng ngay bên trong mục (không cần đua !important) */
+[data-tone="blue"],
+.bg-bright-blue {
+  --tb-heading: #ffffff;
+  --tb-text: #ffffff;
+  --tb-muted: rgba(255, 255, 255, 0.92);
+  --ui-heading: #ffffff;
+  --ui-text: #ffffff;
+  --ui-muted: rgba(255, 255, 255, 0.92);
+}
+
+/* 2) Ô gốc (Tổng Giám Đốc): nền trắng => chữ xanh đậm */
+html[data-theme]:root:root body :is([data-tone="blue"], .bg-bright-blue) .oc-node--root,
+html[data-theme]:root:root body :is([data-tone="blue"], .bg-bright-blue) .oc-node--root .oc-label {
+  color: var(--oc-root-text, #0050d8) !important;
+}
+
+/* Màu ô: nền ô tối hơn nền mục (thay vì trắng mờ) để chữ trắng đạt tương phản >= 4.5:1.
+   Ô kỹ thuật tối vừa, ô Hành chính - Kế toán tối hơn để phân biệt nhóm. */
+:is([data-tone="blue"], .bg-bright-blue) .oc-panel {
+  --oc-fill: rgba(0, 30, 110, 0.28);
+  --oc-fill-admin: rgba(0, 25, 100, 0.50);
+}
+
+/* ==========================================================================
+   SƠ ĐỒ TỔ CHỨC (about.html) - mỗi ô chỉ một dòng, riêng ô Hành chính - Kế toán có 2 dòng
+   Dán vào CUỐI vmos-layout.css (sau orgchart-blue-fix.css), rồi tăng ?v= của file đó.
+   Cần kèm: (1) sửa HTML ô Hành chính - Kế toán thành 2 dòng, (2) thêm 2 khoá i18n mới
+   (xem hướng dẫn kèm theo). Đã kiểm tra bằng Chrome thật ở 1440 / 1024 / 390px, vi / en / ja.
+   ========================================================================== */
+
+/* Cột chú thích đang trống thì sơ đồ dùng toàn bộ bề ngang
+   (khi điền nội dung vào <aside class="oc-notes"> bố cục 2 cột tự trở lại). */
+.oc-panel:not(:has(.oc-notes > *)) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Bề rộng theo NỘI DUNG (thay cho tỉ lệ --w cũ, vốn ép chữ xuống nhiều dòng).
+   Sơ đồ hẹp hơn khung thì khung tự có thanh cuộn ngang. */
+.oc-tree {
+  width: max-content;
+  min-width: 100%;
+  margin: 0 auto;
+}
+
+.oc-tree li {
+  flex: 0 0 auto;
+}
+
+.oc-node,
+.oc-node .oc-label,
+.oc-node .oc-line {
+  white-space: nowrap;
+}
+
+.oc-node {
+  max-width: none;
+}
+
+.oc-node .oc-line {
+  display: block;
+}
+
+/* Cỡ chữ gọn hơn một chút để sơ đồ vừa khung (ghi đè --fs-body của theme) */
+html[data-theme]:root:root body .oc-panel .oc-node {
+  font-size: 0.9375rem !important;
+  padding: 0.55rem 0.85rem;
+}
+
+@media (max-width: 768px) {
+  html[data-theme]:root:root body .oc-panel .oc-node {
+    font-size: 0.8125rem !important;
+    padding: 0.5rem 0.7rem;
+  }
+}
+
+/* Nối liền đường ngang giữa các ô (tránh khe 1px do bề rộng ô là số lẻ) */
+.oc-tree li::before,
+.oc-tree li::after {
+  width: calc(50% + 0.5px);
 }

@@ -5,14 +5,21 @@
   <meta charset="UTF-8">
   <script>
     (function () {
-      var t = localStorage.getItem('theme') || 'dark';
+      var t = 'light';
+      try { t = localStorage.getItem('theme') || 'light'; } catch (e) { }
+      if (t !== 'dark' && t !== 'light') t = 'light';
       document.documentElement.setAttribute('data-theme', t);
-      document.documentElement.style.backgroundColor = t === 'dark' ? '#0a0f1d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = t === 'dark' ? '#0a0f1d' : '#ffffff';
     })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thiết Kế Cơ Khí | VMOS - VIET.MOS COMPANY LIMITED</title>
   <meta name="description"
+    content="Dịch vụ tư vấn, thiết kế máy móc và chi tiết cơ khí tự động hóa chuyên sâu từ VMOS (VIET.MOS COMPANY LIMITED).">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VMOS - VIET.MOS COMPANY LIMITED">
+  <meta property="og:title" content="Thiết Kế Cơ Khí | VMOS - VIET.MOS COMPANY LIMITED">
+  <meta property="og:description"
     content="Dịch vụ tư vấn, thiết kế máy móc và chi tiết cơ khí tự động hóa chuyên sâu từ VMOS (VIET.MOS COMPANY LIMITED).">
 
   <!-- Icons -->
@@ -24,10 +31,884 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=rx16">
+  <link rel="stylesheet" href="style.css?v=rx30">
+  <link rel="stylesheet" href="vmos-layout.css?v=16">
+  <link rel="stylesheet" href="vmos-blue-theme.css?v=2">
+  <link rel="stylesheet" href="service-banner.css?v=3">
+  <!-- ===== BANNER THIẾT KẾ CƠ KHÍ: tiêu đề bên trái, ảnh dây chuyền sát bên phải (cùng bố cục trang Thiết Kế Điện) ===== -->
+  <style id="co-khi-banner-theme">
+    .co-khi-banner {
+      --ck-bg: var(--svc-banner-bg);
+      --ck-size: clamp(520px, 85vh, 736px);
+      /* chiều cao banner = chiều cao ảnh */
+      --ck-fade: 42%;
+      /* độ rộng vùng mờ ở mép trái ảnh */
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      display: flex;
+      align-items: center;
+      min-height: var(--ck-size);
+      padding: 3rem 0;
+      background: var(--ck-bg);
+    }
+
+    /* Ảnh nền 16:9, dính góc phải-trên; chỉ mờ dần ở mép trái (không mờ/đổ bóng mép dưới) */
+    .co-khi-banner::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: calc(var(--ck-size) * 16 / 9);
+      height: var(--ck-size);
+      z-index: 0;
+      pointer-events: none;
+      background: url("images/co-khi-banner-bg.jpg") center / 100% 100% no-repeat;
+      /* Mờ dần bằng đường cong mượt (smoothstep) thay vì tuyến tính để không lộ vệt chuyển */
+      -webkit-mask-image:
+        linear-gradient(90deg,
+          rgba(0, 0, 0, 0.000) 0.0%,
+          rgba(0, 0, 0, 0.043) 5.2%,
+          rgba(0, 0, 0, 0.156) 10.5%,
+          rgba(0, 0, 0, 0.316) 15.8%,
+          rgba(0, 0, 0, 0.500) 21.0%,
+          rgba(0, 0, 0, 0.684) 26.2%,
+          rgba(0, 0, 0, 0.844) 31.5%,
+          rgba(0, 0, 0, 0.957) 36.8%,
+          rgba(0, 0, 0, 1.000) 42.0%,
+          #000 100%);
+      mask-image:
+        linear-gradient(90deg,
+          rgba(0, 0, 0, 0.000) 0.0%,
+          rgba(0, 0, 0, 0.043) 5.2%,
+          rgba(0, 0, 0, 0.156) 10.5%,
+          rgba(0, 0, 0, 0.316) 15.8%,
+          rgba(0, 0, 0, 0.500) 21.0%,
+          rgba(0, 0, 0, 0.684) 26.2%,
+          rgba(0, 0, 0, 0.844) 31.5%,
+          rgba(0, 0, 0, 0.957) 36.8%,
+          rgba(0, 0, 0, 1.000) 42.0%,
+          #000 100%);
+    }
+
+    /* Lớp tối phía trái để chữ trắng luôn dễ đọc trên ảnh sáng */
+    .co-khi-banner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      /* Lớp phủ tắt dần theo đường cong mượt, cùng nhịp với phần mờ của ảnh */
+      background: linear-gradient(90deg,
+          rgba(var(--svc-banner-rgb), 0.900) 0.0%,
+          rgba(var(--svc-banner-rgb), 0.875) 7.0%,
+          rgba(var(--svc-banner-rgb), 0.806) 14.0%,
+          rgba(var(--svc-banner-rgb), 0.706) 21.0%,
+          rgba(var(--svc-banner-rgb), 0.583) 28.0%,
+          rgba(var(--svc-banner-rgb), 0.450) 35.0%,
+          rgba(var(--svc-banner-rgb), 0.317) 42.0%,
+          rgba(var(--svc-banner-rgb), 0.194) 49.0%,
+          rgba(var(--svc-banner-rgb), 0.094) 56.0%,
+          rgba(var(--svc-banner-rgb), 0.025) 63.0%,
+          rgba(var(--svc-banner-rgb), 0.000) 70.0%,
+          rgba(var(--svc-banner-rgb), 0) 100%);
+    }
+
+    .co-khi-banner .container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
+    .co-khi-banner .co-khi-banner-title {
+      text-align: left;
+      max-width: 1000px;
+    }
+
+    /* Chữ luôn trắng vì banner luôn nền tối (cả theme sáng lẫn tối) */
+    .co-khi-banner .co-khi-banner-title h1 {
+      margin: 0;
+      max-width: 8.5em;
+      text-wrap: balance;
+      font-size: clamp(2rem, 5vw, 4.75rem);
+      line-height: 1.12;
+      color: #ffffff !important;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+    }
+
+    .co-khi-banner .co-khi-banner-title p {
+      margin: 1.25rem 0 0;
+      max-width: 520px;
+      font-size: clamp(1rem, 1.4vw, 1.2rem);
+      line-height: 1.55;
+      color: #dbe7fb !important;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .co-khi-banner {
+        --ck-size: 440px;
+      }
+
+      /* Điện thoại: canh giữa ảnh (hiện phần giữa dây chuyền), phủ tối đều để chữ rõ */
+      .co-khi-banner::before {
+        right: 50%;
+        transform: translateX(50%);
+      }
+
+      .co-khi-banner::after {
+        background: linear-gradient(90deg, rgba(var(--svc-banner-rgb), 0.8) 0%, rgba(var(--svc-banner-rgb), 0.5) 100%);
+      }
+    }
+
+    /* Theme xanh của site ép h1/p thành xanh đậm (chìm trên nền tối) -> ép lại chữ sáng */
+    html[data-theme]:root:root body .co-khi-banner .co-khi-banner-title h1 {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      background: none !important;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+    }
+
+    html[data-theme]:root:root body .co-khi-banner .co-khi-banner-title p {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      font-weight: 500 !important;
+      text-align: left !important;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
+    }
+
+    /* ===== TIÊU ĐỀ BANNER ĐỒNG BỘ 3 TRANG DỊCH VỤ (chữ hoa, trắng, cùng cỡ) ===== */
+    html[data-theme]:root:root body .co-khi-banner .co-khi-banner-title h1,
+    html[data-theme]:root:root body .co-khi-banner .co-khi-banner-title h1 span {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      background: none !important;
+      text-transform: uppercase;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+    }
+
+    html[data-theme]:root:root body .co-khi-banner .co-khi-banner-title h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4.75rem);
+      line-height: 1.12;
+      font-weight: 800;
+      text-wrap: balance;
+      max-width: 8.5em;
+    }
+
+    html[data-theme]:root:root body .co-khi-banner .co-khi-banner-title p {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      font-size: clamp(1rem, 1.4vw, 1.2rem);
+      line-height: 1.55;
+      font-weight: 500 !important;
+      text-align: left !important;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
+    }
+  </style>
+  <style id="ck-solution-layout">
+    /* ===== BỐ CỤC GIẢI PHÁP (kiểu GR Automation) ===== */
+    .dsv-section {
+      padding: 4rem 0 5rem 0;
+    }
+
+    .dsv-head {
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto 4rem auto;
+    }
+
+    .dsv-head h2 {
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      margin-bottom: 1rem;
+    }
+
+    .dsv-head p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    .dsv-block {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 3.5rem;
+      align-items: start;
+      padding: 3.5rem 0;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .dsv-block:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .dsv-reverse .dsv-content {
+      order: 2;
+    }
+
+    .dsv-reverse .dsv-visual {
+      order: 1;
+    }
+
+    .dsv-num {
+      display: block;
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1;
+      color: rgba(0, 98, 255, 0.18);
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .dsv-title {
+      font-size: clamp(1.5rem, 2.4vw, 2rem);
+      margin: 0 0 1rem 0;
+    }
+
+    .dsv-lead {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin: 0 0 1.75rem 0;
+    }
+
+    .dsv-sub {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin: 0 0 0.9rem 0;
+    }
+
+    .dsv-checks {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.75rem 0;
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .dsv-checks li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .dsv-checks i {
+      flex: 0 0 auto;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 98, 255, 0.12);
+      color: #0062ff;
+      font-size: 0.95rem;
+      margin-top: 1px;
+    }
+
+    .dsv-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .dsv-chips span {
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      background: rgba(0, 98, 255, 0.08);
+      border: 1px solid rgba(0, 98, 255, 0.15);
+    }
+
+    .dsv-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dsv-media {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      background: #0b1f3a;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dsv-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease;
+    }
+
+    .dsv-block:hover .dsv-media img {
+      transform: scale(1.03);
+    }
+
+    .dsv-fallback {
+      display: none;
+      position: absolute;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: rgba(255, 255, 255, 0.55);
+      background: linear-gradient(135deg, #031a30, #0a5c8a);
+    }
+
+    .dsv-media.media-fallback img {
+      display: none;
+    }
+
+    .dsv-media.media-fallback .dsv-fallback {
+      display: flex;
+    }
+
+    .dsv-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .dsv-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.1rem;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      font-weight: 600;
+    }
+
+    .dsv-stat i {
+      font-size: 1.5rem;
+      color: #0062ff;
+      flex: 0 0 auto;
+    }
+
+    .dsv-industries {
+      text-align: center;
+      padding: 4rem 0 2rem 0;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .dsv-eyebrow {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #0062ff;
+      margin-bottom: 0.5rem;
+    }
+
+    .dsv-industries h2 {
+      margin: 0 0 2.25rem 0;
+      font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+    }
+
+    .dsv-ind-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      text-align: left;
+    }
+
+    .dsv-ind {
+      padding: 1.5rem;
+      border-radius: 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      transition: transform .25s ease, border-color .25s ease;
+    }
+
+    .dsv-ind:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 98, 255, 0.4);
+    }
+
+    .dsv-ind i {
+      font-size: 1.6rem;
+      color: #0062ff;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .dsv-ind h4 {
+      margin: 0 0 0.35rem 0;
+      font-size: 1.05rem;
+    }
+
+    .dsv-ind p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .dsv-cta-band {
+      margin-top: 3.5rem;
+      padding: 3rem 2rem;
+      border-radius: 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #031a30 0%, #073a6e 55%, #0a5c8a 100%);
+    }
+
+    .dsv-cta-band h2 {
+      font-size: clamp(1.4rem, 2.6vw, 2rem);
+      margin: 0 0 0.75rem 0;
+    }
+
+    .dsv-cta-band p {
+      max-width: 640px;
+      margin: 0 auto 1.75rem auto;
+      line-height: 1.7;
+    }
+
+    .dsv-cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .dsv-btn-white {
+      display: inline-block;
+      padding: 0.8rem 1.75rem;
+      border-radius: 999px;
+      font-weight: 700;
+      background: #fff;
+      color: #073a6e !important;
+      -webkit-text-fill-color: #073a6e !important;
+      text-decoration: none;
+      transition: transform .2s ease;
+    }
+
+    .dsv-btn-white:hover {
+      transform: translateY(-2px);
+    }
+
+    .dsv-hotline {
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    @media (max-width: 991px) {
+      .dsv-block {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2.5rem 0;
+      }
+
+      .dsv-reverse .dsv-content,
+      .dsv-reverse .dsv-visual {
+        order: initial;
+      }
+
+      .dsv-ind-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 575px) {
+
+      .dsv-ind-grid,
+      .dsv-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .dsv-cta-band {
+        padding: 2.25rem 1.25rem;
+      }
+    }
+
+    /* ===== Danh sách bước (khối 01) ===== */
+    .dsv-steps {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.75rem 0;
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .dsv-steps li {
+      display: flex;
+      gap: 0.9rem;
+      align-items: flex-start;
+    }
+
+    .dsv-step-no {
+      flex: 0 0 auto;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #0062ff, #0a8ad6);
+      margin-top: 2px;
+    }
+
+    .dsv-steps li>i {
+      flex: 0 0 auto;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 98, 255, 0.12);
+      color: #0062ff;
+      font-size: 0.95rem;
+      margin-top: 1px;
+    }
+
+    .dsv-steps strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      line-height: 1.4;
+    }
+
+    .dsv-steps span {
+      display: block;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      opacity: 0.9;
+    }
+
+    /* ===== Logo phần mềm chia theo nhóm hãng (không chú thích dưới ảnh) ===== */
+    .dsv-logo-groups {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.1rem 1.75rem;
+      margin: 0 0 2rem 0;
+    }
+
+    .dsv-logo-group {
+      min-width: 0;
+    }
+
+    .dsv-logo-group-title {
+      margin: 0 0 0.5rem 0;
+      padding-left: 0.6rem;
+      border-left: 3px solid #0062ff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .dsv-logos {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .dsv-logos li {
+      width: 122px;
+      flex: 0 0 auto;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      transition: transform .25s ease, border-color .25s ease;
+    }
+
+    .dsv-logos li:hover {
+      transform: translateY(-3px);
+      border-color: rgba(0, 98, 255, 0.45);
+    }
+
+    .dsv-logos img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+    }
+
+    /* ===== Ảnh minh họa xếp dọc (khối 01) ===== */
+    .dsv-visual {
+      display: grid;
+      gap: 1.25rem;
+      align-content: start;
+    }
+
+    .dsv-shot {
+      margin: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dsv-shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .dsv-shot figcaption {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1.1rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .dsv-shot figcaption i {
+      color: #0062ff;
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: 575px) {
+      .dsv-logos li {
+        width: 100px;
+      }
+    }
+
+    /* ===== BỔ SUNG RIÊNG TRANG CƠ KHÍ ===== */
+    .dsv-logos--tech li {
+      width: 150px;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: visible;
+    }
+
+    .dsv-logos--tech li:hover {
+      transform: none;
+    }
+
+    .dsv-logos--tech img {
+      aspect-ratio: 3 / 2;
+      object-fit: contain;
+      padding: 0.6rem;
+      background: transparent;
+    }
+
+    .dsv-shot img {
+      background: #fff;
+    }
+
+    .ck-tech .dsv-logos {
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .ck-tech h2 {
+      margin-bottom: 1.75rem;
+    }
+
+    .ck-process {
+      padding: 4rem 0 1rem 0;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .ck-process h2 {
+      margin: 0 0 2.25rem 0;
+      font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+    }
+
+    .ck-steps {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.25rem;
+      counter-reset: ck;
+      text-align: left;
+    }
+
+    .ck-steps li {
+      position: relative;
+      padding: 1.5rem 1.25rem;
+      border-radius: 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .ck-steps li::before {
+      counter-increment: ck;
+      content: counter(ck);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 0.9rem;
+      border-radius: 50%;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #0062ff, #0a8ad6);
+    }
+
+    .ck-steps h4 {
+      margin: 0 0 0.4rem 0;
+      font-size: 1.05rem;
+    }
+
+    .ck-steps p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 991px) {
+      .ck-steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 575px) {
+      .ck-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .dsv-logos--tech li {
+        width: 120px;
+      }
+    }
+  </style>
+  <style id="ck-intro-visual-css">
+    .ck-intro-visual {
+      min-width: 0;
+    }
+
+    .ck-intro-main {
+      margin: 0;
+      border: 1px solid var(--white-line, #dde3ea);
+      background: #fff;
+    }
+
+    .ck-intro-main img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .ck-intro-main figcaption {
+      padding: .7rem 1rem;
+      font-size: .9rem;
+      font-weight: 600;
+      color: #0b3d91;
+      border-top: 1px solid var(--white-line, #dde3ea);
+    }
+
+    .ck-intro-main figcaption i {
+      margin-right: .4rem;
+      color: #0062ff;
+    }
+
+    .ck-intro-thumbs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .75rem;
+      margin-top: 1.5rem;
+    }
+
+    .ck-intro-thumbs img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border: 1px solid var(--white-line, #dde3ea);
+      background: #fff;
+    }
+
+    @media (max-width: 480px) {
+      .ck-intro-thumbs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+  <style id="ck-tech-css">
+    /* Mô tả "Nền tảng công nghệ" hiển thị trên 1 dòng ở màn hình rộng */
+    #ck-tech .sl-head {
+      max-width: none;
+    }
+
+    /* Nền tảng công nghệ: 3 thẻ logo + giới thiệu, logo không khung */
+    .ck-tech-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .ck-tech-item {
+      padding-top: 1.5rem;
+      border-top: 3px solid #0062ff;
+    }
+
+    .ck-tech-logo {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 96px;
+      margin-bottom: 1rem;
+    }
+
+    .ck-tech-logo img {
+      display: block;
+      max-width: 190px;
+      max-height: 84px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      background: transparent;
+    }
+
+    .ck-tech-item h3 {
+      margin: 0 0 .6rem;
+      font-size: 1.25rem;
+    }
+
+    .ck-tech-item p {
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 900px) {
+      .ck-tech-grid {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="vmos-white-theme.css?v=1">
+  <link rel="stylesheet" href="service-layout.css?v=3">
+  <link rel="canonical" href="https://v-mos.com/dich-vu-thiet-ke-co-khi.html">
+  <meta property="og:url" content="https://v-mos.com/dich-vu-thiet-ke-co-khi.html">
+  <meta property="og:image" content="https://v-mos.com/images/vmos-logo.png">
+  <link rel="stylesheet" href="vmos-margins.css?v=1">
 </head>
 
-<body>
+<body class="breadcrumb-below">
 
   <!-- ================= NAVBAR ================= -->
   <header class="navbar scrolled">
@@ -37,12 +918,12 @@
       </a>
 
       <!-- Desktop Navigation Menu -->
-      <nav class="desktop-nav-menu">
+      <nav class="desktop-nav-menu" aria-label="Menu chính" data-i18n-attr="aria-label:nav.main_label">
         <a href="index.html" class="nav-link" data-i18n="nav.home">Trang chủ</a>
         <a href="about.html" class="nav-link" data-i18n="nav.about">Về chúng tôi</a>
 
         <div class="nav-dropdown">
-          <a href="dich-vu-thiet-ke-co-khi.html" class="nav-link nav-dropdown-toggle active" data-i18n="nav.services">
+          <a href="dich-vu-thiet-ke-co-khi.html" class="nav-link nav-dropdown-toggle active">
             <span data-i18n="nav.services">Dịch vụ</span>
             <i class="bi bi-chevron-down"></i>
           </a>
@@ -54,7 +935,7 @@
           </div>
         </div>
 
-        <a href="index.html#portfolio" class="nav-link" data-i18n="nav.portfolio">Dự án</a>
+        <a href="du-an.html" class="nav-link" data-i18n="nav.portfolio">Dự án</a>
         <a href="blog.html" class="nav-link" data-i18n="nav.blog">Tin tức</a>
         <a href="contact.html" class="nav-link" data-i18n="nav.contact">Liên hệ</a>
       </nav>
@@ -81,40 +962,41 @@
 
   <!-- ================= VINGROUP-STYLE FIXED NAVIGATION CONTROLS ================= -->
   <!-- Fixed Left Middle: Hamburger Button (3 lines line-only) -->
-  <button class="sidebar-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="side-menu">
+  <button class="sidebar-toggle" aria-label="Mở menu" data-i18n-attr="aria-label:nav.open_menu" aria-expanded="false"
+    aria-controls="side-menu">
     <span class="hamburger-line"></span>
     <span class="hamburger-line"></span>
     <span class="hamburger-line"></span>
   </button>
 
-  <!-- Fixed Left Bottom: Theme Toggle + Language Selector (Vertical Stack) -->
-  </div>
-
   <!-- ================= UNIFIED LEFT SIDEBAR NAVIGATION ================= -->
   <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
 
-  <aside class="side-menu" id="side-menu" aria-label="Menu điều hướng" role="dialog" aria-modal="true">
+  <aside class="side-menu" id="side-menu" aria-label="Menu điều hướng" data-i18n-attr="aria-label:nav.menu_label"
+    role="dialog" aria-modal="true">
     <div class="side-menu-header">
       <a href="index.html" class="logo">
         <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED">
       </a>
-      <button class="side-menu-close" aria-label="Đóng menu"><i class="bi bi-x-lg"></i></button>
+      <button class="side-menu-close" aria-label="Đóng menu" data-i18n-attr="aria-label:nav.close_menu"><i
+          class="bi bi-x-lg"></i></button>
     </div>
     <nav class="side-menu-nav">
       <a href="index.html" class="side-menu-link" data-i18n="nav.home">Trang chủ</a>
       <a href="about.html" class="side-menu-link" data-i18n="nav.about">Về chúng tôi</a>
       <div class="side-menu-group">
-        <button class="side-menu-link side-menu-group-toggle open" data-i18n="nav.services">Dịch vụ</button>
+        <button class="side-menu-link side-menu-group-toggle open" aria-expanded="true" data-i18n="nav.services">Dịch
+          vụ</button>
         <div class="side-menu-submenu">
           <a href="dich-vu-thiet-ke-co-khi.html" class="active" data-i18n="services.mechanical">Thiết Kế Cơ Khí</a>
           <a href="dich-vu-thiet-ke-dien.html" data-i18n="services.electrical">Thiết Kế Điện - Lập Trình Điều Khiển</a>
           <a href="dich-vu-thiet-ke-mo-phong.html" data-i18n="services.simulation">Thiết Kế Mô Phỏng</a>
         </div>
       </div>
-      <a href="index.html#portfolio" class="side-menu-link" data-i18n="nav.portfolio">Dự án</a>
+      <a href="du-an.html" class="side-menu-link" data-i18n="nav.portfolio">Dự án</a>
       <a href="blog.html" class="side-menu-link" data-i18n="nav.blog">Tin tức</a>
       <div class="side-menu-cta-wrapper">
-        <a href="contact.html" class="side-menu-link side-menu-cta" data-i18n="nav.contact">
+        <a href="contact.html" class="side-menu-link side-menu-cta">
           <span data-i18n="nav.contact">Liên hệ</span>
           <i class="bi bi-arrow-right-circle-fill"></i>
         </a>
@@ -122,7 +1004,23 @@
     </nav>
   </aside>
 
-  <!-- ================= BREADCRUMB ================= -->
+
+  <!-- ================= HERO BANNER (tiêu đề trái + ảnh dây chuyền phải) ================= -->
+  <section class="co-khi-banner">
+    <div class="container">
+      <div class="co-khi-banner-title">
+        <h1 data-i18n="service_detail.mechanical.hero_title"
+          style="color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;background:none !important;">THIẾT
+          KẾ CƠ KHÍ</h1>
+        <p data-i18n="service_detail.mechanical.hero_desc"
+          style="color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;">
+          [Đoạn giới thiệu năng lực Thiết Kế Cơ Khí sẽ cập nhật]
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BREADCRUMB (ngay dưới banner) ================= -->
   <nav class="service-detail-breadcrumb" aria-label="Breadcrumb">
     <div class="container">
       <ul class="service-detail-breadcrumb-list">
@@ -135,257 +1033,315 @@
     </div>
   </nav>
 
-  <!-- ================= HERO BANNER FULL-BLEED (100VW) ================= -->
-  <section class="service-detail-hero">
-    <img src="images/service-co-khi.jpg" alt="Thiết Kế Cơ Khí" class="service-detail-hero-bg">
-    <div class="service-detail-hero-overlay"></div>
-    <div class="service-detail-hero-content">
-      <h1 class="service-detail-hero-title" data-i18n="service_detail.mechanical.hero_title">THIẾT KẾ CƠ KHÍ</h1>
-      <p class="service-detail-hero-desc" data-i18n="service_detail.mechanical.hero_desc">
-        [Đoạn giới thiệu năng lực Thiết Kế Cơ Khí sẽ cập nhật]
-      </p>
-    </div>
-  </section>
 
-  <!-- ================= GIỚI THIỆU MẢNG DỊCH VỤ ================= -->
-  <section class="service-detail-intro-section">
-    <div class="container">
-      <h2 class="section-title-compact reveal" data-i18n="service_detail.mechanical.intro_title">THIẾT KẾ CƠ KHÍ</h2>
+  <!-- ================= THIẾT KẾ CƠ KHÍ: BỐ CỤC DÙNG CHUNG VỚI TRANG MÔ PHỎNG (service-layout.css) =================
+       Các khối: Giới thiệu -> Lợi ích -> Phạm vi dịch vụ -> Công nghệ -> Quy trình -> Thiết bị thiết kế
+       Chữ ở khối "Giới thiệu" và "Lợi ích" là NỘI DUNG TẠM - sửa trực tiếp tại đây. -->
+  <main class="sl-page">
 
-      <div class="service-detail-intro-grid">
-        <!-- Cột Trái: Văn bản giới thiệu -->
-        <div class="service-detail-intro-text reveal">
-          <p data-i18n="service_detail.mechanical.intro_desc">
-            [Đoạn giới thiệu chi tiết năng lực Thiết Kế Cơ Khí sẽ cập nhật]
-          </p>
+    <!-- ===== 1. GIỚI THIỆU ===== -->
+    <section class="sl-section" id="ck-gioi-thieu">
+      <div class="sl-container">
+        <div class="sl-head reveal">
+          <h2>Thiết kế cơ khí là gì?</h2>
         </div>
-
-        <!-- Cột Phải: Dải 10 ô ảnh kéo ngang tràn viền -->
-        <div class="service-detail-intro-scroll">
-          <div class="service-detail-intro-card reveal">
-            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 1]</span></div>
-            <img src="images/co-khi-intro-1.jpg" onerror="this.classList.add('img-hidden')"
-              alt="Mô hình thiết kế 3D hệ thống máy cơ khí tự động hóa trên SolidWorks" class="service-detail-intro-img"
-              loading="lazy">
+        <div class="sl-intro reveal">
+          <div class="sl-intro-text">
+            <p>Thiết kế cơ khí là quá trình biến yêu cầu kỹ thuật thành mô hình và hồ sơ bản vẽ chi tiết
+              của máy móc, cụm máy, đồ gá và kết cấu thiết bị, đủ chính xác để đem đi gia công, lắp ráp và vận hành
+              thực tế.</p>
+            <p>Kỹ sư bắt đầu từ việc xác định nguyên lý hoạt động và phương án tổng thể, sau đó dựng mô hình 3D trên các
+              phần mềm CAD như SolidWorks, iCAD. Từng chi tiết được tính toán về độ bền, chọn vật liệu và kiểm soát
+              dung sai lắp ghép; mô hình lắp ráp được kiểm tra xung đột và chuyển động ngay trên máy tính.</p>
+            <p>Kết quả đầu ra là bộ hồ sơ kỹ thuật gồm bản vẽ lắp, bản vẽ chi tiết gia công, danh mục vật tư (BOM) và
+              dữ liệu phục vụ gia công CNC. Nhờ đó, doanh nghiệp rút ngắn thời gian phát triển thiết bị, hạn chế sai
+              sót khi chế tạo và giảm chi phí sửa đổi tại nhà máy.</p>
+            <div class="ck-intro-thumbs">
+              <img src="images/ck-gioi-thieu-may-1.png" alt="Mô hình 3D máy tự động có khung bao che" loading="lazy">
+              <img src="images/ck-gioi-thieu-may-2.png" alt="Mô hình 3D máy tự động có tháp đèn báo" loading="lazy">
+              <img src="images/ck-gioi-thieu-may-3.png" alt="Mô hình 3D cụm băng tải có rào bảo vệ" loading="lazy">
+              <img src="images/ck-gioi-thieu-may-4.png" alt="Mô hình 3D máy tự động dạng module" loading="lazy">
+            </div>
           </div>
-          <div class="service-detail-intro-card reveal">
-            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 2]</span></div>
-            <img src="images/co-khi-intro-2.jpg" onerror="this.classList.add('img-hidden')"
-              alt="Gia công CNC chi tiết cơ khí chính xác tiêu chuẩn công nghiệp" class="service-detail-intro-img"
-              loading="lazy">
+          <div class="ck-intro-visual reveal">
+            <figure class="ck-intro-main">
+              <img src="images/ck-gioi-thieu-main.png" alt="Mô hình 3D khung băng tải trên phần mềm thiết kế CAD"
+                loading="lazy">
+              <figcaption><i class="bi bi-box"></i> Dựng mô hình 3D và kiểm tra lắp ráp trên phần mềm CAD</figcaption>
+            </figure>
           </div>
-          <div class="service-detail-intro-card reveal">
-            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 3]</span></div>
-            <img src="images/co-khi-intro-3.jpg" onerror="this.classList.add('img-hidden')"
-              alt="Bản vẽ kỹ thuật 2D cơ khí và sơ đồ lắp ráp chi tiết" class="service-detail-intro-img" loading="lazy">
-          </div>
-          <div class="service-detail-intro-card reveal">
-            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 4]</span></div>
-            <img src="images/co-khi-intro-4.jpg" onerror="this.classList.add('img-hidden')"
-              alt="Dây chuyền cơ khí tự động hóa lắp ráp linh kiện sản xuất" class="service-detail-intro-img"
-              loading="lazy">
-          </div>
-          <div class="service-detail-intro-card reveal">
-            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 5]</span></div>
-            <img src="images/co-khi-intro-5.jpg" onerror="this.classList.add('img-hidden')"
-              alt="Thiết kế khuôn mẫu cơ khí và bộ gá Jig gia công" class="service-detail-intro-img" loading="lazy">
-          </div>
-          <div class="service-detail-intro-card reveal">
-            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 6]</span></div>
-            <img src="images/co-khi-intro-6.jpg" onerror="this.classList.add('img-hidden')"
-              alt="Kiểm định chất lượng và đo lường kích thước chi tiết cơ khí chính xác"
-              class="service-detail-intro-img" loading="lazy">
-          </div>
-          <div class="service-detail-intro-card reveal">
-            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 7]</span></div>
-            <img src="images/co-khi-intro-7.jpg" onerror="this.classList.add('img-hidden')"
-              alt="Hệ thống cơ cấu truyền động và cánh tay robot công nghiệp" class="service-detail-intro-img"
-              loading="lazy">
-          </div>
-          <div class="service-detail-intro-card reveal">
-            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 8]</span></div>
-            <img src="images/co-khi-intro-8.jpg" onerror="this.classList.add('img-hidden')"
-              alt="Lắp ráp chạy thử cụm cơ khí trong xưởng chế tạo" class="service-detail-intro-img" loading="lazy">
-          </div>
-          <div class="service-detail-intro-card reveal">
-            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 9]</span></div>
-            <img src="images/co-khi-intro-9.jpg" onerror="this.classList.add('img-hidden')"
-              alt="Mô phỏng động lực học và phân tích ứng suất kết cấu cơ khí" class="service-detail-intro-img"
-              loading="lazy">
-          </div>
-          <div class="service-detail-intro-card reveal">
-            <div class="placeholder-box"><i class="bi bi-image"></i><span>[Ảnh 10]</span></div>
-            <img src="images/co-khi-intro-10.jpg" onerror="this.classList.add('img-hidden')"
-              alt="Giải pháp tự động hóa cơ khí toàn diện cho nhà máy sản xuất" class="service-detail-intro-img"
-              loading="lazy">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= MẢNG DỊCH VỤ CHUYÊN SÂU (XEN KẼ 2 CỘT) ================= -->
-  <section class="service-detail-features-section">
-    <div class="container">
-      <h2 class="section-title-compact reveal" data-i18n="service_detail.mechanical.features_title">Các Mảng Dịch Vụ
-        Chuyên Sâu</h2>
-
-      <!-- Khối 1: Ảnh trái - Nội dung phải -->
-      <div class="service-detail-feature-row reveal">
-        <div class="service-detail-feature-image">
-          <div class="placeholder-box"><i class="bi bi-lightbulb"></i><span>[Ảnh Mảng 1]</span></div>
-          <img src="images/service-co-khi-y-tuong.jpg" onerror="this.classList.add('img-hidden')"
-            alt="Bản vẽ kỹ thuật và mô hình 3D phương án thiết kế tổng thể cụm cơ khí"
-            class="service-detail-feature-img" loading="lazy">
-        </div>
-        <div class="service-detail-feature-content">
-          <h3>
-            <i class="bi bi-lightbulb-fill feature-title-icon"></i>
-            <span data-i18n="service_detail.mechanical.feature1_title">Thiết kế ý tưởng và xây dựng phương án tổng
-              thể</span>
-          </h3>
-          <p data-i18n="service_detail.mechanical.feature1_desc">
-            Nghiên cứu yêu cầu công nghệ, khảo sát mặt bằng sản xuất và đề xuất phương án nguyên lý tối ưu. Chúng tôi
-            xây dựng mô hình khái niệm 3D, phân tích tính khả thi kỹ thuật và dự toán chi phí giúp doanh nghiệp định
-            hình giải pháp thiết bị trước khi đầu tư.
-          </p>
-        </div>
-      </div>
-
-      <!-- Khối 2: Nội dung trái - Ảnh phải (Đảo chiều) -->
-      <div class="service-detail-feature-row row-reverse reveal">
-        <div class="service-detail-feature-image">
-          <div class="placeholder-box"><i class="bi bi-gear-wide-connected"></i><span>[Ảnh Mảng 2]</span></div>
-          <img src="images/service-co-khi-chi-tiet-may.jpg" onerror="this.classList.add('img-hidden')"
-            alt="Mô hình 3D cụm máy công nghiệp và kết cấu thiết bị hoàn chỉnh" class="service-detail-feature-img"
-            loading="lazy">
-        </div>
-        <div class="service-detail-feature-content">
-          <h3>
-            <i class="bi bi-gear-wide-connected feature-title-icon"></i>
-            <span data-i18n="service_detail.mechanical.feature2_title">Thiết kế chi tiết máy, cụm máy và kết cấu thiết
-              bị</span>
-          </h3>
-          <p data-i18n="service_detail.mechanical.feature2_desc">
-            Thiết kế chuyên sâu các bộ phận cơ khí chính xác, cụm truyền động và kết cấu khung vỏ thiết bị. Từng chi
-            tiết được tối ưu hóa độ bền, kiểm soát dung sai lắp ghép và lựa chọn vật liệu đáp ứng tiêu chuẩn vận hành
-            công nghiệp.
-          </p>
-        </div>
-      </div>
-
-      <!-- Khối 3: Ảnh trái - Nội dung phải -->
-      <div class="service-detail-feature-row reveal">
-        <div class="service-detail-feature-image">
-          <div class="placeholder-box"><i class="bi bi-file-earmark-ruled"></i><span>[Ảnh Mảng 3]</span></div>
-          <img src="images/service-co-khi-ban-ve-gia-cong.jpg" onerror="this.classList.add('img-hidden')"
-            alt="Bản vẽ lắp và bản vẽ gia công chi tiết kèm bảng kê vật tư phục vụ sản xuất"
-            class="service-detail-feature-img service-detail-feature-img--contain" loading="lazy">
-        </div>
-        <div class="service-detail-feature-content">
-          <h3>
-            <i class="bi bi-file-earmark-ruled-fill feature-title-icon"></i>
-            <span data-i18n="service_detail.mechanical.feature3_title">Triển khai bản vẽ lắp, bản vẽ gia công phục vụ
-              sản xuất</span>
-          </h3>
-          <p data-i18n="service_detail.mechanical.feature3_desc">
-            Xuất hồ sơ kỹ thuật đầy đủ gồm bản vẽ lắp ráp (Assembly Drawing), bản vẽ chi tiết gia công (Detail Drawing),
-            danh mục vật tư BOM và dữ liệu xuất CNC sẵn sàng chuyển giao trực tiếp cho nhà xưởng gia công chế tạo.
-          </p>
-        </div>
-      </div>
-
-      <!-- Khối 4: Nội dung trái - Ảnh phải (Đảo chiều) -->
-      <div class="service-detail-feature-row row-reverse reveal">
-        <div class="service-detail-feature-image">
-          <div class="placeholder-box"><i class="bi bi-arrow-repeat"></i><span>[Ảnh Mảng 4]</span></div>
-          <img src="images/service-co-khi-2d-3d.jpg" onerror="this.classList.add('img-hidden')"
-            alt="Chuyển đổi bản vẽ kỹ thuật 2D sang mô hình 3D chi tiết cơ khí và ngược lại"
-            class="service-detail-feature-img" loading="lazy">
-        </div>
-        <div class="service-detail-feature-content">
-          <h3>
-            <i class="bi bi-arrow-repeat feature-title-icon"></i>
-            <span data-i18n="service_detail.mechanical.feature4_title">Chuyển đổi bản vẽ 2D thành mô hình 3D và ngược
-              lại</span>
-          </h3>
-          <p data-i18n="service_detail.mechanical.feature4_desc">
-            Số hóa và chuyển đổi linh hoạt giữa bản vẽ 2D truyền thống (AutoCAD, bản vẽ giấy) sang mô hình 3D hình học
-            chính xác (SolidWorks, iCAD), kiểm tra xung đột không gian và chuẩn hóa tài liệu kỹ thuật theo yêu cầu khách
-            hàng.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= NỀN TẢNG CÔNG NGHỆ ================= -->
-  <section class="service-tech-section reveal">
-    <div class="container">
-      <div class="tech-section-header">
-        <span class="tech-header-decorator">‹ ···</span>
-        <h2 class="tech-section-title" data-i18n="service_detail.mechanical.platforms_title">NỀN TẢNG CÔNG NGHỆ</h2>
-        <span class="tech-header-decorator">··· ›</span>
-      </div>
-
-      <div class="tech-logos-grid">
-        <!-- Logo 1: SolidWorks -->
-        <div class="tech-logo-item reveal">
-          <img src="images/tech-solidworks.png" onerror="this.style.display='none'" alt="Logo phần mềm SolidWorks"
-            class="tech-logo-img" loading="lazy" data-i18n-attr="alt:service_detail.mechanical.tech_solidworks_alt">
-        </div>
-
-        <!-- Logo 2: rapid PRO (CAD/CAM) -->
-        <div class="tech-logo-item reveal">
-          <img src="images/tech-cadpro.png" onerror="this.style.display='none'" alt="Logo phần mềm rapid PRO"
-            class="tech-logo-img" loading="lazy" data-i18n-attr="alt:service_detail.mechanical.tech_cadpro_alt">
-        </div>
-
-        <!-- Logo 3: iCAD -->
-        <div class="tech-logo-item reveal">
-          <img src="images/tech-icad.png" onerror="this.style.display='none'" alt="Logo phần mềm iCAD"
-            class="tech-logo-img" loading="lazy" data-i18n-attr="alt:service_detail.mechanical.tech_icad_alt">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= LĨNH VỰC LIÊN QUAN ================= -->
-  <div class="container">
-    <section class="service-detail-related-section reveal-scale">
-      <!-- Họa tiết đường lượn sóng mờ làm nền trang trí -->
-      <svg class="philosophy-waves-pattern" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="none">
-        <path d="M-100 60 C 250 180, 650 -20, 1050 140 C 1250 220, 1480 90, 1600 130" stroke="rgba(0, 242, 254, 0.16)"
-          stroke-width="1.5" />
-        <path d="M-100 100 C 200 220, 600 20, 1000 180 C 1200 260, 1450 130, 1600 170"
-          stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" />
-        <path d="M-100 140 C 150 260, 550 60, 950 220 C 1150 300, 1420 170, 1600 210" stroke="rgba(0, 242, 254, 0.14)"
-          stroke-width="1.2" />
-        <path d="M-100 180 C 300 80, 700 240, 1100 120 C 1300 50, 1500 190, 1600 240" stroke="rgba(255, 255, 255, 0.09)"
-          stroke-width="1" />
-      </svg>
-
-      <div
-        style="position: relative; z-index: 1; text-align: center; max-width: 900px; margin: 0 auto; padding: 0 1rem;">
-        <h2
-          style="font-size: 2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; color: #ffffff !important;"
-          data-i18n="service_detail.related_title">Lĩnh Vực Hoạt Động Liên Quan</h2>
-
-        <div class="service-detail-related-grid">
-          <a href="dich-vu-thiet-ke-dien.html" class="service-detail-related-card reveal">
-            <h4 data-i18n="services.electrical">Thiết Kế Điện - Lập Trình Điều Khiển</h4>
-            <i class="bi bi-arrow-right-circle-fill"></i>
-          </a>
-
-          <a href="dich-vu-thiet-ke-mo-phong.html" class="service-detail-related-card reveal">
-            <h4 data-i18n="services.simulation">Thiết Kế Mô Phỏng 3D</h4>
-            <i class="bi bi-arrow-right-circle-fill"></i>
-          </a>
         </div>
       </div>
     </section>
-  </div>
+
+    <!-- ===== 2. LỢI ÍCH: 3 cột ===== -->
+    <section class="sl-section sl-section--alt" id="ck-loi-ich">
+      <div class="sl-container">
+        <div class="sl-head reveal">
+          <h2>Lợi ích khi hợp tác cùng VMOS</h2>
+        </div>
+        <div class="sl-benefits">
+          <article class="sl-benefit reveal">
+            <i class="bi bi-bullseye"></i>
+            <h3>Độ chính xác cao</h3>
+            <p>Kiểm soát dung sai, lắp ghép và vật liệu ngay từ khâu thiết kế để thiết bị đạt độ chính xác yêu cầu.</p>
+          </article>
+          <article class="sl-benefit reveal">
+            <i class="bi bi-file-earmark-ruled"></i>
+            <h3>Sẵn sàng chế tạo</h3>
+            <p>Hồ sơ bản vẽ, BOM và dữ liệu CNC đầy đủ, chuyển giao trực tiếp cho xưởng gia công.</p>
+          </article>
+          <article class="sl-benefit reveal">
+            <i class="bi bi-stopwatch"></i>
+            <h3>Giảm rủi ro, tiết kiệm thời gian</h3>
+            <p>Kiểm tra xung đột và khả năng lắp ráp trên mô hình 3D trước khi chế tạo, hạn chế sửa đổi về sau.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. PHẠM VI DỊCH VỤ (4 mảng, ảnh và chữ xen kẽ) ===== -->
+    <section class="sl-section" id="ck-pham-vi">
+      <div class="sl-container">
+        <div class="sl-head reveal">
+          <h2>Phạm Vi Dịch Vụ</h2>
+        </div>
+        <article id="ck-01" class="dsv-block reveal">
+          <div class="dsv-content">
+            <span class="dsv-num">01</span>
+            <h3 class="dsv-title">Thiết Kế Ý Tưởng &amp; Phương Án Tổng Thể</h3>
+            <p class="dsv-lead">Từ yêu cầu công nghệ và mặt bằng sản xuất, VMOS xây dựng phương án nguyên lý tối ưu,
+              dựng mô hình khái niệm 3D và đánh giá tính khả thi để doanh nghiệp định hình giải pháp thiết bị trước khi
+              đầu tư.</p>
+
+            <h4 class="dsv-sub">Phạm vi công việc</h4>
+            <ul class="dsv-checks">
+              <li><i class="bi bi-check-circle"></i>Tiếp nhận và phân tích yêu cầu công nghệ, sản lượng, thời gian chu
+                kỳ
+              </li>
+              <li><i class="bi bi-check-circle"></i>Khảo sát mặt bằng, điều kiện lắp đặt và vận hành thực tế</li>
+              <li><i class="bi bi-check-circle"></i>Đề xuất và so sánh các phương án nguyên lý hoạt động</li>
+              <li><i class="bi bi-check-circle"></i>Dựng mô hình khái niệm 3D, bố trí tổng thể thiết bị</li>
+              <li><i class="bi bi-check-circle"></i>Đánh giá tính khả thi kỹ thuật và dự toán chi phí sơ bộ</li>
+            </ul>
+          </div>
+
+          <div class="dsv-visual">
+            <figure class="dsv-shot">
+              <img src="images/service-co-khi-y-tuong.png"
+                alt="Bản vẽ kỹ thuật và mô hình 3D phương án tổng thể của máy tự động" loading="lazy">
+            </figure>
+          </div>
+        </article>
+        <article id="ck-02" class="dsv-block dsv-reverse reveal">
+          <div class="dsv-content">
+            <span class="dsv-num">02</span>
+            <h3 class="dsv-title">Thiết Kế Chi Tiết Máy, Cụm Máy &amp; Kết Cấu Thiết Bị</h3>
+            <p class="dsv-lead">Thiết kế chuyên sâu các bộ phận cơ khí chính xác, cụm truyền động và khung vỏ thiết bị.
+              Mỗi chi tiết được tối ưu độ bền, kiểm soát dung sai lắp ghép và lựa chọn vật liệu phù hợp với điều kiện
+              vận hành công nghiệp.</p>
+
+            <h4 class="dsv-sub">Phạm vi công việc</h4>
+            <ul class="dsv-steps">
+              <li>
+                <i class="bi bi-check-circle"></i>
+                <div><strong>Thiết kế cụm truyền động và cơ cấu chuyển động</strong>
+                  <span>Lựa chọn và bố trí các cơ cấu dẫn hướng, truyền động, kẹp giữ, định vị phù hợp với hành trình,
+                    tải trọng và độ chính xác yêu cầu.</span>
+                </div>
+              </li>
+              <li>
+                <i class="bi bi-check-circle"></i>
+                <div><strong>Thiết kế khung, vỏ và kết cấu thiết bị</strong>
+                  <span>Xây dựng kết cấu khung đỡ, vỏ che, tấm đế đảm bảo độ cứng vững, thuận tiện lắp đặt, bảo trì và
+                    đáp ứng yêu cầu an toàn khi vận hành.</span>
+                </div>
+              </li>
+              <li>
+                <i class="bi bi-check-circle"></i>
+                <div><strong>Kiểm soát dung sai và lắp ghép</strong>
+                  <span>Tính toán chuỗi kích thước, chọn cấp chính xác và kiểu lắp ghép để thiết bị đạt độ chính xác
+                    mong muốn mà vẫn tối ưu chi phí gia công.</span>
+                </div>
+              </li>
+              <li>
+                <i class="bi bi-check-circle"></i>
+                <div><strong>Lựa chọn vật liệu và linh kiện tiêu chuẩn</strong>
+                  <span>Chọn vật liệu, xử lý bề mặt và linh kiện thương mại phù hợp, ưu tiên chi tiết tiêu chuẩn để rút
+                    ngắn thời gian mua sắm và thay thế.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="dsv-visual">
+            <figure class="dsv-shot">
+              <img src="images/service-co-khi-chi-tiet-may.jpg"
+                alt="Mô hình 3D cụm máy công nghiệp và kết cấu thiết bị hoàn chỉnh" loading="lazy">
+            </figure>
+          </div>
+        </article>
+        <article id="ck-03" class="dsv-block reveal">
+          <div class="dsv-content">
+            <span class="dsv-num">03</span>
+            <h3 class="dsv-title">Triển Khai Bản Vẽ Lắp Ráp, Bản Vẽ Gia Công Phục Vụ Sản Xuất</h3>
+            <p class="dsv-lead">Xuất bộ hồ sơ kỹ thuật đầy đủ, rõ ràng và nhất quán, sẵn sàng chuyển giao trực tiếp cho
+              xưởng gia công và lắp ráp, giảm sai sót và thời gian trao đổi giữa thiết kế với chế tạo.</p>
+
+            <h4 class="dsv-sub">Phạm vi công việc</h4>
+            <ul class="dsv-checks">
+              <li><i class="bi bi-check-circle"></i>Bản vẽ lắp ráp tổng thể và từng cụm (Assembly Drawing)</li>
+              <li><i class="bi bi-check-circle"></i>Bản vẽ chi tiết gia công kèm dung sai, độ nhám, vật liệu (Detail
+                Drawing)</li>
+              <li><i class="bi bi-check-circle"></i>Bảng kê vật tư BOM cho chi tiết gia công và linh kiện mua ngoài</li>
+              <li><i class="bi bi-check-circle"></i>Xuất dữ liệu phục vụ gia công CNC theo yêu cầu xưởng</li>
+              <li><i class="bi bi-check-circle"></i>Chuẩn hóa đánh số, ký hiệu và khung tên theo tiêu chuẩn của khách
+                hàng
+              </li>
+            </ul>
+          </div>
+
+          <div class="dsv-visual">
+            <figure class="dsv-shot">
+              <img src="images/service-co-khi-ban-ve-gia-cong.jpg"
+                alt="Bản vẽ lắp và bản vẽ gia công chi tiết kèm bảng kê vật tư" loading="lazy">
+            </figure>
+          </div>
+        </article>
+        <article id="ck-04" class="dsv-block dsv-reverse reveal">
+          <div class="dsv-content">
+            <span class="dsv-num">04</span>
+            <h3 class="dsv-title">Chuyển Đổi Bản Vẽ 2D Thành Mô Hình 3D Và Ngược Lại</h3>
+            <p class="dsv-lead">Số hóa tài liệu kỹ thuật cũ và chuyển đổi linh hoạt giữa bản vẽ 2D với mô hình 3D chính
+              xác, giúp doanh nghiệp tái sử dụng bản vẽ sẵn có, kiểm tra xung đột không gian và chuẩn hóa dữ liệu thiết
+              kế.</p>
+
+            <h4 class="dsv-sub">Phạm vi công việc</h4>
+            <ul class="dsv-checks">
+              <li><i class="bi bi-check-circle"></i>Dựng mô hình 3D từ bản vẽ 2D (AutoCAD, bản vẽ giấy, bản scan)</li>
+              <li><i class="bi bi-check-circle"></i>Trích xuất bản vẽ 2D chuẩn từ mô hình 3D để gia công và lưu trữ</li>
+              <li><i class="bi bi-check-circle"></i>Kiểm tra xung đột, khoảng hở và khả năng lắp ráp trên mô hình</li>
+              <li><i class="bi bi-check-circle"></i>Đối chiếu và hiệu chỉnh kích thước giữa bản vẽ với chi tiết thực
+              </li>
+              <li><i class="bi bi-check-circle"></i>Chuẩn hóa tài liệu kỹ thuật theo yêu cầu và định dạng của khách hàng
+              </li>
+            </ul>
+          </div>
+
+          <div class="dsv-visual">
+            <figure class="dsv-shot">
+              <img src="images/service-co-khi-2d-3d.jpg"
+                alt="Chuyển đổi bản vẽ kỹ thuật 2D sang mô hình 3D chi tiết cơ khí" loading="lazy">
+              <figcaption><i class="bi bi-arrow-repeat"></i> Chuyển đổi 2D ⇄ 3D</figcaption>
+            </figure>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== QUY TRÌNH THỰC HIỆN ===== -->
+    <section class="sl-section" id="ck-process">
+      <div class="sl-container">
+        <div class="sl-head reveal">
+          <h2>Quy Trình Thực Hiện</h2>
+        </div>
+        <div class="reveal">
+          <ol class="ck-steps">
+            <li>
+              <h4>Tiếp nhận yêu cầu</h4>
+              <p>Trao đổi mục tiêu, thông số kỹ thuật và điều kiện thực tế của thiết bị.</p>
+            </li>
+            <li>
+              <h4>Đề xuất phương án</h4>
+              <p>Xây dựng mô hình khái niệm, so sánh phương án và thống nhất với khách hàng.</p>
+            </li>
+            <li>
+              <h4>Thiết kế chi tiết 3D</h4>
+              <p>Thiết kế cụm máy, chi tiết, kiểm tra xung đột và dung sai lắp ghép.</p>
+            </li>
+            <li>
+              <h4>Triển khai bản vẽ &amp; BOM</h4>
+              <p>Xuất bản vẽ lắp, bản vẽ gia công và bảng kê vật tư.</p>
+            </li>
+            <li>
+              <h4>Rà soát &amp; bàn giao</h4>
+              <p>Hiệu chỉnh theo phản hồi, bàn giao hồ sơ và hỗ trợ trong quá trình chế tạo.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== THIẾT BỊ CHÚNG TÔI THIẾT KẾ ===== -->
+    <section class="sl-section" id="ck-ung-dung">
+      <div class="sl-container">
+        <div class="sl-head reveal">
+          <h2>Thiết Bị Chúng Tôi Thiết Kế</h2>
+        </div>
+        <div class="reveal">
+          <div class="dsv-ind-grid">
+            <div class="dsv-ind"><i class="bi bi-gear-wide-connected"></i>
+              <h4>Thiết bị tự động hóa</h4>
+              <p>Máy tiết kiệm nhân công, dây chuyền lắp ráp tự động</p>
+            </div>
+            <div class="dsv-ind"><i class="bi bi-search"></i>
+              <h4>Máy kiểm tra</h4>
+              <p>Thiết bị kiểm tra kích thước, ngoại quan, chức năng</p>
+            </div>
+            <div class="dsv-ind"><i class="bi bi-bullseye"></i>
+              <h4>Máy FA định vị chính xác</h4>
+              <p>Cơ cấu định vị độ chính xác cao cho sản xuất công nghiệp</p>
+            </div>
+            <div class="dsv-ind"><i class="bi bi-robot"></i>
+              <h4>Tích hợp robot</h4>
+              <p>Cell robot, bàn gá và cơ cấu cấp, gắp, chuyển phôi</p>
+            </div>
+            <div class="dsv-ind"><i class="bi bi-wrench-adjustable"></i>
+              <h4>Đồ gá &amp; Jig</h4>
+              <p>Đồ gá gia công, lắp ráp, kiểm tra</p>
+            </div>
+            <div class="dsv-ind"><i class="bi bi-clipboard2-pulse"></i>
+              <h4>Máy thử nghiệm, chế thử</h4>
+              <p>Hỗ trợ phát triển thiết bị thử nghiệm và máy mẫu</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NỀN TẢNG CÔNG NGHỆ: logo + giới thiệu từng phần mềm ===== -->
+    <section class="sl-section sl-section--alt" id="ck-tech">
+      <div class="sl-container">
+        <div class="sl-head reveal">
+          <h2>Nền Tảng Công Nghệ</h2>
+          <p>Bộ phần mềm CAD VMOS sử dụng để dựng mô hình 3D, lập bản vẽ 2D và xuất hồ sơ phục vụ chế tạo.</p>
+        </div>
+        <div class="ck-tech-grid">
+          <article class="ck-tech-item reveal">
+            <div class="ck-tech-logo"><img src="images/tech-solidworks.png" alt="SolidWorks" loading="lazy"></div>
+            <h3>solidworks</h3>
+            <p>Dùng để dựng mô hình 3D chi tiết máy, cụm máy và khung kết cấu thiết bị; lắp ráp ảo để kiểm tra lắp ghép
+              và xung đột. Từ mô hình, VMOS xuất bản vẽ lắp, bản vẽ gia công và danh mục vật tư (BOM).</p>
+          </article>
+          <article class="ck-tech-item reveal">
+            <div class="ck-tech-logo"><img src="images/tech-cadpro.png" alt="rapid PRO" loading="lazy"></div>
+            <h3>rapid PRO</h3>
+            <p>Dùng để lập và chỉnh sửa bản vẽ kỹ thuật 2D như bản vẽ chi tiết, bản vẽ lắp và sơ đồ bố trí thiết bị.
+              Cách trình bày phù hợp quy cách bản vẽ kiểu Nhật, thuận tiện khi trao đổi hồ sơ với khách hàng Nhật Bản.
+            </p>
+          </article>
+          <article class="ck-tech-item reveal">
+            <div class="ck-tech-logo"><img src="images/tech-icad.png" alt="iCAD" loading="lazy"></div>
+            <h3>iCAD</h3>
+            <p>Dùng để thiết kế máy và thiết bị tự động hóa trên mô hình 3D, dựng cụm lắp ráp lớn và triển khai bản vẽ.
+              Hỗ trợ kết nối thư viện linh kiện tiêu chuẩn, giúp chọn và đưa linh kiện vào mô hình nhanh hơn.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
 
   <!-- ================= FOOTER ================= -->
   <footer class="footer">
@@ -398,24 +1354,26 @@
 
           <div class="footer-legal">
             <p><strong data-i18n="footer.tax_label">Mã số doanh nghiệp:</strong><br>
-              <span data-i18n="footer.tax_val">0109873066 do Sở Kế hoạch và Đầu tư Thành phố Hà Nội cấp phép.</span>
+              <span data-i18n="footer.tax_val">0109873066 do Sở Tài chính Thành phố Hà Nội cấp phép.</span>
             </p>
 
             <p><strong data-i18n="footer.address_label">Địa chỉ:</strong><br>
-              <span data-i18n="footer.address_val">Tầng 3 (sàn văn phòng cho thuê), Tòa nhà Rainbow, Khu đô thị mới Văn
-                Quán - Yên Phúc, Phường Hà Đông, Thành phố Hà Nội, Việt Nam.</span>
+              <span data-i18n="footer.address_val">Tầng 3 (sàn văn phòng cho thuê), Tòa nhà Rainbow, Khu đô thị mới
+                Văn Quán -⁠ Yên Phúc, Phường Hà Đông, Thành phố Hà Nội, Việt Nam.</span>
             </p>
           </div>
 
           <div class="footer-contact-row">
-            <a href="tel:+842436688679"><i class="bi bi-telephone-fill"></i> (+84) 24-3668-8679</a>
+            <a href="tel:+84868966625"><i class="bi bi-telephone-fill"></i> 0868 966 625</a>
             <a href="mailto:viet.mos@v-mos.com"><i class="bi bi-envelope-fill"></i> viet.mos@v-mos.com</a>
           </div>
 
           <div class="footer-social">
-            <a href="#" class="social-icon" aria-label="Zalo">Zalo</a>
+            <!-- Zalo: mở trang hồ sơ Zalo Business -->
+            <a href="zalo-qr.html" target="_blank" rel="noopener noreferrer" class="social-icon"
+              aria-label="Zalo">Zalo</a>
+            <!-- TODO: URL thật -->
             <a href="#" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="social-icon" aria-label="Youtube"><i class="bi bi-youtube"></i></a>
           </div>
         </div>
 
@@ -423,19 +1381,19 @@
           <h4 data-i18n="footer.quick_links">Liên Kết Nhanh</h4>
           <ul class="footer-links">
             <li><a href="index.html" data-i18n="nav.home">Trang chủ</a></li>
-            <li><a href="index.html#services" data-i18n="services.title">Dịch vụ trọng tâm</a></li>
-            <li><a href="about.html" data-i18n="nav.about">Về VMOS</a></li>
-            <li><a href="index.html#portfolio" data-i18n="portfolio.title">Dự án triển khai</a></li>
+            <li><a href="index.html#services" data-i18n="footer.link_services">Dịch vụ trọng tâm</a></li>
+            <li><a href="about.html" data-i18n="footer.link_about">Về VMOS</a></li>
+            <li><a href="du-an.html" data-i18n="footer.link_portfolio">Dự án triển khai</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4 data-i18n="footer.info_pages">Trang Thông Tin</h4>
           <ul class="footer-links">
-            <li><a href="blog.html" data-i18n="nav.blog">Tin tức & Công nghệ</a></li>
-            <li><a href="contact.html" data-i18n="nav.contact">Liên hệ tư vấn</a></li>
-            <li><a href="#" data-i18n="footer.privacy">Chính sách bảo mật</a></li>
-            <li><a href="#" data-i18n="footer.terms">Điều khoản sử dụng</a></li>
+            <li><a href="blog.html" data-i18n="footer.link_blog">Tin tức &amp; Công nghệ</a></li>
+            <li><a href="contact.html" data-i18n="footer.link_contact">Liên hệ tư vấn</a></li>
+            <li><a href="privacy.html" data-i18n="footer.privacy">Chính sách bảo mật</a></li>
+            <li><a href="terms.html" data-i18n="footer.terms">Điều khoản sử dụng</a></li>
           </ul>
         </div>
       </div>
@@ -450,20 +1408,21 @@
   <div class="floating-contact-widget">
     <!-- Nút Zalo -->
     <a href="zalo-qr.html" target="_blank" rel="noopener noreferrer" class="floating-btn btn-zalo"
-      aria-label="Kết nối Zalo">
-      <span class="floating-tooltip">Quét mã QR Zalo</span>
+      aria-label="Kết nối Zalo" data-i18n-attr="aria-label:float.zalo_label">
+      <span class="floating-tooltip" data-i18n="float.zalo_tooltip">Quét mã QR Zalo</span>
       <span class="zalo-text-badge">Zalo</span>
     </a>
 
     <!-- Nút Gọi điện -->
-    <a href="tel:+842436688679" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn">
-      <span class="floating-tooltip">(+84) 24-3668-8679</span>
+    <a href="tel:+84868966625" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn"
+      data-i18n-attr="aria-label:float.phone_label">
+      <span class="floating-tooltip">0868 966 625</span>
       <i class="bi bi-telephone-fill"></i>
     </a>
   </div>
 
-  <script src="i18n.js"></script>
-  <script src="script.js"></script>
+  <script src="i18n.js?v=11"></script>
+  <script src="script.js?v=11"></script>
 </body>
 
 </html>

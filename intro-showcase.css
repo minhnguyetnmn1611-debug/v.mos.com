@@ -1,0 +1,224 @@
+/* ==========================================================================
+   intro-showcase.css - Khối "Giới thiệu về VMOS" ở trang chủ (kiểu số liệu lớn)
+   Nạp SAU vmos-white-theme.css. Dùng tiền tố .isc- nên không đụng tới .intro-*.
+   Chỉnh nhanh:
+     --isc-accent   màu dấu + và biểu tượng (mặc định theo xanh của site)
+     --isc-ratio    tỉ lệ khung ảnh
+     --isc-cols     tỉ lệ cột trái : cột phải
+   ========================================================================== */
+.isc-section {
+  --isc-accent: var(--ui-blue-solid, #0062ff);
+  --isc-accent-hover: var(--ui-blue-hover, #0050d6);
+  --isc-ratio: 16 / 9;
+  --isc-cols: minmax(0, 4fr) minmax(0, 5fr);
+  --isc-ink: var(--tb-heading, var(--text-heading, #0f172a));
+  --intro-accent: var(--isc-accent);
+  padding: clamp(3rem, 6vw, 5.5rem) 0;
+}
+
+.isc-section .intro-badge {
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.isc-grid {
+  display: grid;
+  grid-template-columns: var(--isc-cols);
+  grid-template-areas:
+    "years body"
+    "photo stats";
+  column-gap: clamp(2rem, 8vw, 9rem);
+  row-gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+.isc-years {
+  grid-area: years;
+}
+
+.isc-body {
+  grid-area: body;
+}
+
+.isc-photo {
+  grid-area: photo;
+}
+
+.isc-stats {
+  grid-area: stats;
+  align-self: center;
+}
+
+/* ---- Số lớn: 5+ Năm ---- */
+.isc-years {
+  color: var(--isc-ink);
+}
+
+.isc-years-line {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(0.4rem, 1vw, 0.9rem);
+}
+
+.isc-years-num {
+  font-size: clamp(5.5rem, 12vw, 11rem);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+}
+
+.isc-years-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.isc-years-plus {
+  font-size: clamp(2.2rem, 4.6vw, 4.2rem);
+  font-weight: 800;
+  line-height: 0.8;
+  color: var(--isc-accent);
+}
+
+.isc-years-unit {
+  font-size: clamp(1.9rem, 4vw, 3.8rem);
+  font-weight: 700;
+  line-height: 0.9;
+}
+
+.isc-years-cap {
+  margin-top: 1.1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ---- Ảnh ---- */
+.isc-photo {
+  margin: 0;
+  width: 100%;
+  aspect-ratio: var(--isc-ratio);
+  overflow: hidden;
+  background: var(--bg-secondary, #eef2f7);
+}
+
+.isc-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Đoạn giới thiệu + nút ---- */
+.isc-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.isc-text {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.45vw, 1.35rem);
+  line-height: 1.75;
+}
+
+html[data-theme] body .isc-section .isc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.1rem 2.25rem;
+  border: 0;
+  border-radius: 0 !important;
+  background: var(--isc-accent) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  font-size: 0.95rem;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.2s ease !important;
+}
+
+html[data-theme] body .isc-section .isc-btn:hover,
+html[data-theme] body .isc-section .isc-btn:focus-visible {
+  background: var(--isc-accent-hover) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+/* ---- Hai chỉ số ---- */
+.isc-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+  color: var(--isc-ink);
+}
+
+.isc-stat-icon {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: clamp(2.4rem, 3.4vw, 3.4rem);
+  line-height: 1;
+  color: var(--isc-accent);
+}
+
+.isc-stat-line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.isc-stat-num {
+  position: relative;
+  display: inline-block;
+  padding-right: 0.5em;
+  font-size: clamp(2.6rem, 4vw, 4rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.isc-stat-sign {
+  position: absolute;
+  top: -0.1em;
+  right: 0;
+  font-size: 0.5em;
+  font-weight: 800;
+  color: var(--isc-accent);
+}
+
+.isc-stat-unit {
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-weight: 600;
+}
+
+.isc-stat-cap {
+  margin-top: 0.6rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ---- Điện thoại / máy tính bảng ---- */
+@media (max-width: 900px) {
+  .isc-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "years"
+      "body"
+      "photo"
+      "stats";
+  }
+}
+
+@media (max-width: 480px) {
+  .isc-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme] body .isc-section .isc-btn {
+    transition: none !important;
+  }
+}

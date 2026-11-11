@@ -25,17 +25,56 @@
     var height = 0;
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
 
+    // Particle & laser state is declared before resize() so it can be re-synced on every resize
+    var particles = [];
+    var laserBeams = [
+      { x: 0, yRatio: 0.2, y: 0, speed: 1.5, length: 220, alpha: 0.12 },
+      { x: 0, yRatio: 0.65, y: 0, speed: -2.0, length: 300, alpha: 0.15 }
+    ];
+    var lasersPlaced = false;
+
+    function targetParticleCount() {
+      return Math.floor(Math.min(width, 1400) / 22); // Responsive density
+    }
+
+    function syncToViewport() {
+      // Add or remove particles so density matches the new width
+      var target = targetParticleCount();
+      while (particles.length < target) particles.push(new Particle());
+      if (particles.length > target) particles.length = target;
+
+      // Keep existing particles inside the new bounds
+      for (var i = 0; i < particles.length; i++) {
+        if (particles[i].x > width) particles[i].x = Math.random() * width;
+        if (particles[i].y > height) particles[i].y = Math.random() * height;
+      }
+
+      // Lasers follow the viewport height
+      for (var l = 0; l < laserBeams.length; l++) {
+        laserBeams[l].y = height * laserBeams[l].yRatio;
+        if (!lasersPlaced) laserBeams[l].x = laserBeams[l].speed > 0 ? 0 : width;
+      }
+      lasersPlaced = true;
+    }
+
+    var resizeTimer = null;
     function resize() {
       width = window.innerWidth;
       height = window.innerHeight;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       canvas.style.width = width + 'px';
       canvas.style.height = height + 'px';
-      ctx.scale(dpr, dpr);
+      // setTransform resets the matrix, so repeated resizes never stack scales
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (typeof Particle === 'function') syncToViewport();
     }
-    window.addEventListener('resize', resize);
-    resize();
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resize, 100);
+    });
+    // First sizing happens after Particle is defined (see below)
 
     // Mouse interactive coordinates
     var mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000, radius: 180 };
@@ -53,8 +92,6 @@
     }, { passive: true });
 
     // Particle Generation
-    var particleCount = Math.floor(Math.min(width, 1400) / 22); // Responsive density
-    var particles = [];
 
     function Particle() {
       this.reset();
@@ -86,7 +123,7 @@
       var dy = mouse.y - this.y;
       var dist = Math.sqrt(dx * dx + dy * dy);
 
-      if (dist < mouse.radius) {
+      if (dist > 0 && dist < mouse.radius) {
         var force = (1 - dist / mouse.radius) * 1.8;
         this.x -= (dx / dist) * force;
         this.y -= (dy / dist) * force;
@@ -96,22 +133,15 @@
       }
     };
 
-    for (var i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
+    resize();
 
-    // Laser Light Beam System
-    var laserBeams = [
-      { x: 0, y: height * 0.2, speed: 1.5, length: 220, alpha: 0.12 },
-      { x: width, y: height * 0.65, speed: -2.0, length: 300, alpha: 0.15 }
-    ];
-
-    var isRunning = true;
+    var isRunning = !prefersReducedMotion;
+    var staticOnly = prefersReducedMotion;
     var frameId = null;
 
     function render(timestamp) {
-      if (!isRunning) return;
-      var time = timestamp * 0.001;
+      if (!isRunning && !staticOnly) return;
+      var time = (timestamp || 0) * 0.001;
 
       // Smooth mouse interpolation
       mouse.x += (mouse.targetX - mouse.x) * 0.1;
@@ -178,12 +208,27 @@
         }
       }
 
+      if (!staticOnly && isRunning) {
+        frameId = requestAnimationFrame(render);
+      }
+    }
+
+    if (prefersReducedMotion) {
+      render(0);
+    } else {
+      isRunning = true;
       frameId = requestAnimationFrame(render);
     }
 
-    if (!prefersReducedMotion) {
-      frameId = requestAnimationFrame(render);
-    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        isRunning = false;
+        if (frameId) cancelAnimationFrame(frameId);
+      } else if (!prefersReducedMotion && !isRunning) {
+        isRunning = true;
+        frameId = requestAnimationFrame(render);
+      }
+    });
   }
 
   if (document.readyState === 'loading') {

@@ -5,7 +5,9 @@
   <meta charset="UTF-8">
   <script>
     (function () {
-      var t = localStorage.getItem('theme') || 'dark';
+      var t = 'light';
+      try { t = localStorage.getItem('theme') || 'light'; } catch (e) { }
+      if (t !== 'dark' && t !== 'light') t = 'light';
       document.documentElement.setAttribute('data-theme', t);
       document.documentElement.style.backgroundColor = t === 'dark' ? '#0a0f1d' : '#f8fafc';
     })();
@@ -13,6 +15,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Liên Hệ - VIET.MOS COMPANY LIMITED (VMOS)</title>
   <meta name="description"
+    content="Liên hệ với VIET.MOS COMPANY LIMITED (VMOS) để nhận hỗ trợ tư vấn các giải pháp công nghệ, phần mềm và tự động hóa quy trình doanh nghiệp.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VMOS - VIET.MOS COMPANY LIMITED">
+  <meta property="og:title" content="Liên Hệ - VIET.MOS COMPANY LIMITED (VMOS)">
+  <meta property="og:description"
     content="Liên hệ với VIET.MOS COMPANY LIMITED (VMOS) để nhận hỗ trợ tư vấn các giải pháp công nghệ, phần mềm và tự động hóa quy trình doanh nghiệp.">
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -22,11 +29,19 @@
     rel="stylesheet">
 
 
-  <link rel="stylesheet" href="style.css?v=rx16">
-  <link rel="stylesheet" href="vmos-layout.css?v=3">
+  <link rel="stylesheet" href="style.css?v=rx30">
+  <link rel="stylesheet" href="vmos-layout.css?v=16">
+  <link rel="stylesheet" href="vmos-blue-theme.css?v=2">
+  <link rel="stylesheet" href="vmos-factory-theme.css?v=2">
+  <link rel="stylesheet" href="vmos-text-blue.css?v=1">
+  <link rel="stylesheet" href="vmos-white-theme.css?v=1">
+  <link rel="canonical" href="https://v-mos.com/contact.html">
+  <meta property="og:url" content="https://v-mos.com/contact.html">
+  <meta property="og:image" content="https://v-mos.com/images/vmos-logo.png">
+  <link rel="stylesheet" href="vmos-margins.css?v=1">
 </head>
 
-<body>
+<body class="breadcrumb-below">
 
   <!-- ================= NAVBAR ================= -->
   <header class="navbar scrolled">
@@ -36,12 +51,12 @@
       </a>
 
       <!-- Desktop Navigation Menu -->
-      <nav class="desktop-nav-menu">
+      <nav class="desktop-nav-menu" aria-label="Menu chính" data-i18n-attr="aria-label:nav.main_label">
         <a href="index.html" class="nav-link" data-i18n="nav.home">Trang chủ</a>
         <a href="about.html" class="nav-link" data-i18n="nav.about">Về chúng tôi</a>
 
         <div class="nav-dropdown">
-          <a href="dich-vu-thiet-ke-co-khi.html" class="nav-link nav-dropdown-toggle" data-i18n="nav.services">
+          <a href="dich-vu-thiet-ke-co-khi.html" class="nav-link nav-dropdown-toggle">
             <span data-i18n="nav.services">Dịch vụ</span>
             <i class="bi bi-chevron-down"></i>
           </a>
@@ -80,30 +95,31 @@
 
   <!-- ================= VINGROUP-STYLE FIXED NAVIGATION CONTROLS ================= -->
   <!-- Fixed Left Middle: Hamburger Button (3 lines line-only) -->
-  <button class="sidebar-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="side-menu">
+  <button class="sidebar-toggle" aria-label="Mở menu" data-i18n-attr="aria-label:nav.open_menu" aria-expanded="false"
+    aria-controls="side-menu">
     <span class="hamburger-line"></span>
     <span class="hamburger-line"></span>
     <span class="hamburger-line"></span>
   </button>
 
-  <!-- Fixed Left Bottom: Theme Toggle + Language Selector (Vertical Stack) -->
-  </div>
-
   <!-- ================= UNIFIED LEFT SIDEBAR NAVIGATION ================= -->
   <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
 
-  <aside class="side-menu" id="side-menu" aria-label="Menu điều hướng" role="dialog" aria-modal="true">
+  <aside class="side-menu" id="side-menu" aria-label="Menu điều hướng" data-i18n-attr="aria-label:nav.menu_label"
+    role="dialog" aria-modal="true">
     <div class="side-menu-header">
       <a href="index.html" class="logo">
         <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED">
       </a>
-      <button class="side-menu-close" aria-label="Đóng menu"><i class="bi bi-x-lg"></i></button>
+      <button class="side-menu-close" aria-label="Đóng menu" data-i18n-attr="aria-label:nav.close_menu"><i
+          class="bi bi-x-lg"></i></button>
     </div>
     <nav class="side-menu-nav">
       <a href="index.html" class="side-menu-link" data-i18n="nav.home">Trang chủ</a>
       <a href="about.html" class="side-menu-link" data-i18n="nav.about">Về chúng tôi</a>
       <div class="side-menu-group">
-        <button class="side-menu-link side-menu-group-toggle" data-i18n="nav.services">Dịch vụ</button>
+        <button class="side-menu-link side-menu-group-toggle" aria-expanded="false" data-i18n="nav.services">Dịch
+          vụ</button>
         <div class="side-menu-submenu">
           <a href="dich-vu-thiet-ke-co-khi.html" data-i18n="services.mechanical">Thiết Kế Cơ Khí</a>
           <a href="dich-vu-thiet-ke-dien.html" data-i18n="services.electrical">Thiết Kế Điện - Lập Trình Điều Khiển</a>
@@ -113,7 +129,7 @@
       <a href="du-an.html" class="side-menu-link" data-i18n="nav.portfolio">Dự án</a>
       <a href="blog.html" class="side-menu-link" data-i18n="nav.blog">Tin tức</a>
       <div class="side-menu-cta-wrapper">
-        <a href="contact.html" class="side-menu-link side-menu-cta active" data-i18n="nav.contact">
+        <a href="contact.html" class="side-menu-link side-menu-cta active">
           <span data-i18n="nav.contact">Liên hệ</span>
           <i class="bi bi-arrow-right-circle-fill"></i>
         </a>
@@ -121,16 +137,6 @@
     </nav>
   </aside>
 
-  <!-- ================= BREADCRUMB ================= -->
-  <nav class="service-detail-breadcrumb" aria-label="Breadcrumb">
-    <div class="container">
-      <ul class="service-detail-breadcrumb-list">
-        <li><a href="index.html" data-i18n="service_detail.breadcrumb_home">Trang chủ</a></li>
-        <li class="separator" aria-hidden="true"><i class="bi bi-chevron-right"></i></li>
-        <li class="current" aria-current="page" data-i18n="nav.contact" style="text-transform: uppercase;">Liên hệ</li>
-      </ul>
-    </div>
-  </nav>
 
   <!-- ================= CONTACT HERO ================= -->
   <section class="hero" style="min-height: 40vh; padding-top: 2rem; padding-bottom: 3rem;">
@@ -148,6 +154,18 @@
       </p>
     </div>
   </section>
+
+  <!-- ================= BREADCRUMB (ngay dưới banner) ================= -->
+  <nav class="service-detail-breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+      <ul class="service-detail-breadcrumb-list">
+        <li><a href="index.html" data-i18n="service_detail.breadcrumb_home">Trang chủ</a></li>
+        <li class="separator" aria-hidden="true"><i class="bi bi-chevron-right"></i></li>
+        <li class="current" aria-current="page" data-i18n="nav.contact" style="text-transform: uppercase;">Liên hệ</li>
+      </ul>
+    </div>
+  </nav>
+
 
   <!-- ================= MAIN CONTACT SECTION ================= -->
   <section class="section-glow" style="padding: 3rem 0 6rem 0;">
@@ -169,7 +187,8 @@
             <div>
               <h4 style="font-size: 1.05rem; margin-bottom: 0.2rem;" data-i18n="contact.office_hq">Trụ sở chính</h4>
               <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;" data-i18n="footer.address_val">Tầng 3
-                (sàn văn phòng cho thuê), Tòa nhà Rainbow, Khu đô thị mới Văn Quán - Yên Phúc, Phường Hà Đông, Thành phố
+                (sàn văn phòng cho thuê), Tòa nhà Rainbow, Khu đô thị mới Văn Quán -⁠ Yên Phúc, Phường Hà Đông, Thành
+                phố
                 Hà Nội, Việt Nam</p>
             </div>
           </div>
@@ -195,7 +214,7 @@
             </div>
             <div>
               <h4 style="font-size: 1.05rem; margin-bottom: 0.2rem;" data-i18n="contact.office_email">Email Hỗ Trợ</h4>
-              <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">vietmos@v-mos.com</p>
+              <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">viet.mos@v-mos.com</p>
             </div>
           </div>
 
@@ -207,7 +226,15 @@
         style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-lg);">
         <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;" data-i18n="contact.form_title">Gửi Yêu Cầu Tư Vấn</h3>
 
-        <form id="contact-form" style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <form id="contact-form" data-endpoint="https://api.web3forms.com/submit"
+          style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <!-- ===== CẤU HÌNH NHẬN MAIL (xem hướng dẫn) =====
+               Thay DAN_ACCESS_KEY_CUA_BAN bằng Access Key lấy từ web3forms.com (nhập viet.mos@v-mos.com để nhận key) -->
+          <input type="hidden" name="access_key" value="DAN_ACCESS_KEY_CUA_BAN">
+          <input type="hidden" name="subject" value="[Website VMOS] Yêu cầu tư vấn mới">
+          <input type="hidden" name="from_name" value="Website VMOS">
+          <!-- Ô bẫy chống spam, người dùng không nhìn thấy -->
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display: none;">
           <div>
             <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem;"
               data-i18n="contact.form_name_label">Họ và Tên (*)</label>
@@ -260,24 +287,26 @@
 
           <div class="footer-legal">
             <p><strong data-i18n="footer.tax_label">Mã số doanh nghiệp:</strong><br>
-              <span data-i18n="footer.tax_val">0109873066 do Sở Kế hoạch và Đầu tư Thành phố Hà Nội cấp phép.</span>
+              <span data-i18n="footer.tax_val">0109873066 do Sở Tài chính Thành phố Hà Nội cấp phép.</span>
             </p>
 
             <p><strong data-i18n="footer.address_label">Địa chỉ:</strong><br>
-              <span data-i18n="footer.address_val">Tầng 3 (sàn văn phòng cho thuê), Tòa nhà Rainbow, Khu đô thị mới Văn
-                Quán - Yên Phúc, Phường Hà Đông, Thành phố Hà Nội, Việt Nam.</span>
+              <span data-i18n="footer.address_val">Tầng 3 (sàn văn phòng cho thuê), Tòa nhà Rainbow, Khu đô thị mới
+                Văn Quán -⁠ Yên Phúc, Phường Hà Đông, Thành phố Hà Nội, Việt Nam.</span>
             </p>
           </div>
 
           <div class="footer-contact-row">
-            <a href="tel:+842436688679"><i class="bi bi-telephone-fill"></i> (+84) 24-3668-8679</a>
+            <a href="tel:+84868966625"><i class="bi bi-telephone-fill"></i> 0868 966 625</a>
             <a href="mailto:viet.mos@v-mos.com"><i class="bi bi-envelope-fill"></i> viet.mos@v-mos.com</a>
           </div>
 
           <div class="footer-social">
-            <a href="#" class="social-icon" aria-label="Zalo">Zalo</a>
+            <!-- Zalo: mở trang hồ sơ Zalo Business -->
+            <a href="zalo-qr.html" target="_blank" rel="noopener noreferrer" class="social-icon"
+              aria-label="Zalo">Zalo</a>
+            <!-- TODO: URL thật -->
             <a href="#" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="social-icon" aria-label="Youtube"><i class="bi bi-youtube"></i></a>
           </div>
         </div>
 
@@ -285,19 +314,19 @@
           <h4 data-i18n="footer.quick_links">Liên Kết Nhanh</h4>
           <ul class="footer-links">
             <li><a href="index.html" data-i18n="nav.home">Trang chủ</a></li>
-            <li><a href="index.html#services" data-i18n="services.title">Dịch vụ trọng tâm</a></li>
-            <li><a href="about.html" data-i18n="nav.about">Về VMOS</a></li>
-            <li><a href="du-an.html" data-i18n="portfolio.title">Dự án triển khai</a></li>
+            <li><a href="index.html#services" data-i18n="footer.link_services">Dịch vụ trọng tâm</a></li>
+            <li><a href="about.html" data-i18n="footer.link_about">Về VMOS</a></li>
+            <li><a href="du-an.html" data-i18n="footer.link_portfolio">Dự án triển khai</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4 data-i18n="footer.info_pages">Trang Thông Tin</h4>
           <ul class="footer-links">
-            <li><a href="blog.html" data-i18n="nav.blog">Tin tức & Công nghệ</a></li>
-            <li><a href="contact.html" data-i18n="nav.contact">Liên hệ tư vấn</a></li>
-            <li><a href="#" data-i18n="footer.privacy">Chính sách bảo mật</a></li>
-            <li><a href="#" data-i18n="footer.terms">Điều khoản sử dụng</a></li>
+            <li><a href="blog.html" data-i18n="footer.link_blog">Tin tức &amp; Công nghệ</a></li>
+            <li><a href="contact.html" data-i18n="footer.link_contact">Liên hệ tư vấn</a></li>
+            <li><a href="privacy.html" data-i18n="footer.privacy">Chính sách bảo mật</a></li>
+            <li><a href="terms.html" data-i18n="footer.terms">Điều khoản sử dụng</a></li>
           </ul>
         </div>
       </div>
@@ -312,20 +341,21 @@
   <div class="floating-contact-widget">
     <!-- Nút Zalo -->
     <a href="zalo-qr.html" target="_blank" rel="noopener noreferrer" class="floating-btn btn-zalo"
-      aria-label="Kết nối Zalo">
-      <span class="floating-tooltip">Quét mã QR Zalo</span>
+      aria-label="Kết nối Zalo" data-i18n-attr="aria-label:float.zalo_label">
+      <span class="floating-tooltip" data-i18n="float.zalo_tooltip">Quét mã QR Zalo</span>
       <span class="zalo-text-badge">Zalo</span>
     </a>
 
     <!-- Nút Gọi điện -->
-    <a href="tel:+842436688679" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn">
-      <span class="floating-tooltip">(+84) 24-3668-8679</span>
+    <a href="tel:+84868966625" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn"
+      data-i18n-attr="aria-label:float.phone_label">
+      <span class="floating-tooltip">0868 966 625</span>
       <i class="bi bi-telephone-fill"></i>
     </a>
   </div>
 
-  <script src="i18n.js"></script>
-  <script src="script.js"></script>
+  <script src="i18n.js?v=11"></script>
+  <script src="script.js?v=11"></script>
 </body>
 
 </html>

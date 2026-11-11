@@ -1,0 +1,254 @@
+/* ==========================================================================
+   VMOS HERO STYLES (hero.css)
+   Final unified cascade state of hero-dashboard.css & hero-line-theme.css
+   ========================================================================== */
+.vh-hero,
+html[data-theme="dark"] .vh-hero,
+html[data-theme="light"] .vh-hero {
+  --hl-bg: #141b25;
+  --hl-bg-near: #28313c;
+  --hl-img: url("images/hero-line-bg.jpg");
+  --hl-pos: 38%;
+  --hl-shade: 0.78;
+  --hl-fade: 260px;
+  --hl-size: 736px;
+
+  --hl-h: 440px;
+  /* Bản 4 cạnh cho điện thoại */
+  --hl-mx: linear-gradient(90deg,
+      transparent 0,
+      rgba(0, 0, 0, .08) calc(var(--hl-fade) * .25),
+      rgba(0, 0, 0, .35) calc(var(--hl-fade) * .5),
+      rgba(0, 0, 0, .78) calc(var(--hl-fade) * .75),
+      #000 var(--hl-fade),
+      #000 calc(100% - var(--hl-fade)),
+      rgba(0, 0, 0, .78) calc(100% - var(--hl-fade) * .75),
+      rgba(0, 0, 0, .35) calc(100% - var(--hl-fade) * .5),
+      rgba(0, 0, 0, .08) calc(100% - var(--hl-fade) * .25),
+      transparent 100%);
+  --hl-my: linear-gradient(180deg,
+      transparent 0,
+      rgba(0, 0, 0, .08) calc(var(--hl-fade) * .25),
+      rgba(0, 0, 0, .35) calc(var(--hl-fade) * .5),
+      rgba(0, 0, 0, .78) calc(var(--hl-fade) * .75),
+      #000 var(--hl-fade),
+      #000 calc(100% - var(--hl-fade)),
+      rgba(0, 0, 0, .78) calc(100% - var(--hl-fade) * .75),
+      rgba(0, 0, 0, .35) calc(100% - var(--hl-fade) * .5),
+      rgba(0, 0, 0, .08) calc(100% - var(--hl-fade) * .25),
+      transparent 100%);
+
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 6.5rem 0 0;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
+  isolation: isolate;
+  background: var(--hl-bg) !important;
+}
+
+/* Lớp ảnh: phủ kín toàn bộ hero */
+.vh-hero::before,
+html[data-theme="dark"] .vh-hero::before,
+html[data-theme="light"] .vh-hero::before {
+  display: block !important;
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  transform: none !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  background: var(--hl-img) center var(--hl-pos) / cover no-repeat !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+/* Lớp phủ navy nhẹ bên trái để chữ trắng nổi bật, mờ dần về bên phải */
+.vh-hero::after,
+html[data-theme="dark"] .vh-hero::after,
+html[data-theme="light"] .vh-hero::after {
+  display: block !important;
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  background: linear-gradient(90deg,
+      rgba(10, 16, 28, var(--hl-shade)) 0%,
+      rgba(10, 16, 28, calc(var(--hl-shade) * .8)) 28%,
+      rgba(10, 16, 28, calc(var(--hl-shade) * .35)) 50%,
+      rgba(10, 16, 28, calc(var(--hl-shade) * .08)) 66%,
+      rgba(10, 16, 28, 0) 78%) !important;
+}
+
+.vh-wrap {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding: 0 2rem 3rem clamp(1.5rem, 6vw, 6rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center !important;
+}
+
+.vh-title,
+html[data-theme="dark"] .vh-title,
+html[data-theme="light"] .vh-title {
+  max-width: 12.5em;
+  text-wrap: balance;
+  font-size: clamp(2.4rem, 4.6vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff !important;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45) !important;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
+}
+
+.vh-side {
+  margin-top: 1.6rem;
+  max-width: 560px;
+}
+
+.vh-side i,
+html[data-theme="dark"] .vh-side i,
+html[data-theme="light"] .vh-side i {
+  display: block;
+  width: 44px;
+  height: 4px;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #22d3ee, #6366f1) !important;
+}
+
+.vh-side p,
+html[data-theme="dark"] .vh-side p,
+html[data-theme="light"] .vh-side p {
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin: 0 0 1.6rem;
+  color: #dbe7fb !important;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45) !important;
+  text-wrap: balance;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
+}
+
+.vh-btn,
+html[data-theme="dark"] .vh-btn,
+html[data-theme="light"] .vh-btn {
+  display: inline-block;
+  padding: 0.85rem 2.2rem;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #0ea5e9 0%, #4f46e5 100%) !important;
+  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.38) !important;
+  color: #ffffff !important;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: transform 0.2s, background-color 0.2s;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
+}
+
+.vh-btn:hover,
+html[data-theme="dark"] .vh-btn:hover,
+html[data-theme="light"] .vh-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%) !important;
+  color: #ffffff !important;
+}
+
+.vh-trust h5,
+html[data-theme="dark"] .vh-trust h5,
+html[data-theme="light"] .vh-trust h5 {
+  color: #dbe7fb !important;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
+}
+
+.vh-logos img,
+html[data-theme="dark"] .vh-logos img,
+html[data-theme="light"] .vh-logos img {
+  filter: grayscale(1) brightness(0) invert(1) !important;
+  opacity: 0.85 !important;
+}
+
+/* Navbar Logo Display Fix */
+.logo-img {
+  display: block !important;
+  height: 44px !important;
+  width: auto !important;
+  object-fit: contain !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+}
+
+/* Màn hình vừa: ảnh lấn sang chữ nhiều hơn nên mờ rộng hơn */
+@media (min-width: 993px) and (max-width: 1180px) {
+
+  .vh-hero,
+  html[data-theme="dark"] .vh-hero,
+  html[data-theme="light"] .vh-hero {
+    --hl-fade: 300px;
+  }
+}
+
+/* Điện thoại / máy tính bảng: ảnh nằm phía trên, chữ nằm bên dưới */
+@media (max-width: 992px) {
+
+  .vh-hero,
+  html[data-theme="dark"] .vh-hero,
+  html[data-theme="light"] .vh-hero {
+    --hl-fade: 70px;
+    background: linear-gradient(180deg, var(--hl-bg-near) 0%, var(--hl-bg) 62%) !important;
+  }
+
+  .vh-hero::before,
+  html[data-theme="dark"] .vh-hero::before,
+  html[data-theme="light"] .vh-hero::before {
+    inset: auto !important;
+    top: 4.5rem !important;
+    bottom: auto !important;
+    right: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: var(--hl-h) !important;
+    background-size: var(--hl-size) var(--hl-size) !important;
+    background-position: center center !important;
+    -webkit-mask-image: var(--hl-mx), var(--hl-my) !important;
+    -webkit-mask-composite: source-in !important;
+    mask-image: var(--hl-mx), var(--hl-my) !important;
+    mask-composite: intersect !important;
+  }
+
+  .vh-hero::after,
+  html[data-theme="dark"] .vh-hero::after,
+  html[data-theme="light"] .vh-hero::after {
+    display: none !important;
+  }
+
+  .vh-wrap,
+  html[data-theme="dark"] .vh-wrap,
+  html[data-theme="light"] .vh-wrap {
+    justify-content: flex-start !important;
+    padding-top: calc(4.5rem + var(--hl-h) - 1.5rem) !important;
+    padding-bottom: 2.5rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vh-btn {
+    transition: none;
+  }
+}

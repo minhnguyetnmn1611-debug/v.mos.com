@@ -1,3 +1,14 @@
+/* Chuyển giao diện mặc định sang bản sáng "nhà máy" một lần duy nhất */
+(function () {
+  try {
+    if (localStorage.getItem('theme-factory-v1')) return;
+    localStorage.setItem('theme-factory-v1', '1');
+    localStorage.setItem('theme', 'light');
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.style.backgroundColor = '#f8fafc';
+  } catch (e) { }
+})();
+
 /* ==========================================================================
    WEBSITE CÔNG TY - INTERACTIVE JAVASCRIPT
    ========================================================================== */
@@ -110,6 +121,7 @@ function initNavbar() {
     groupToggle.addEventListener('click', (e) => {
       e.preventDefault();
       groupToggle.classList.toggle('open');
+      groupToggle.setAttribute('aria-expanded', groupToggle.classList.contains('open') ? 'true' : 'false');
     });
   }
 
@@ -127,17 +139,17 @@ function initThemeToggle() {
   const themeBtn = document.getElementById('theme-toggle');
   if (!themeBtn) return;
 
-  const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
   updateThemeIcon(themeBtn, currentTheme);
 
   themeBtn.addEventListener('click', () => {
     const activeTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
-    
+
     document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
+    try { localStorage.setItem('theme', newTheme); } catch (e) { /* trình duyệt chặn lưu trữ */ }
     updateThemeIcon(themeBtn, newTheme);
-    const toastMsg = newTheme === 'dark' 
+    const toastMsg = newTheme === 'dark'
       ? (window.t ? window.t('toast.theme_dark') : 'Đã chuyển sang giao diện Tối')
       : (window.t ? window.t('toast.theme_light') : 'Đã chuyển sang giao diện Sáng');
     showToast(toastMsg);
@@ -145,97 +157,9 @@ function initThemeToggle() {
 }
 
 function updateThemeIcon(btn, theme) {
-  btn.innerHTML = theme === 'dark' 
-    ? '<i class="bi bi-sun-fill" style="color: #f59e0b;"></i>' 
+  btn.innerHTML = theme === 'dark'
+    ? '<i class="bi bi-sun-fill" style="color: #f59e0b;"></i>'
     : '<i class="bi bi-moon-stars-fill" style="color: #6366f1;"></i>';
-}
-
-/* --- PARTICLE CANVAS ANIMATION --- */
-function initParticleCanvas() {
-  const canvas = document.getElementById('particle-canvas');
-  if (!canvas) return;
-
-  const ctx = canvas.getContext('2d');
-  let width, height;
-  let particles = [];
-  const particleCount = 45;
-
-  function resize() {
-    const parent = canvas.parentElement;
-    width = canvas.width = parent.clientWidth;
-    height = canvas.height = parent.clientHeight;
-  }
-
-  class Particle {
-    constructor() {
-      this.reset();
-    }
-
-    reset() {
-      this.x = Math.random() * width;
-      this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * 1.2;
-      this.vy = (Math.random() - 0.5) * 1.2;
-      this.radius = Math.random() * 2 + 1;
-      this.alpha = Math.random() * 0.5 + 0.3;
-    }
-
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-
-      if (this.x < 0 || this.x > width) this.vx *= -1;
-      if (this.y < 0 || this.y > height) this.vy *= -1;
-    }
-
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(6, 182, 212, ${this.alpha})`;
-      ctx.fill();
-    }
-  }
-
-  function init() {
-    resize();
-    particles = [];
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, width, height);
-
-    // Draw connecting lines
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < 110) {
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(6, 182, 212, ${0.25 * (1 - dist / 110)})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        }
-      }
-    }
-
-    particles.forEach(p => {
-      p.update();
-      p.draw();
-    });
-
-    requestAnimationFrame(animate);
-  }
-
-  window.addEventListener('resize', resize);
-  init();
-  animate();
 }
 
 /* --- STATS COUNTER ANIMATION --- */
@@ -306,12 +230,12 @@ function initPortfolioTabs() {
   });
 }
 
-/* --- CONTACT FORM VALIDATION & TOAST --- */
+/* --- CONTACT FORM: GỬI THẬT QUA ENDPOINT (data-endpoint trên thẻ <form>) --- */
 function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = form.querySelector('[name="name"]').value.trim();
     const email = form.querySelector('[name="email"]').value.trim();
@@ -323,18 +247,63 @@ function initContactForm() {
       return;
     }
 
+    // Ô bẫy chống spam: người thật không thấy nên không điền; bot điền thì bỏ qua êm
+    const trap = form.querySelector('[name="botcheck"]');
+    if (trap && trap.checked) return;
+
+    const endpoint = (form.dataset.endpoint || '').trim();
+    if (!endpoint) {
+      console.error('Contact form: chưa cấu hình data-endpoint trên <form id="contact-form">.');
+      showToast('⚠️ ' + (window.t ? window.t('toast.contact_error') : 'Gửi thất bại. Vui lòng gọi hotline hoặc email cho chúng tôi.'), 'warning');
+      return;
+    }
+
+    // Chưa thay Access Key thật (lấy tại web3forms.com) -> báo lỗi rõ ràng thay vì gửi yêu cầu chắc chắn thất bại
+    const keyInput = form.querySelector('[name="access_key"]');
+    if (keyInput && (!keyInput.value || keyInput.value === 'DAN_ACCESS_KEY_CUA_BAN')) {
+      console.error('Contact form: chưa thay Access Key trong <input name="access_key"> (contact.html).');
+      showToast('⚠️ ' + (window.t ? window.t('toast.contact_error') : 'Gửi thất bại. Vui lòng gọi hotline hoặc email cho chúng tôi.'), 'warning');
+      return;
+    }
+
     const originalText = submitBtn.innerHTML;
     const submittingText = window.t ? window.t('toast.contact_submitting') : 'Đang gửi...';
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> ' + submittingText;
 
-    setTimeout(() => {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalText;
+    const payload = {
+      name: name,
+      email: email,
+      phone: (form.querySelector('[name="phone"]').value || '').trim(),
+      message: (form.querySelector('[name="message"]').value || '').trim(),
+      page: location.href
+    };
+    // Các ô ẩn cấu hình sẵn trong form (access_key, subject, from_name...) được gửi kèm
+    form.querySelectorAll('input[type="hidden"]').forEach((h) => { payload[h.name] = h.value; });
+    // Để khi bấm "Reply" trong hộp thư, mail trả lời thẳng về khách
+    payload._replyto = email;
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      let data = null;
+      try { data = await res.json(); } catch (_) { /* một số dịch vụ trả về không phải JSON */ }
+      if (!res.ok || (data && data.success === false)) throw new Error('HTTP ' + res.status);
+
       form.reset();
       const successMsg = window.t ? window.t('toast.contact_success') : 'Cảm ơn bạn! Chúng tôi đã nhận được thông tin và sẽ liên hệ lại sớm nhất.';
       showToast('🎉 ' + successMsg);
-    }, 1500);
+    } catch (err) {
+      console.error('Contact form error:', err);
+      const errMsg = window.t ? window.t('toast.contact_error') : 'Gửi thất bại. Vui lòng thử lại hoặc gọi hotline.';
+      showToast('⚠️ ' + errMsg, 'warning');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+    }
   });
 }
 
@@ -345,7 +314,7 @@ function initTerminalStagger() {
     line.style.opacity = '0';
     line.style.transform = 'translateY(10px)';
     line.style.transition = `all 0.4s ease ${index * 0.3}s`;
-    
+
     setTimeout(() => {
       line.style.opacity = '1';
       line.style.transform = 'translateY(0)';
@@ -364,7 +333,9 @@ function showToast(message, type = 'info') {
 
   const toast = document.createElement('div');
   toast.className = 'toast';
-  toast.innerHTML = `<span>${message}</span>`;
+  const toastText = document.createElement('span');
+  toastText.textContent = message;
+  toast.appendChild(toastText);
 
   container.appendChild(toast);
 
@@ -674,18 +645,33 @@ function initClientsMarquee() {
   }
 }
 
-/* --- REUSABLE DRAG TO SCROLL ENGINE --- */
+/* --- REUSABLE DRAG TO SCROLL ENGINE (đã sửa lỗi rung ở dải ảnh Thiết Kế Cơ Khí) ---
+   Thay NGUYÊN hàm initDragScroll cũ trong script.js bằng hàm này.
+
+   Nguyên nhân lỗi cũ:
+   - Hàm cũ coi "độ dài một vòng" W = scrollWidth / 2 (lệch ~6px so với thực tế vì còn padding-right).
+   - Khi scrollLeft <= 1 thì cộng W, khi scrollLeft >= W - 1 thì trừ W. Hai ngưỡng này chồng nhau:
+     0 + W = W (>= W - 1) -> trừ W về 0 (<= 1) -> cộng W ... lặp vô hạn mỗi khung hình => ảnh rung.
+   Cách sửa:
+   - Đo độ dài một vòng thật (khoảng cách thẻ gốc đầu tiên tới thẻ clone đầu tiên).
+   - Đặt vị trí bắt đầu ở giữa dải và chỉ "bẻ vòng" khi ra khỏi vùng đệm [0.25P, 1.25P],
+     nên hai ngưỡng không bao giờ chạm nhau.
+*/
 function initDragScroll(selector, options = {}) {
   const tracks = document.querySelectorAll(selector);
   if (!tracks.length) return;
 
-  const isLoop = typeof options === 'boolean' ? options : (options.loop || (typeof selector === 'string' && selector.includes('service-detail-intro-scroll')));
+  const isLoop = typeof options === 'boolean'
+    ? options
+    : (options.loop || (typeof selector === 'string' && selector.includes('service-detail-intro-scroll')));
 
   tracks.forEach(track => {
+    let originals = null;
+
     if (isLoop && !track.dataset.cloned) {
-      const originalChildren = Array.from(track.children);
+      originals = Array.from(track.children);
       const revealClasses = ['reveal', 'reveal-scale', 'reveal-left', 'reveal-right', 'reveal-card'];
-      
+
       const sanitizeNode = (node) => {
         if (node.classList) {
           revealClasses.forEach(cls => node.classList.remove(cls));
@@ -698,55 +684,80 @@ function initDragScroll(selector, options = {}) {
         }
       };
 
-      originalChildren.forEach(child => {
+      originals.forEach(child => {
         const clone = child.cloneNode(true);
         clone.setAttribute('aria-hidden', 'true');
+        clone.dataset.loopClone = 'true';
         clone.querySelectorAll('a, button, input, select, textarea').forEach(el => el.setAttribute('tabindex', '-1'));
-        
-        // Ensure clone and all descendants are immediately visible without scroll-reveal delay
         sanitizeNode(clone);
         clone.querySelectorAll('*').forEach(sanitizeNode);
-
         track.appendChild(clone);
       });
       track.dataset.cloned = 'true';
     }
 
     let isDown = false;
-    let startX;
-    let scrollLeft;
+    let startX = 0;
+    let scrollLeft = 0;
     let hasDragged = false;
     let isAdjustingLoop = false;
 
+    /* Độ dài chính xác của một vòng (px): thẻ clone đầu tiên cách thẻ gốc đầu tiên bao xa. */
+    function getPeriod() {
+      const first = track.querySelector(':scope > :not([data-loop-clone])');
+      const firstClone = track.querySelector(':scope > [data-loop-clone]');
+      if (!first || !firstClone) return 0;
+      return firstClone.getBoundingClientRect().left - first.getBoundingClientRect().left;
+    }
+
+    function jumpBy(delta) {
+      const prev = track.style.scrollBehavior;
+      track.style.scrollBehavior = 'auto'; // tắt smooth để nhảy tức thời, không thấy giật
+      track.scrollLeft += delta;
+      track.style.scrollBehavior = prev;
+      if (isDown) scrollLeft += delta;
+    }
+
     function checkLoop() {
       if (!isLoop || isAdjustingLoop) return;
-      const W = track.scrollWidth / 2;
-      if (!W || W <= 1) return;
+      const P = getPeriod();
+      if (!P || P < 50) return; // chưa có bố cục (trang vừa nạp / thẻ đang ẩn)
 
-      const prevBehavior = track.style.scrollBehavior;
-      if (track.scrollLeft >= W - 1) {
+      const lower = P * 0.25;
+      const upper = P * 1.25;
+
+      if (track.scrollLeft >= upper) {
         isAdjustingLoop = true;
-        track.style.scrollBehavior = 'auto';
-        track.scrollLeft -= W;
-        if (isDown) {
-          scrollLeft -= W;
-        }
-        track.style.scrollBehavior = prevBehavior;
-        requestAnimationFrame(() => {
-          isAdjustingLoop = false;
-        });
-      } else if (track.scrollLeft <= 1) {
+        jumpBy(-P);
+        requestAnimationFrame(() => { isAdjustingLoop = false; });
+      } else if (track.scrollLeft < lower) {
         isAdjustingLoop = true;
-        track.style.scrollBehavior = 'auto';
-        track.scrollLeft += W;
-        if (isDown) {
-          scrollLeft += W;
-        }
-        track.style.scrollBehavior = prevBehavior;
-        requestAnimationFrame(() => {
-          isAdjustingLoop = false;
-        });
+        jumpBy(P);
+        requestAnimationFrame(() => { isAdjustingLoop = false; });
       }
+    }
+
+    /* Đặt vị trí bắt đầu ở giữa dải (đúng một vòng) để có chỗ kéo cả hai hướng. */
+    function centerTrack() {
+      if (!isLoop) return;
+      const P = getPeriod();
+      if (!P || P < 50) return;
+      const prev = track.style.scrollBehavior;
+      track.style.scrollBehavior = 'auto';
+      track.scrollLeft = P;
+      track.style.scrollBehavior = prev;
+    }
+
+    if (isLoop) {
+      centerTrack();
+      // Bố cục có thể chưa xong lúc script chạy (font, ảnh, quay lại bằng nút Back) -> căn lại.
+      window.addEventListener('load', () => { if (!isDown) centerTrack(); }, { once: true });
+      window.addEventListener('pageshow', (e) => { if (e.persisted && !isDown) centerTrack(); });
+      let resizeTimer = null;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => { if (!isDown) checkLoop(); }, 150);
+      });
     }
 
     track.addEventListener('mousedown', (e) => {
@@ -776,18 +787,14 @@ function initDragScroll(selector, options = {}) {
       e.preventDefault();
       const x = e.pageX - track.offsetLeft;
       const walk = (x - startX) * 1.5;
-      if (Math.abs(walk) > 5) {
-        hasDragged = true;
-      }
+      if (Math.abs(walk) > 5) hasDragged = true;
       track.scrollLeft = scrollLeft - walk;
       checkLoop();
     });
 
     track.addEventListener('scroll', () => {
-      if (!isDown) {
-        checkLoop();
-      }
-    });
+      if (!isDown) checkLoop();
+    }, { passive: true });
 
     track.addEventListener('click', (e) => {
       if (hasDragged) {
@@ -873,3 +880,49 @@ function initServiceLightbox() {
   });
 }
 
+/* Căn đều hai bên các đoạn văn (toàn trang): gắn lớp .fx-justify cho đoạn đủ rộng & đủ dài */
+(function () {
+  'use strict';
+  var EXCLUDE = 'header, nav, footer, button, a.btn, .vh-hero, .hero, .side-menu, .floating-contact-widget, .lang-menu, .nav-dropdown-menu, .toast, [data-no-justify]';
+  var timer = null;
+
+  function applyJustify() {
+    var list = document.querySelectorAll('p, .intro-text');
+    for (var i = 0; i < list.length; i++) {
+      var el = list[i];
+      el.classList.remove('fx-justify');
+      if (el.closest(EXCLUDE)) continue;
+      var align = window.getComputedStyle(el).textAlign;
+      if (align === 'center' || align === 'right' || align === 'end') continue;
+      if (el.clientWidth < 300) continue;
+      if ((el.textContent || '').trim().length < 60) continue;
+      el.classList.add('fx-justify');
+    }
+  }
+
+  function schedule() {
+    clearTimeout(timer);
+    timer = setTimeout(applyJustify, 120);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyJustify);
+  else applyJustify();
+  window.addEventListener('load', schedule);
+  window.addEventListener('resize', schedule);
+  document.addEventListener('languagechange', schedule);
+  var origSet = window.setLanguage;
+  if (typeof origSet === 'function' && !origSet.__fxWrapped) {
+    var wrapped = function () { var r = origSet.apply(this, arguments); schedule(); return r; };
+    wrapped.__fxWrapped = true;
+    window.setLanguage = wrapped;
+  } else {
+    window.addEventListener('load', function () {
+      var o = window.setLanguage;
+      if (typeof o === 'function' && !o.__fxWrapped) {
+        var w = function () { var r = o.apply(this, arguments); schedule(); return r; };
+        w.__fxWrapped = true;
+        window.setLanguage = w;
+      }
+    });
+  }
+})();
