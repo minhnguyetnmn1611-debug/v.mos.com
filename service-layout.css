@@ -19,7 +19,9 @@
   --sl-muted: var(--text-muted, #475569);
   --sl-line: var(--border-color, #e2e8f0);
   --sl-card: var(--bg-card, #ffffff);
-  --sl-alt: var(--bg-secondary, #f1f5f9);
+  /* Nền xen kẽ riêng: --bg-secondary bị vmos-white-theme.css ép thành trắng ở giao diện Sáng.
+     Muốn phẳng hoàn toàn như trước: đặt --sl-alt: #ffffff. */
+  --sl-alt: #f5f7fa;
   color: var(--sl-ink);
 }
 
@@ -31,11 +33,13 @@
   background: var(--sl-alt);
 }
 
+html[data-theme="dark"] .sl-page {
+  --sl-alt: var(--bg-secondary, #111827);
+}
+
 .sl-container {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  /* max-width, lề và padding do vmos-margins.css (--page-pad) và luật --sl-max bên dưới quyết định */
 }
 
 /* vmos-margins.css ép .container/.sl-container rộng tới 1920px khiến ảnh ở 3 trang dịch vụ quá to trên màn hình lớn.
@@ -87,7 +91,7 @@ html body .sl-page .sl-container {
   aspect-ratio: var(--sl-ratio);
   overflow: hidden;
   margin: 0;
-  background: linear-gradient(135deg, #38bdf8, #0062ff);
+  background: linear-gradient(135deg, #38bdf8, var(--brand, #0062ff));
   color: rgba(255, 255, 255, 0.92);
   font-size: clamp(3rem, 7vw, 5.5rem);
 }
@@ -203,7 +207,7 @@ html body .sl-page .sl-container {
   margin-top: clamp(2.5rem, 5vw, 4.5rem);
 }
 
-.sl-feature:nth-of-type(even) .sl-media {
+.sl-features>.sl-feature:nth-child(even) .sl-media {
   order: 2;
 }
 
@@ -243,7 +247,7 @@ html body .sl-page .sl-container {
 .sl-card:focus-visible {
   transform: translateY(-4px);
   border-color: var(--sl-accent);
-  box-shadow: 0 14px 32px rgba(0, 98, 255, 0.14);
+  box-shadow: 0 14px 32px rgba(var(--brand-rgb, 0, 98, 255), 0.14);
 }
 
 .sl-card .sl-media {
@@ -440,7 +444,7 @@ html[data-theme] body .sl-btn:focus-visible {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .sl-feature:nth-of-type(even) .sl-media {
+  .sl-features>.sl-feature:nth-child(even) .sl-media {
     order: 0;
   }
 
@@ -541,88 +545,23 @@ html[data-theme] body .sl-btn:focus-visible {
   color: var(--sl-muted);
 }
 
-/* ---- Các thành phần cũ: bo góc -> vuông, bỏ đổ bóng ---- */
-.sl-page .dsv-block {
-  gap: clamp(1.75rem, 4vw, 3.5rem);
-  padding: clamp(2rem, 4vw, 3.5rem) 0;
-  border-top: 1px solid var(--sl-line);
-}
-
-.sl-page .dsv-block:first-of-type {
-  border-top: 0;
-  padding-top: 0;
-}
-
-.sl-page .dsv-title {
-  font-weight: 800;
-  line-height: 1.25;
-  color: var(--sl-ink);
-}
-
-.sl-page .dsv-lead {
-  color: var(--sl-muted);
-}
-
-.sl-page .dsv-sub {
-  padding-left: 0.7rem;
-  border-left: 4px solid var(--sl-accent);
-  color: var(--sl-ink);
-}
-
+/* ---- Các thành phần cũ: bo góc -> vuông, bỏ đổ bóng ----
+   Chỉ giữ phần service-refine.css KHÔNG ghi đè (.dsv-block, .dsv-title, .dsv-lead, .dsv-sub,
+   .dsv-shot, .dsv-logos li, .ck-steps, .dsv-ind ... đã được định nghĩa đầy đủ ở service-refine.css). */
 .sl-page .dsv-media,
-.sl-page .dsv-shot,
 .sl-page .dsv-stat,
-.sl-page .dsv-logos li,
 .sl-page .dsv-chips span,
-.sl-page .ck-steps li,
-.sl-page .dsv-checks i,
-.sl-page .dsv-steps li>i,
-.sl-page .dsv-step-no,
-.sl-page .ck-steps li::before {
+.sl-page .dsv-step-no {
   border-radius: 0;
 }
 
 .sl-page .dsv-media,
-.sl-page .dsv-shot,
-.sl-page .dsv-stat,
-.sl-page .dsv-logos li,
-.sl-page .ck-steps li {
+.sl-page .dsv-stat {
   box-shadow: none;
 }
 
-.sl-page .dsv-step-no,
-.sl-page .ck-steps li::before {
+.sl-page .dsv-step-no {
   background: var(--sl-accent);
-}
-
-.sl-page .ck-steps li {
-  border-top: 4px solid var(--sl-accent);
-}
-
-.sl-page .ck-steps h4 {
-  color: var(--sl-ink);
-}
-
-.sl-page .ck-steps p {
-  color: var(--sl-muted);
-}
-
-.sl-page .dsv-ind {
-  border-radius: 0;
-  box-shadow: none;
-  border-top: 4px solid var(--sl-accent);
-}
-
-.sl-page .dsv-ind:hover {
-  border-color: var(--sl-accent);
-}
-
-.sl-page .dsv-ind h4 {
-  color: var(--sl-ink);
-}
-
-.sl-page .dsv-ind p {
-  color: var(--sl-muted);
 }
 
 .sl-page .ck-tech .dsv-logos,

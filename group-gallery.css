@@ -65,7 +65,7 @@
 }
 
 .group-gallery {
-  --gg-accent: #0062ff;
+  --gg-accent: var(--brand, #0062ff);
   --gg-ratio: 16 / 10;
   --gg-track: #e6e8eb;
   --gg-btn-bg: #f1f2f4;

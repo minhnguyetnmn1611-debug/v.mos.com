@@ -30,16 +30,17 @@
     rel="stylesheet">
 
 
-  <link rel="stylesheet" href="style.css?v=rx30">
-  <link rel="stylesheet" href="vmos-layout.css?v=16">
-  <link rel="stylesheet" href="vmos-blue-theme.css?v=2">
-  <link rel="stylesheet" href="vmos-factory-theme.css?v=2">
-  <link rel="stylesheet" href="vmos-text-blue.css?v=1">
-  <link rel="stylesheet" href="vmos-white-theme.css?v=1">
+  <link rel="stylesheet" href="style.css?v=20261116">
+  <link rel="stylesheet" href="vmos-layout.css?v=20261116">
+  <link rel="stylesheet" href="vmos-blue-theme.css?v=20261116">
+  <link rel="stylesheet" href="vmos-factory-theme.css?v=20261116">
+  <link rel="stylesheet" href="vmos-text-blue.css?v=20261116">
+  <link rel="stylesheet" href="vmos-white-theme.css?v=20261116">
   <link rel="canonical" href="https://v-mos.com/blog.html">
   <meta property="og:url" content="https://v-mos.com/blog.html">
   <meta property="og:image" content="https://v-mos.com/images/vmos-logo.png">
-  <link rel="stylesheet" href="vmos-margins.css?v=1">
+  <link rel="stylesheet" href="vmos-margins.css?v=20261116">
+  <link rel="stylesheet" href="page-banner.css?v=20261118">
 </head>
 
 <body class="breadcrumb-below">
@@ -140,19 +141,13 @@
 
 
   <!-- ================= BLOG HERO ================= -->
-  <section class="hero blog-hero">
-    <div class="hero-bg-glow"></div>
-    <div class="container" style="text-align: center;">
-      <div class="section-badge badge-magenta">
-        <i class="bi bi-journal-text"></i>
-        <span data-i18n="blog.hero_badge">Góc Nhìn Công Nghệ</span>
+  <section class="pb-banner">
+    <div class="container">
+      <div class="pb-banner-title">
+        <h1><span data-i18n="blog.hero_title_1">Tin Tức &amp; </span><span data-i18n="blog.hero_title_2">Hoạt Động</span></h1>
+        <div class="pb-banner-divider" aria-hidden="true"></div>
+        <p data-i18n="blog.hero_desc">Cập nhật các hoạt động đào tạo, hợp tác phát triển nguồn nhân lực và giải pháp công nghệ tự động hóa từ VIET.MOS (VMOS).</p>
       </div>
-      <h1 style="font-size: 2.75rem;"><span data-i18n="blog.hero_title_1">Tin Tức &amp; </span><span
-          class="gradient-text" data-i18n="blog.hero_title_2">Xu Hướng Số</span></h1>
-      <p style="max-width: 650px; margin: 1rem auto 0 auto; color: var(--text-muted);" data-i18n="blog.hero_desc">
-        Chia sẻ kiến thức chuyên sâu về phần mềm, tự động hóa và lộ trình chuyển đổi số hiệu quả cho doanh nghiệp từ
-        VMOS.
-      </p>
     </div>
   </section>
 
@@ -162,70 +157,896 @@
       <ul class="service-detail-breadcrumb-list">
         <li><a href="index.html" data-i18n="service_detail.breadcrumb_home">Trang chủ</a></li>
         <li class="separator" aria-hidden="true"><i class="bi bi-chevron-right"></i></li>
-        <li class="current" aria-current="page" data-i18n="nav.blog" style="text-transform: uppercase;">Tin tức</li>
+        <li class="current" id="breadcrumb-news-root" aria-current="page">
+          <a href="blog.html" id="breadcrumb-news-link" data-i18n="nav.blog" style="text-transform: uppercase; text-decoration: none; color: inherit;">Tin tức</a>
+        </li>
+        <li class="separator" id="breadcrumb-article-sep" aria-hidden="true" hidden><i class="bi bi-chevron-right"></i></li>
+        <li class="current" id="breadcrumb-article-title" aria-current="page" data-i18n="blog.kifukouza.title" hidden>VIET.MOS Đồng Hành Đào Tạo Kỹ Sư Tương Lai Qua Khóa Học Tài Trợ Miễn Phí Kifukouza</li>
       </ul>
     </div>
   </nav>
 
 
-  <!-- ================= BLOG GRID ================= -->
-  <section class="section-glow" style="padding: 3rem 0 6rem 0;">
-    <div class="bg-glow-left"></div>
+  <!-- ================= TIN TỨC: DANH SÁCH THẺ & CHI TIẾT BÀI VIẾT ================= -->
+  <section class="section-glow news-page-section">
     <div class="container">
 
-      <div class="portfolio-grid" style="grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));">
+      <!-- 1. DANH SÁCH BÀI BÁO DẠNG THẺ (Chỉ hiển thị 1 ảnh minh họa + Tiêu đề chính) -->
+      <div class="news-grid" id="news-list-view" role="list" aria-label="Danh sách tin tức">
+        <a href="#thong-bao-nghi-le-24-11" class="news-card" data-article-target="thong-bao-nghi-le-24-11" role="listitem">
+          <div class="news-card-media">
+            <img src="images/thong-bao-nghi-le-24-11.jpg"
+              alt="THÔNG BÁO LỊCH NGHỈ LỄ NGÀY VĂN HÓA VIỆT NAM 24/11"
+              class="news-card-img" loading="lazy">
+          </div>
+          <div class="news-card-body">
+            <h2 class="news-card-title" data-i18n="blog.holiday_2411.title">THÔNG BÁO LỊCH NGHỈ LỄ NGÀY VĂN HÓA VIỆT NAM 24/11</h2>
+          </div>
+        </a>
 
-        <div class="project-card reveal">
-          <div class="project-thumb" style="background: linear-gradient(135deg, #38bdf8, #0062ff);">
-            <i class="bi bi-cpu-fill"></i>
+        <a href="#kifukouza" class="news-card" data-article-target="kifukouza" role="listitem">
+          <div class="news-card-media">
+            <img src="images/news-kifukouza-hoi-nghi.jpg"
+              alt="VIET.MOS Đồng Hành Đào Tạo Kỹ Sư Tương Lai Qua Khóa Học Tài Trợ Miễn Phí Kifukouza"
+              class="news-card-img" loading="lazy">
           </div>
-          <div class="project-info">
-            <span class="project-tag" data-i18n="blog.card1_tag">Xu hướng AI</span>
-            <h4 aria-level="2" data-i18n="blog.card1_title">Ứng Dụng Generative AI Trong Tự Động Hóa Doanh Nghiệp 2026
-            </h4>
-            <p data-i18n="blog.card1_desc">Khám phá cách các doanh nghiệp hàng đầu tích hợp AI để tối ưu hóa quy trình
-              chăm sóc khách hàng và trích xuất dữ liệu tự động.</p>
-            <span class="blog-read-more" data-i18n="blog.read_more">Đọc tiếp &rarr;</span>
+          <div class="news-card-body">
+            <h2 class="news-card-title" data-i18n="blog.kifukouza.title">VIET.MOS Đồng Hành Đào Tạo Kỹ Sư Tương Lai Qua Khóa Học Tài Trợ Miễn Phí Kifukouza</h2>
           </div>
+        </a>
+      </div>
+
+      <!-- 2. NỘI DUNG CHI TIẾT BÀI BÁO (Hiện ra khi người truy cập nhấn vào thẻ) -->
+      <div class="news-detail-wrapper" id="news-detail-view" hidden>
+        <div class="news-back-bar">
+          <button type="button" class="news-back-btn" data-news-back>
+            <i class="bi bi-arrow-left" aria-hidden="true"></i>
+            <span data-i18n="blog.back_to_list">Quay lại danh sách tin tức</span>
+          </button>
         </div>
 
-        <div class="project-card reveal">
-          <div class="project-thumb" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6);">
-            <i class="bi bi-shield-lock-fill"></i>
-          </div>
-          <div class="project-info">
-            <span class="project-tag" data-i18n="blog.card2_tag">Bảo mật Cloud</span>
-            <h4 aria-level="2" data-i18n="blog.card2_title">5 Tiêu Chí Đảm Bảo An Toàn Dữ Liệu Khi Chuyển Lên Cloud</h4>
-            <p data-i18n="blog.card2_desc">Hướng dẫn kiểm tra chuẩn an ninh mạng ISO 27001 và tối ưu hạ tầng lưu trữ đám
-              mây cho doanh nghiệp vừa và nhỏ.</p>
-            <span class="blog-read-more" data-i18n="blog.read_more">Đọc tiếp &rarr;</span>
-          </div>
-        </div>
+        <!-- BÀI BÁO 1: THÔNG BÁO NGHỈ LỄ 24/11 -->
+        <article class="news-article content-card" id="thong-bao-nghi-le-24-11" hidden>
+          <header class="news-article-header">
+            <div class="news-meta" data-no-justify>
+              <span class="news-tag" data-i18n="blog.holiday_2411.tag">Thông báo</span>
+              <span class="news-date"><i class="bi bi-calendar3" aria-hidden="true"></i> <span data-i18n="blog.holiday_2411.date">18/11/2026</span></span>
+            </div>
+            <h2 class="news-article-title" data-i18n="blog.holiday_2411.title">THÔNG BÁO LỊCH NGHỈ LỄ NGÀY VĂN HÓA VIỆT NAM 24/11</h2>
+            <p class="news-lead" data-i18n="blog.holiday_2411.lead">Nhân dịp kỷ niệm Ngày Văn hóa Việt Nam (24/11), Công ty TNHH VIET.MOS xin trân trọng thông báo lịch nghỉ lễ của công ty tới Quý Khách hàng, Quý Đối tác cùng toàn thể Cán bộ Nhân viên.</p>
+          </header>
 
-        <div class="project-card reveal">
-          <div class="project-thumb" style="background: linear-gradient(135deg, #0284c7, #1d4ed8);">
-            <i class="bi bi-diagram-2-fill"></i>
-          </div>
-          <div class="project-info">
-            <span class="project-tag" data-i18n="blog.card3_tag">Chuyển đổi số</span>
-            <h4 aria-level="2" data-i18n="blog.card3_title">Lộ Trình Xây Dựng Hệ Thống ERP Chuẩn Hóa Nghiệp Vụ</h4>
-            <p data-i18n="blog.card3_desc">Các bước cơ bản để số hóa quy trình quản trị doanh nghiệp thành công mà không
-              làm gián đoạn vận hành kinh doanh hiện tại.</p>
-            <span class="blog-read-more" data-i18n="blog.read_more">Đọc tiếp &rarr;</span>
-          </div>
-        </div>
+          <!-- Ảnh mở đầu thông báo -->
+          <figure class="news-figure news-figure-hero">
+            <button type="button" class="news-img-trigger" aria-label="Phóng to ảnh thông báo nghỉ lễ">
+              <img src="images/thong-bao-nghi-le-24-11.jpg" alt="Thông báo lịch nghỉ lễ Ngày Văn hóa Việt Nam 24/11 - VIET.MOS" loading="eager">
+            </button>
+            <figcaption data-i18n="blog.holiday_2411.cap_hero">Thông báo lịch nghỉ lễ Ngày Văn hóa Việt Nam 24/11/2026 của Công ty TNHH VIET.MOS.</figcaption>
+          </figure>
 
+          <!-- Nội dung chi tiết thông báo -->
+          <section class="news-section">
+            <div class="announcement-box">
+              <p class="announcement-salutation"><strong data-i18n="blog.holiday_2411.salutation">Kính gửi: Quý Khách hàng, Quý Đối tác cùng toàn thể Cán bộ Nhân viên Công ty TNHH VIET.MOS,</strong></p>
+              
+              <p data-i18n="blog.holiday_2411.intro">Nhân dịp kỷ niệm Ngày Văn hóa Việt Nam (24/11), Công ty TNHH VIET.MOS xin trân trọng thông báo lịch nghỉ lễ của công ty như sau:</p>
+
+              <div class="holiday-schedule-card">
+                <div class="schedule-item">
+                  <div class="schedule-icon"><i class="bi bi-calendar-event"></i></div>
+                  <div class="schedule-info">
+                    <span class="schedule-label" data-i18n="blog.holiday_2411.off_label">Thời gian nghỉ lễ:</span>
+                    <strong class="schedule-value highlight-off" data-i18n="blog.holiday_2411.off_time">Thứ Ba, ngày 24/11/2026</strong>
+                  </div>
+                </div>
+                <div class="schedule-item">
+                  <div class="schedule-icon"><i class="bi bi-briefcase"></i></div>
+                  <div class="schedule-info">
+                    <span class="schedule-label" data-i18n="blog.holiday_2411.back_label">Thời gian làm việc trở lại:</span>
+                    <strong class="schedule-value highlight-back" data-i18n="blog.holiday_2411.back_time">Thứ Tư, ngày 25/11/2026</strong>
+                  </div>
+                </div>
+              </div>
+
+              <p data-i18n="blog.holiday_2411.support">Trong thời gian nghỉ lễ, mọi hoạt động giao dịch và hỗ trợ trực tiếp tại văn phòng sẽ tạm ngưng. Nếu có công việc cần hỗ trợ khẩn cấp, Quý Khách hàng và Đối tác vui lòng liên hệ trực tiếp với nhân sự phụ trách dự án hoặc gửi thông tin qua email của công ty để được phản hồi sớm nhất.</p>
+
+              <p data-i18n="blog.holiday_2411.wishes">Kính chúc Quý Khách hàng, Quý Đối tác cùng toàn thể thành viên VIET.MOS một ngày lễ bình an, hạnh phúc và tràn đầy năng lượng!</p>
+
+              <div class="announcement-signature">
+                <p><strong>Trân trọng,</strong></p>
+                <p class="company-name" data-i18n="blog.holiday_2411.signature">Công ty TNHH VIET.MOS</p>
+              </div>
+            </div>
+          </section>
+
+          <div class="news-article-footer">
+            <button type="button" class="news-back-btn" data-news-back>
+              <i class="bi bi-arrow-left" aria-hidden="true"></i>
+              <span data-i18n="blog.back_to_list">Quay lại danh sách tin tức</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- BÀI BÁO 2: KHÓA HỌC KIFUKOUZA -->
+        <article class="news-article content-card" id="kifukouza">
+          <header class="news-article-header">
+            <div class="news-meta" data-no-justify>
+              <span class="news-tag" data-i18n="blog.kifukouza.tag">Đào tạo &amp; Hợp tác</span>
+              <span class="news-date"><i class="bi bi-calendar3" aria-hidden="true"></i> <span data-i18n="blog.kifukouza.date">Năm 2024</span></span>
+            </div>
+            <h2 class="news-article-title" data-i18n="blog.kifukouza.title">VIET.MOS Đồng Hành Đào Tạo Kỹ Sư Tương Lai Qua Khóa Học Tài Trợ Miễn Phí Kifukouza</h2>
+            <p class="news-lead" data-i18n="blog.kifukouza.lead">Trong năm 2024, Công ty TNHH VIET.MOS (VMOS) đã triển khai khóa học tài trợ miễn phí mang tên Kifukouza dành cho sinh viên khối ngành kỹ thuật tại Việt Nam. Chương trình không chỉ chuyển giao kiến thức chuyên sâu về cơ khí, thiết kế mô phỏng và tự động hóa mà còn trang bị nền tảng ngôn ngữ, tác phong công nghiệp Nhật Bản, giúp sinh viên tự tin gia nhập môi trường doanh nghiệp toàn cầu.</p>
+          </header>
+
+          <!-- Ảnh mở đầu: Hội nghị / Lễ ký kết triển khai khóa học -->
+          <figure class="news-figure news-figure-hero">
+            <button type="button" class="news-img-trigger" aria-label="Phóng to ảnh">
+              <img src="images/news-kifukouza-hoi-nghi.jpg" alt="Ban lãnh đạo VIET.MOS trong buổi làm việc triển khai khóa học tài trợ miễn phí Kifukouza" loading="eager">
+            </button>
+            <figcaption data-i18n="blog.kifukouza.cap_hero">Ban lãnh đạo Công ty TNHH VIET.MOS trong buổi làm việc triển khai chương trình đào tạo tài trợ miễn phí Kifukouza.</figcaption>
+          </figure>
+
+          <!-- Phần 1 -->
+          <section class="news-section">
+            <h3 class="news-section-title" data-i18n="blog.kifukouza.h1">Đào tạo thực chiến gắn liền với công nghệ mô phỏng 3D</h3>
+            <p data-i18n="blog.kifukouza.p1_1">Khóa học Kifukouza được VIET.MOS xây dựng nhằm thu hẹp khoảng cách giữa lý thuyết trên giảng đường và yêu cầu sản xuất thực tế. Tại các cơ sở đào tạo như Trường Cao đẳng Cơ điện Hà Nội, chương trình duy trì lộ trình giảng dạy bài bản, kết hợp hài hòa giữa kỹ năng chuyên môn và trải nghiệm công nghệ hiện đại.</p>
+            <p data-i18n="blog.kifukouza.p1_2">Điểm nhấn trong chương trình đào tạo kỹ thuật của VIET.MOS là các giờ học thiết kế mô phỏng chuyên sâu. Thay vì chỉ tiếp cận bản vẽ tĩnh, sinh viên được trực tiếp quan sát và tương tác với không gian sản xuất ảo trong mô phỏng 3D thông qua kính thực tế ảo (VR). Phương pháp trực quan này giúp học viên nhanh chóng nắm bắt nguyên lý vận hành của dây chuyền tự động hóa và cấu trúc thiết bị cơ khí ngay từ khi còn ngồi trên ghế nhà trường.</p>
+
+            <!-- Cụm 2 ảnh trải nghiệm kính thực tế ảo VR -->
+            <figure class="news-figure">
+              <div class="news-photo-grid news-photo-grid--vr">
+                <button type="button" class="news-img-trigger" aria-label="Phóng to ảnh trải nghiệm VR 1">
+                  <img src="images/news-kifukouza-vr-1.jpg" alt="Sinh viên trải nghiệm không gian sản xuất ảo trong mô phỏng 3D qua kính thực tế ảo VR" loading="lazy">
+                </button>
+                <button type="button" class="news-img-trigger" aria-label="Phóng to ảnh trải nghiệm VR 2">
+                  <img src="images/news-kifukouza-vr-2.jpg" alt="Kỹ sư VIET.MOS hướng dẫn sinh viên đeo kính thực tế ảo VR trong giờ học thiết kế mô phỏng" loading="lazy">
+                </button>
+              </div>
+              <figcaption data-i18n="blog.kifukouza.cap_vr">Sinh viên trực tiếp quan sát và tương tác với không gian sản xuất ảo trong mô phỏng 3D thông qua kính thực tế ảo (VR) dưới sự hướng dẫn của kỹ sư VIET.MOS.</figcaption>
+            </figure>
+
+            <p data-i18n="blog.kifukouza.p1_3">Song song với các buổi học lý thuyết và thực hành, VIET.MOS còn tổ chức cho sinh viên trực tiếp tham quan doanh nghiệp. Hoạt động này mang lại cái nhìn toàn diện về quy trình thiết kế, chế tạo một sản phẩm hoàn chỉnh trong thực tế, đồng thời giúp các kỹ sư tương lai hiểu rõ định hướng phát triển công nghệ mà doanh nghiệp đang theo đuổi.</p>
+
+            <!-- Cụm 3 ảnh tham quan văn phòng doanh nghiệp VIET.MOS -->
+            <figure class="news-figure">
+              <div class="news-photo-grid news-photo-grid--tour">
+                <button type="button" class="news-img-trigger" aria-label="Phóng to ảnh tham quan doanh nghiệp 1">
+                  <img src="images/news-kifukouza-tham-quan-1.jpg" alt="Sinh viên tham quan văn phòng VIET.MOS và nghe giới thiệu tổng quan về công ty" loading="lazy">
+                </button>
+                <button type="button" class="news-img-trigger" aria-label="Phóng to ảnh tham quan doanh nghiệp 2">
+                  <img src="images/news-kifukouza-tham-quan-2.jpg" alt="Kỹ sư VIET.MOS giới thiệu quy trình thiết kế kỹ thuật trực tiếp tại văn phòng" loading="lazy">
+                </button>
+                <button type="button" class="news-img-trigger" aria-label="Phóng to ảnh tham quan doanh nghiệp 3">
+                  <img src="images/news-kifukouza-tham-quan-3.jpg" alt="Sinh viên quan sát thực tế công việc thiết kế bản vẽ và mô hình trên máy tính tại VIET.MOS" loading="lazy">
+                </button>
+              </div>
+              <figcaption data-i18n="blog.kifukouza.cap_tour">Sinh viên tham quan thực tế văn phòng làm việc của VIET.MOS và nghe kỹ sư giới thiệu quy trình thiết kế kỹ thuật trên hệ thống máy tính chuyên dụng.</figcaption>
+            </figure>
+          </section>
+
+          <!-- Phần 2 -->
+          <section class="news-section">
+            <h3 class="news-section-title" data-i18n="blog.kifukouza.h2">Trang bị văn hóa ứng xử và tác phong công nghiệp Nhật Bản</h3>
+            <p data-i18n="blog.kifukouza.p2_1">Bên cạnh năng lực chuyên môn, rào cản về ngôn ngữ và văn hóa doanh nghiệp luôn là thách thức lớn đối với kỹ sư Việt Nam khi làm việc cùng đối tác Nhật Bản. Thấu hiểu điều đó, Kifukouza dành thời lượng đáng kể để đào tạo tiếng Nhật chuyên ngành và kỹ năng mềm.</p>
+            <p data-i18n="blog.kifukouza.p2_2">Trực tiếp đứng lớp giảng dạy nội dung này tại Trường Cao đẳng Cơ điện Hà Nội là ông Yamazaki Issei – chuyên gia giàu kinh nghiệm của VIET.MOS. Thông qua cuốn giáo trình thực tiễn do chính ông biên soạn, các học viên được hướng dẫn chi tiết về quy tắc ứng xử, tác phong làm việc chuẩn mực và phương pháp giao tiếp, phối hợp hiệu quả trong môi trường doanh nghiệp Nhật Bản. Những kiến thức đúc kết từ thực tế này đóng vai trò như hành trang thiết yếu, giúp sinh viên xóa bỏ bỡ ngỡ và nhanh chóng hòa nhập sau khi tốt nghiệp.</p>
+
+            <!-- Ảnh lớp học văn hóa & tác phong Nhật Bản -->
+            <figure class="news-figure news-figure-single">
+              <button type="button" class="news-img-trigger" aria-label="Phóng to ảnh lớp học văn hóa doanh nghiệp Nhật Bản">
+                <img src="images/news-kifukouza-lop-hoc-van-hoa.jpg" alt="Ông Yamazaki Issei trực tiếp giảng dạy văn hóa ứng xử và tác phong làm việc Nhật Bản tại Trường Cao đẳng Cơ điện Hà Nội" loading="lazy">
+              </button>
+              <figcaption data-i18n="blog.kifukouza.cap_culture">Ông Yamazaki Issei – chuyên gia của VIET.MOS trực tiếp đứng lớp giảng dạy về văn hóa ứng xử và tác phong làm việc chuẩn mực Nhật Bản tại Trường Cao đẳng Cơ điện Hà Nội.</figcaption>
+            </figure>
+          </section>
+
+          <!-- Phần 3 -->
+          <section class="news-section">
+            <h3 class="news-section-title" data-i18n="blog.kifukouza.h3">Mở rộng mạng lưới hợp tác giữa doanh nghiệp và nhà trường</h3>
+            <p data-i18n="blog.kifukouza.p3_1">Hoạt động đào tạo thông qua khóa học Kifukouza nằm trong chiến lược phát triển nguồn nhân lực chất lượng cao dài hạn của VIET.MOS. Trước đó, ban lãnh đạo công ty – đứng đầu là ông Otaki Masahide – đã tích cực thúc đẩy các hoạt động kết nối, hợp tác đào tạo và ký kết biên bản ghi nhớ (MOU) với nhiều cơ sở giáo dục kỹ thuật trọng điểm như Trường Đại học Điện lực.</p>
+            <p data-i18n="blog.kifukouza.p3_2">Thông qua việc đồng hành cùng các trường đại học, cao đẳng trong đào tạo cơ khí, thiết kế thiết bị tự động hóa và chế tạo máy tự động (FA), VIET.MOS khẳng định cam kết bền vững trong việc ươm mầm thế hệ kỹ sư Việt Nam vững tay nghề, chuẩn tác phong, sẵn sàng đáp ứng những tiêu chuẩn khắt khe của ngành công nghiệp chế tạo hiện đại.</p>
+
+            <!-- Cụm 2 ảnh hợp tác tại Trường Đại học Điện lực -->
+            <figure class="news-figure">
+              <div class="news-photo-grid news-photo-grid--epu">
+                <button type="button" class="news-img-trigger" aria-label="Phóng to ảnh buổi làm việc tại Trường Đại học Điện lực">
+                  <img src="images/news-kifukouza-epu-hop-tac.jpg" alt="Buổi làm việc trao đổi hợp tác đào tạo giữa VIET.MOS và Trường Đại học Điện lực" loading="lazy">
+                </button>
+                <button type="button" class="news-img-trigger" aria-label="Phóng to ảnh lưu niệm tại Trường Đại học Điện lực">
+                  <img src="images/news-kifukouza-epu-luu-niem.jpg" alt="Ban lãnh đạo VIET.MOS chụp ảnh lưu niệm cùng đại diện Trường Đại học Điện lực" loading="lazy">
+                </button>
+              </div>
+              <figcaption data-i18n="blog.kifukouza.cap_epu">Ban lãnh đạo VIET.MOS do ông Otaki Masahide dẫn đầu trong buổi làm việc hợp tác đào tạo và chụp ảnh lưu niệm cùng đại diện Trường Đại học Điện lực.</figcaption>
+            </figure>
+          </section>
+
+          <div class="news-article-footer">
+            <button type="button" class="news-back-btn" data-news-back>
+              <i class="bi bi-arrow-left" aria-hidden="true"></i>
+              <span data-i18n="blog.back_to_list">Quay lại danh sách tin tức</span>
+            </button>
+          </div>
+        </article>
       </div>
 
     </div>
   </section>
+
+  <!-- ================= LIGHTBOX XEM ẢNH BÀI VIẾT ================= -->
+  <div class="news-lightbox" id="news-lightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh phóng to" hidden>
+    <button type="button" class="news-lightbox-close" id="news-lightbox-close" aria-label="Đóng ảnh"><i class="bi bi-x-lg"></i></button>
+    <button type="button" class="news-lightbox-nav news-lightbox-prev" id="news-lightbox-prev" aria-label="Ảnh trước"><i class="bi bi-chevron-left"></i></button>
+    <div class="news-lightbox-stage">
+      <img src="" alt="" class="news-lightbox-img" id="news-lightbox-img">
+      <div class="news-lightbox-caption" id="news-lightbox-caption"></div>
+    </div>
+    <button type="button" class="news-lightbox-nav news-lightbox-next" id="news-lightbox-next" aria-label="Ảnh tiếp theo"><i class="bi bi-chevron-right"></i></button>
+  </div>
+
+  <style id="news-article-styles">
+    .news-page-section {
+      padding: 2.5rem 0 5.5rem;
+    }
+
+    /* ===== 1. LƯỚI THẺ TIN TỨC (CHỈ 1 ẢNH MINH HỌA + TIÊU ĐỀ CHÍNH) ===== */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2rem;
+    }
+
+    .news-grid[hidden],
+    .news-detail-wrapper[hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 1024px) {
+      .news-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    html[data-theme]:root:root:root body .news-card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none !important;
+      background: var(--fx-card, #ffffff) !important;
+      border: 1px solid var(--fx-line, #dde3ea) !important;
+      border-radius: 12px !important;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 45, 120, 0.06) !important;
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease !important;
+      cursor: pointer;
+    }
+
+    html[data-theme="dark"]:root:root:root body .news-card {
+      background: var(--fx-card, #1e2636) !important;
+      border-color: var(--fx-line, #334155) !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    html[data-theme]:root:root:root body .news-card:hover,
+    html[data-theme]:root:root:root body .news-card:focus-visible {
+      transform: translateY(-8px) !important;
+      border-color: var(--brand, #0062ff) !important;
+      box-shadow: 0 16px 36px rgba(0, 98, 255, 0.18) !important;
+    }
+
+    .news-card-media {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #0b1424;
+    }
+
+    .news-card-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .news-card:hover .news-card-img {
+      transform: scale(1.04);
+    }
+
+    .news-card-body {
+      padding: 1.35rem 1.5rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      flex: 1;
+    }
+
+    html[data-theme]:root:root:root body .news-card .news-card-title {
+      margin: 0 !important;
+      font-size: clamp(1.06rem, 1.35vw, 1.22rem) !important;
+      line-height: 1.45 !important;
+      font-weight: 700 !important;
+      color: var(--ui-heading, #0047b8) !important;
+      text-align: left !important;
+      transition: color 0.2s ease;
+    }
+
+    html[data-theme]:root:root:root body .news-card:hover .news-card-title {
+      color: var(--brand, #0062ff) !important;
+    }
+
+    /* ===== NÚT QUAY LẠI DANH SÁCH TIN TỨC ===== */
+    .news-back-bar {
+      max-width: 980px;
+      margin: 0 auto 1.25rem;
+    }
+
+    .news-article-footer {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--fx-line, #dde3ea);
+    }
+
+    html[data-theme]:root:root:root body .news-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.15rem;
+      border-radius: 8px;
+      border: 1px solid var(--fx-line, #dde3ea);
+      background: var(--fx-card, #ffffff);
+      color: var(--ui-heading, #0047b8) !important;
+      font-size: 0.95rem !important;
+      font-weight: 700 !important;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    html[data-theme]:root:root:root body .news-back-btn:hover {
+      background: var(--brand, #0062ff);
+      border-color: var(--brand, #0062ff);
+      color: #ffffff !important;
+      transform: translateX(-3px);
+    }
+
+    html[data-theme]:root:root:root body .news-back-btn:hover span,
+    html[data-theme]:root:root:root body .news-back-btn:hover i {
+      color: #ffffff !important;
+    }
+
+    #breadcrumb-article-title {
+      max-width: 42ch;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ===== 2. KHUNG CHI TIẾT BÀI VIẾT ===== */
+    html[data-theme]:root:root:root body .news-article {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: clamp(1.75rem, 4vw, 3.5rem);
+      background: var(--fx-card, #ffffff) !important;
+      border: 1px solid var(--fx-line, #dde3ea) !important;
+      border-radius: 14px !important;
+      box-shadow: 0 10px 32px rgba(0, 45, 120, 0.06) !important;
+    }
+
+    html[data-theme="dark"]:root:root:root body .news-article {
+      background: var(--fx-card, #1e2636) !important;
+      border-color: var(--fx-line, #334155) !important;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35) !important;
+    }
+
+    .news-article-header {
+      margin-bottom: 2rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--fx-line, #dde3ea);
+    }
+
+    .news-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 1.1rem;
+    }
+
+    html[data-theme]:root:root:root body .news-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.35rem 0.85rem;
+      border-radius: 6px;
+      background: var(--brand, #0062ff) !important;
+      color: #ffffff !important;
+      font-size: 0.875rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    html[data-theme]:root:root:root body .news-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--ui-muted, #2a4f94) !important;
+      font-size: 0.95rem !important;
+      font-weight: 600;
+    }
+
+    html[data-theme]:root:root:root body .news-article .news-article-title {
+      margin: 0 0 1.25rem;
+      font-size: clamp(1.55rem, 2.6vw, 2.2rem) !important;
+      line-height: 1.3 !important;
+      font-weight: 800 !important;
+      color: var(--ui-heading, #0047b8) !important;
+    }
+
+    html[data-theme]:root:root:root body .news-article .news-lead {
+      margin: 0;
+      font-size: clamp(1.04rem, 1.02rem + 0.25vw, 1.16rem) !important;
+      line-height: 1.8 !important;
+      font-weight: 600 !important;
+      color: var(--ui-text, #0b2f73) !important;
+    }
+
+    .news-section {
+      margin-top: 2.5rem;
+    }
+
+    html[data-theme]:root:root:root body .news-article .news-section-title {
+      position: relative;
+      margin: 0 0 1.1rem;
+      padding-left: 0.95rem;
+      border-left: 4px solid var(--brand, #0062ff);
+      font-size: clamp(1.22rem, 1.8vw, 1.48rem) !important;
+      line-height: 1.35 !important;
+      font-weight: 800 !important;
+      color: var(--ui-heading, #0047b8) !important;
+    }
+
+    html[data-theme]:root:root:root body .news-article .news-section p {
+      margin: 0 0 1.2rem;
+      line-height: 1.82 !important;
+      color: var(--ui-text, #0b2f73) !important;
+    }
+
+    /* Khối hình ảnh & chú thích */
+    .news-figure {
+      margin: 1.75rem 0 2rem;
+    }
+
+    .news-figure-hero {
+      margin-top: 0;
+    }
+
+    .news-figure-single {
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .news-img-trigger {
+      display: block;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      border: 1px solid var(--fx-line, #dde3ea);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0b1424;
+      cursor: zoom-in;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .news-img-trigger:hover {
+      transform: translateY(-2px);
+      border-color: var(--brand, #0062ff);
+      box-shadow: 0 10px 24px rgba(0, 98, 255, 0.16);
+    }
+
+    .news-img-trigger img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    /* Lưới ảnh tỷ lệ chuẩn để các ảnh cùng hàng cao bằng nhau mà không bị cắt mặt/chi tiết */
+    .news-photo-grid {
+      display: grid;
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    /* VR: ảnh 1 ngang (4:3 = 1.333), ảnh 2 dọc (3:4 = 0.75) => tỷ lệ cột 1.778 : 1 để cao bằng nhau tuyệt đối */
+    .news-photo-grid--vr {
+      grid-template-columns: 1.778fr 1fr;
+    }
+
+    /* Tham quan văn phòng: cả 3 ảnh đều chuẩn 4:3 */
+    .news-photo-grid--tour {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .news-photo-grid--tour .news-img-trigger img {
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    /* Hợp tác ĐH Điện lực: ảnh 1 (780x520 = 1.5), ảnh 2 (780x422 = 1.848) => tỷ lệ cột 1.5 : 1.848 */
+    .news-photo-grid--epu {
+      grid-template-columns: 1.5fr 1.848fr;
+    }
+
+    html[data-theme]:root:root:root body .news-figure figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.94rem !important;
+      line-height: 1.55 !important;
+      font-style: italic;
+      text-align: center !important;
+      color: var(--ui-muted, #2a4f94) !important;
+    }
+
+    @media (max-width: 768px) {
+      .news-photo-grid--vr,
+      .news-photo-grid--tour,
+      .news-photo-grid--epu {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Lightbox xem ảnh lớn */
+    .news-lightbox[hidden] {
+      display: none !important;
+    }
+
+    .news-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: rgba(6, 12, 26, 0.9);
+      backdrop-filter: blur(6px);
+    }
+
+    .news-lightbox-stage {
+      max-width: min(1100px, 88vw);
+      max-height: 86vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .news-lightbox-img {
+      max-width: 100%;
+      max-height: 76vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+      object-fit: contain;
+    }
+
+    .news-lightbox-caption {
+      margin-top: 0.85rem;
+      max-width: 780px;
+      text-align: center;
+      color: #e2e8f0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .news-lightbox-close,
+    .news-lightbox-nav {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(15, 23, 42, 0.75);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .news-lightbox-close:hover,
+    .news-lightbox-nav:hover {
+      background: var(--brand, #0062ff);
+      border-color: var(--brand, #0062ff);
+    }
+
+    .news-lightbox-close {
+      top: 1.25rem;
+      right: 1.25rem;
+    }
+
+    .news-lightbox-prev {
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .news-lightbox-next {
+      right: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    @media (max-width: 640px) {
+      .news-lightbox {
+        padding: 1rem;
+      }
+      .news-lightbox-prev {
+        left: 0.5rem;
+      }
+      .news-lightbox-next {
+        right: 0.5rem;
+      }
+    }
+
+    /* ===== PHONG CÁCH CHO THÔNG BÁO NGHỈ LỄ ===== */
+    .announcement-box {
+      margin-top: 1rem;
+    }
+    .announcement-salutation {
+      font-size: 1.05rem;
+      margin-bottom: 1.25rem !important;
+      line-height: 1.7;
+    }
+    .holiday-schedule-card {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin: 1.75rem 0 2rem;
+    }
+    @media (max-width: 640px) {
+      .holiday-schedule-card {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+    .schedule-item {
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+      padding: 1.3rem 1.45rem;
+      border-radius: 12px;
+      border: 1px solid var(--fx-line, #dde3ea);
+      background: var(--fx-card-sub, #f8fafc);
+      box-shadow: 0 4px 12px rgba(0, 45, 120, 0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    html[data-theme="dark"]:root:root:root body .schedule-item {
+      background: rgba(255, 255, 255, 0.04) !important;
+      border-color: var(--fx-line, #334155);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .schedule-item:hover {
+      transform: translateY(-2px);
+    }
+    .schedule-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: rgba(0, 98, 255, 0.12);
+      color: var(--brand, #0062ff);
+      font-size: 1.55rem;
+      flex-shrink: 0;
+    }
+    .schedule-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .schedule-label {
+      font-size: 0.88rem;
+      color: var(--ui-muted, #475569);
+      font-weight: 600;
+    }
+    .schedule-value {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--ui-heading, #0047b8);
+    }
+    .schedule-value.highlight-off {
+      color: #e11d48;
+    }
+    .schedule-value.highlight-back {
+      color: #16a34a;
+    }
+    html[data-theme="dark"]:root:root:root body .schedule-value.highlight-off {
+      color: #fb7185;
+    }
+    html[data-theme="dark"]:root:root:root body .schedule-value.highlight-back {
+      color: #4ade80;
+    }
+    .announcement-signature {
+      margin-top: 2.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px dashed var(--fx-line, #dde3ea);
+      text-align: right;
+    }
+    .announcement-signature p {
+      margin: 0.25rem 0 !important;
+    }
+    .announcement-signature .company-name {
+      font-size: 1.12rem;
+      color: var(--brand, #0062ff);
+      font-weight: 700;
+    }
+  </style>
+
+  <script>
+    (function () {
+      /* --- Chuyển đổi giữa Danh sách thẻ tin tức và Chi tiết bài viết --- */
+      const listView = document.getElementById('news-list-view');
+      const detailView = document.getElementById('news-detail-view');
+      const cards = document.querySelectorAll('.news-card[data-article-target]');
+      const backBtns = document.querySelectorAll('[data-news-back]');
+      const bcLink = document.getElementById('breadcrumb-news-link');
+      const bcSep = document.getElementById('breadcrumb-article-sep');
+      const bcTitle = document.getElementById('breadcrumb-article-title');
+
+      const articles = document.querySelectorAll('.news-article');
+
+      function openArticle(articleId, pushHash) {
+        if (!listView || !detailView) return;
+        const targetArticle = document.getElementById(articleId);
+        if (!targetArticle) return;
+
+        articles.forEach(art => {
+          art.hidden = (art.id !== articleId);
+        });
+
+        listView.hidden = true;
+        detailView.hidden = false;
+        if (bcSep) bcSep.hidden = false;
+        if (bcTitle) {
+          const titleEl = targetArticle.querySelector('.news-article-title');
+          if (titleEl) {
+            bcTitle.textContent = titleEl.textContent;
+            const i18nKey = titleEl.getAttribute('data-i18n');
+            if (i18nKey) bcTitle.setAttribute('data-i18n', i18nKey);
+          }
+          bcTitle.hidden = false;
+        }
+        if (pushHash) {
+          try { history.pushState({ article: articleId }, '', '#' + articleId); } catch (e) { location.hash = articleId; }
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Gọi lại căn đều chữ hai bên khi bài viết vừa hiện ra */
+        window.dispatchEvent(new Event('resize'));
+      }
+
+      function showList(pushState) {
+        if (!listView || !detailView) return;
+        detailView.hidden = true;
+        listView.hidden = false;
+        if (bcSep) bcSep.hidden = true;
+        if (bcTitle) bcTitle.hidden = true;
+        if (pushState) {
+          try { history.pushState({}, '', location.pathname + location.search); } catch (e) { location.hash = ''; }
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = card.getAttribute('data-article-target');
+          openArticle(targetId, true);
+        });
+      });
+
+      backBtns.forEach(btn => {
+        btn.addEventListener('click', () => showList(true));
+      });
+
+      if (bcLink) {
+        bcLink.addEventListener('click', (e) => {
+          if (!detailView.hidden) {
+            e.preventDefault();
+            showList(true);
+          }
+        });
+      }
+
+      document.querySelectorAll('a[href="blog.html"]').forEach(navLink => {
+        navLink.addEventListener('click', (e) => {
+          if (!detailView.hidden) {
+            e.preventDefault();
+            showList(true);
+          }
+        });
+      });
+
+      window.addEventListener('popstate', () => {
+        const hash = (location.hash || '').replace(/^#/, '');
+        if (hash && document.getElementById(hash)) {
+          openArticle(hash, false);
+        } else {
+          showList(false);
+        }
+      });
+
+      /* Nếu truy cập thẳng qua link có #kifukouza thì mở bài viết đó */
+      const initialHash = (location.hash || '').replace(/^#/, '');
+      if (initialHash && document.getElementById(initialHash)) {
+        openArticle(initialHash, false);
+      }
+
+      /* --- Lightbox phóng to ảnh trong bài viết --- */
+      const triggers = Array.from(document.querySelectorAll('.news-img-trigger'));
+      const lightbox = document.getElementById('news-lightbox');
+      const lbImg = document.getElementById('news-lightbox-img');
+      const lbCap = document.getElementById('news-lightbox-caption');
+      const btnClose = document.getElementById('news-lightbox-close');
+      const btnPrev = document.getElementById('news-lightbox-prev');
+      const btnNext = document.getElementById('news-lightbox-next');
+      if (!lightbox || !triggers.length) return;
+
+      let currentIndex = 0;
+
+      function showAt(idx) {
+        currentIndex = (idx + triggers.length) % triggers.length;
+        const trigger = triggers[currentIndex];
+        const img = trigger.querySelector('img');
+        const fig = trigger.closest('figure');
+        const cap = fig ? fig.querySelector('figcaption') : null;
+        lbImg.src = img.src;
+        lbImg.alt = img.alt || '';
+        lbCap.textContent = cap ? cap.textContent : (img.alt || '');
+        lightbox.hidden = false;
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLb() {
+        lightbox.hidden = true;
+        document.body.style.overflow = '';
+      }
+
+      triggers.forEach((btn, i) => {
+        btn.addEventListener('click', () => showAt(i));
+      });
+
+      btnClose.addEventListener('click', closeLb);
+      btnPrev.addEventListener('click', () => showAt(currentIndex - 1));
+      btnNext.addEventListener('click', () => showAt(currentIndex + 1));
+
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target.classList.contains('news-lightbox-stage')) {
+          closeLb();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (lightbox.hidden) return;
+        if (e.key === 'Escape') closeLb();
+        if (e.key === 'ArrowLeft') showAt(currentIndex - 1);
+        if (e.key === 'ArrowRight') showAt(currentIndex + 1);
+      });
+    })();
+  </script>
 
   <!-- ================= FOOTER ================= -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col footer-col-main">
-          <a href="index.html" class="logo" style="margin-bottom: 1rem;">
+          <a href="index.html" class="logo">
             <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED" class="logo-img">
           </a>
 
@@ -241,7 +1062,7 @@
           </div>
 
           <div class="footer-contact-row">
-            <a href="tel:+84868966625"><i class="bi bi-telephone-fill"></i> 0868 966 625</a>
+            <a href="tel:+842436688679"><i class="bi bi-telephone-fill"></i> 024 36688679</a>
             <a href="mailto:viet.mos@v-mos.com"><i class="bi bi-envelope-fill"></i> viet.mos@v-mos.com</a>
           </div>
 
@@ -249,13 +1070,13 @@
             <!-- Zalo: mở trang hồ sơ Zalo Business -->
             <a href="zalo-qr.html" target="_blank" rel="noopener noreferrer" class="social-icon"
               aria-label="Zalo">Zalo</a>
-            <!-- TODO: URL thật -->
-            <a href="#" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.facebook.com/vmos.2022" target="_blank" rel="noopener noreferrer" class="social-icon"
+              aria-label="Facebook"><i class="bi bi-facebook"></i></a>
           </div>
         </div>
 
         <div class="footer-col">
-          <h4 data-i18n="footer.quick_links">Liên Kết Nhanh</h4>
+          <h4 data-i18n="footer.quick_links">Liên kết nhanh</h4>
           <ul class="footer-links">
             <li><a href="index.html" data-i18n="nav.home">Trang chủ</a></li>
             <li><a href="index.html#services" data-i18n="footer.link_services">Dịch vụ trọng tâm</a></li>
@@ -265,9 +1086,9 @@
         </div>
 
         <div class="footer-col">
-          <h4 data-i18n="footer.info_pages">Trang Thông Tin</h4>
+          <h4 data-i18n="footer.info_pages">Trang thông tin</h4>
           <ul class="footer-links">
-            <li><a href="blog.html" data-i18n="footer.link_blog">Tin tức &amp; Công nghệ</a></li>
+            <li><a href="blog.html" data-i18n="footer.link_blog">Tin tức &amp; công nghệ</a></li>
             <li><a href="contact.html" data-i18n="footer.link_contact">Liên hệ tư vấn</a></li>
             <li><a href="privacy.html" data-i18n="footer.privacy">Chính sách bảo mật</a></li>
             <li><a href="terms.html" data-i18n="footer.terms">Điều khoản sử dụng</a></li>
@@ -291,15 +1112,15 @@
     </a>
 
     <!-- Nút Gọi điện -->
-    <a href="tel:+84868966625" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn"
+    <a href="tel:+842436688679" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn"
       data-i18n-attr="aria-label:float.phone_label">
-      <span class="floating-tooltip">0868 966 625</span>
+      <span class="floating-tooltip">02436688679</span>
       <i class="bi bi-telephone-fill"></i>
     </a>
   </div>
 
-  <script src="i18n.js?v=11"></script>
-  <script src="script.js?v=11"></script>
+  <script src="i18n.js?v=20261117"></script>
+  <script src="script.js?v=20261117"></script>
 </body>
 
 </html>

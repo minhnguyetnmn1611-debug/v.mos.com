@@ -1,0 +1,160 @@
+/* ==========================================================================
+   philosophy-ceo.css - Khối "Triết lý kinh doanh" (trang Về chúng tôi)
+   Bố cục: chữ + dải xanh bo tròn bên trái, ảnh CEO tách nền đứng bên phải,
+   thân người đè lên đầu phải của dải xanh. Dùng tiền tố .pl2-
+   Nạp SAU group-gallery.css, TRƯỚC vmos-margins.css.
+   Chỉnh nhanh:
+     --pl2-pw       chiều rộng ảnh CEO (to/nhỏ ảnh)
+     --pl2-band     màu dải xanh
+     --pl2-radius   độ bo tròn đầu trái của dải xanh
+     --pl2-under    tỉ lệ dải xanh chui xuống dưới ảnh CEO (0.45 = 45% bề ngang ảnh)
+   ========================================================================== */
+.pl2-section {
+  --pl2-pw: clamp(340px, 33vw, 700px);
+  --pl2-gap: clamp(0.25rem, 1vw, 1.5rem);
+  --pl2-under: 0.4;
+  --pl2-band: var(--ui-blue-solid, #0062ff);
+  --pl2-radius: clamp(48px, 6vw, 110px);
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3rem, 5vw, 4.5rem) 0 0;
+  background: transparent;
+}
+
+.pl2-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) calc(var(--pl2-pw) + var(--pl2-gap) * 2);
+  grid-template-areas:
+    "head person"
+    "band person";
+  align-items: end;
+  width: 100%;
+}
+
+/* ---- Tiêu đề + đoạn dẫn (nền trắng phía trên) ---- */
+.pl2-head {
+  grid-area: head;
+  padding: 0 var(--pl2-gap) 2.25rem var(--page-pad, clamp(1.5rem, 5vw, 6rem));
+}
+
+/* ---- Dải xanh bo tròn đầu trái, chạy sát mép trái màn hình, chui xuống dưới ảnh ---- */
+.pl2-band {
+  grid-area: band;
+  position: relative;
+  z-index: 1;
+  margin-right: calc(-1 * (var(--pl2-gap) + var(--pl2-pw) * var(--pl2-under)));
+  padding: clamp(2rem, 3.5vw, 3.25rem) calc(var(--pl2-pw) * var(--pl2-under) + 1.75rem) clamp(2rem, 3.5vw, 3.25rem) var(--page-pad, clamp(1.5rem, 5vw, 6rem));
+  background: var(--pl2-band);
+  border-radius: var(--pl2-radius) 0 0 var(--pl2-radius);
+  color: #ffffff;
+}
+
+.pl2-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pl2-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.7rem 0;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.pl2-list li+li {
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.pl2-list i {
+  flex: 0 0 auto;
+  margin-top: 0.2rem;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.pl2-quote {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.12);
+  border-left: 4px solid #ffffff;
+}
+
+.pl2-quote i {
+  flex: 0 0 auto;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.pl2-quote p {
+  margin: 0;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.pl2-quote-by {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Ảnh CEO tách nền, đứng sát đáy khối ---- */
+.pl2-person {
+  grid-area: person;
+  position: relative;
+  z-index: 2;
+  align-self: end;
+  justify-self: center;
+  width: var(--pl2-pw);
+  margin: 0;
+  line-height: 0;
+}
+
+.pl2-person img {
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* Chữ trên nền xanh luôn trắng (thắng các luật "chữ xanh" ở vmos-text-blue / inline) */
+html[data-theme]:root:root:root:root:root:root:root:root:root:root body .pl2-section .pl2-band :is(p, li, span, strong, i, cite) {
+  color: #ffffff !important;
+}
+
+/* ---- Điện thoại / máy tính bảng: chữ -> ảnh -> dải xanh (ảnh đứng sát mép trên dải xanh) ---- */
+@media (max-width: 992px) {
+  .pl2-section {
+    --pl2-pw: min(88vw, 480px);
+  }
+
+  .pl2-inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "head"
+      "person"
+      "band";
+  }
+
+  .pl2-head {
+    padding: 0 var(--page-pad, 1.5rem) 1.5rem;
+  }
+
+  .pl2-person {
+    margin-bottom: 0;
+  }
+
+  .pl2-band {
+    margin-right: 0;
+    padding: 2.5rem var(--page-pad, 1.5rem) 2.5rem;
+    border-radius: var(--pl2-radius) 0 0 0;
+  }
+}

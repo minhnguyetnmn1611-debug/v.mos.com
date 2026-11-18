@@ -33,12 +33,12 @@
     rel="stylesheet">
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=rx30">
-  <link rel="stylesheet" href="hero.css?v=1">
-  <link rel="stylesheet" href="vmos-layout.css?v=16">
-  <link rel="stylesheet" href="vmos-blue-theme.css?v=2">
-  <link rel="stylesheet" href="vmos-factory-theme.css?v=2">
-  <link rel="stylesheet" href="vmos-text-blue.css?v=1">
+  <link rel="stylesheet" href="style.css?v=20261116">
+  <link rel="stylesheet" href="hero.css?v=20261116">
+  <link rel="stylesheet" href="vmos-layout.css?v=20261116">
+  <link rel="stylesheet" href="vmos-blue-theme.css?v=20261116">
+  <link rel="stylesheet" href="vmos-factory-theme.css?v=20261116">
+  <link rel="stylesheet" href="vmos-text-blue.css?v=20261116">
   <style id="vmos-text-blue-inline">
     /* vmos-text-blue.css - Chữ màu xanh dương cho toàn site. Nạp SAU CÙNG (sau vmos-factory-theme.css).
    Đổi màu: sửa 3 biến dưới đây. Gỡ file này (xoá dòng <link>) để quay về chữ cũ. */
@@ -117,23 +117,6 @@
     html[data-theme]:root:root body footer.footer::before {
       background: var(--fx-line, #c6cdd3) !important;
       height: 1px !important;
-    }
-
-    /* ===== Lĩnh vực hoạt động: thẻ nhỏ gọn hơn (chỉnh 2 biến: độ rộng cả cụm và tỉ lệ thẻ) ===== */
-    html[data-theme]:root:root body .svc-grid {
-      --svc-ratio: 1 / 1;
-      /* 1/1 vuông; 4/3 thấp hơn; 4/5 cao như cũ */
-      max-width: 1000px !important;
-      /* nhỏ hơn: 800px - lớn hơn: 1200px */
-      margin-left: auto !important;
-      margin-right: auto !important;
-    }
-
-    @media (max-width: 900px) {
-      html[data-theme]:root:root body .svc-grid {
-        --svc-ratio: 4 / 3;
-        max-width: 360px !important;
-      }
     }
 
     /* ===== Hero: ảnh nhà máy tràn toàn khung, nét; chữ trắng trên dải tối bên trái =====
@@ -320,12 +303,101 @@
       }
     }
   </style>
-  <link rel="stylesheet" href="vmos-white-theme.css?v=1">
-  <link rel="stylesheet" href="intro-showcase.css?v=1">
+  <link rel="stylesheet" href="vmos-white-theme.css?v=20261116">
+  <link rel="stylesheet" href="intro-showcase.css?v=20261116">
   <link rel="canonical" href="https://v-mos.com/">
   <meta property="og:url" content="https://v-mos.com/">
   <meta property="og:image" content="https://v-mos.com/images/vmos-logo.png">
-  <link rel="stylesheet" href="vmos-margins.css?v=1">
+  <link rel="stylesheet" href="vmos-margins.css?v=20261116">
+  <!-- ===== VMOS-FIXES: các chỉnh sửa gần nhất (đặt SAU CÙNG để thắng mọi CSS phía trên) =====
+       1) Xóa vệt xám/đổ bóng giữa khối Lĩnh Vực Hoạt Động và khối Giới thiệu
+       2) Logo khách hàng sáng rõ ngay từ đầu (không chờ rê chuột)
+       3) Ảnh hero neo sát phía trên, không bị cắt đầu robot dưới thanh menu
+       4) Thẻ lĩnh vực: rê chuột thì thẻ đó nổi lên
+       Muốn hoàn tác mục nào: xóa đúng mục đó trong khối <style> này. -->
+  <style id="vmos-fixes">
+    /* 1) Xóa vệt xám giữa các khối */
+    html[data-theme]:root:root body section#services,
+    html[data-theme]:root:root body section#gioi-thieu {
+      box-shadow: none !important;
+      filter: none !important;
+      border-top: 0 !important;
+      border-bottom: 0 !important;
+      outline: 0 !important;
+    }
+
+    html[data-theme]:root:root body section#services::before,
+    html[data-theme]:root:root body section#services::after,
+    html[data-theme]:root:root body section#gioi-thieu::before,
+    html[data-theme]:root:root body section#gioi-thieu::after {
+      content: none !important;
+      display: none !important;
+      box-shadow: none !important;
+      background: none !important;
+    }
+
+    /* 2) Logo khách hàng sáng từ đầu (đã ẩn section, giữ rule phòng khi dùng lại) */
+    html[data-theme]:root:root body .client-logo-box img,
+    html[data-theme]:root:root body .clients-marquee-track .client-logo-box img {
+      filter: none !important;
+      opacity: 1 !important;
+    }
+
+    /* 3) Ảnh hero: neo sát mép trên, bắt đầu từ dưới thanh menu (màn hình máy tính) */
+    @media (min-width: 993px) {
+
+      html[data-theme]:root:root body section.vh-hero:is(#hero-video, .vh-hero)::before,
+      html[data-theme]:root:root:root body section#hero-video.vh-hero::before {
+        inset: 68px 0 0 0 !important;
+        width: auto !important;
+        height: auto !important;
+        background-position: right top !important;
+      }
+    }
+
+    /* 4) Thẻ lĩnh vực: rê chuột thì nổi lên */
+    html[data-theme]:root:root body #services .service-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
+    }
+
+    html[data-theme]:root:root body #services .service-card:hover,
+    html[data-theme]:root:root body #services .service-card:focus-within {
+      transform: translateY(-10px) !important;
+      box-shadow: 0 18px 40px rgba(0, 98, 255, 0.22) !important;
+      border-color: #0062ff !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html[data-theme]:root:root body #services .service-card:hover {
+        transform: none !important;
+      }
+    }
+
+    /* 5) Tiêu đề các khối (Lĩnh vực hoạt động, Khách hàng...): bỏ hiệu ứng phát sáng và
+          thanh xanh nhỏ ở giữa bên dưới, để đồng bộ với các tiêu đề khác */
+    html[data-theme]:root:root body .rx-section .section-title-compact {
+      text-shadow: none !important;
+      filter: none !important;
+      box-shadow: none !important;
+    }
+
+    html[data-theme]:root:root body .rx-section .section-title-compact::after {
+      content: none !important;
+      display: none !important;
+    }
+
+    /* 6) Slogan banner: giữ xuống dòng giữa hai câu (không dùng dấu phẩy) */
+    html[data-theme]:root:root body section.vh-hero .vh-title {
+      white-space: pre-line !important;
+    }
+
+    /* 7) Thẻ lĩnh vực: tiêu đề nhỏ (Thiết Kế Cơ Khí...) bỏ hiệu ứng phát sáng, giữ chữ phẳng như các tiêu đề khác */
+    html[data-theme]:root:root body #services .service-card-title {
+      text-shadow: none !important;
+      filter: none !important;
+      box-shadow: none !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -437,22 +509,79 @@
   <!-- ================= HERO STUDIO SECTION ================= -->
   <section class="vh-hero" id="hero-video">
     <div class="vh-wrap">
-      <h1 class="vh-title" data-i18n="hero.s.title">Uy tín tạo dựng niềm tin, chất lượng làm nên giá trị</h1>
+      <h1 class="vh-title" data-i18n="hero.s.title">Uy tín tạo dựng niềm tin
+        Chất lượng làm nên giá trị</h1>
       <div class="vh-side">
         <i></i>
-        <p data-i18n="hero.s.sub">Thiết kế cơ khí, điện và mô phỏng 3D cho hệ thống sản xuất</p>
         <a href="#services" class="vh-btn" data-i18n="hero.s.btn">Tìm hiểu thêm</a>
       </div>
     </div>
   </section>
 
+  <!-- ================= SERVICES SECTION ================= -->
+  <section id="services" class="services-section rx-section" data-layout="spread">
+    <div class="bg-glow-right"></div>
+    <div class="dot-pattern"></div>
+    <div class="container">
+      <h2 class="section-title-compact reveal" data-i18n="services.title">Lĩnh Vực Hoạt Động</h2>
+
+      <div class="services-grid reveal" role="list" aria-label="Lĩnh vực hoạt động">
+
+        <!-- Dịch vụ 1: Thiết Kế Cơ Khí -->
+        <article class="service-card" role="listitem">
+          <div class="service-card-media">
+            <img src="images/service-co-khi.jpg" alt="Thiết Kế Cơ Khí" class="service-card-img" loading="lazy">
+          </div>
+          <div class="service-card-body">
+            <h3 class="service-card-title" data-i18n="services.mechanical">Thiết Kế Cơ Khí</h3>
+            <a href="dich-vu-thiet-ke-co-khi.html" class="service-card-link">
+              <span data-i18n="services.view_more">Tìm hiểu chi tiết</span>
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- Dịch vụ 2: Thiết Kế Điện - Lập Trình Điều Khiển -->
+        <article class="service-card" role="listitem">
+          <div class="service-card-media">
+            <img src="images/service-dien.jpg" alt="Thiết Kế Điện - Lập Trình Điều Khiển" class="service-card-img"
+              loading="lazy">
+          </div>
+          <div class="service-card-body">
+            <h3 class="service-card-title" data-i18n="services.electrical">Thiết Kế Điện - Lập Trình Điều Khiển</h3>
+            <a href="dich-vu-thiet-ke-dien.html" class="service-card-link">
+              <span data-i18n="services.view_more">Tìm hiểu chi tiết</span>
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- Dịch vụ 3: Thiết Kế Mô Phỏng -->
+        <article class="service-card" role="listitem">
+          <div class="service-card-media">
+            <img src="images/service-mo-phong.jpg" alt="Thiết Kế Mô Phỏng" class="service-card-img" loading="lazy"
+              onerror="this.onerror=null;this.src='images/banner-mo-phong.jpg'">
+          </div>
+          <div class="service-card-body">
+            <h3 class="service-card-title" data-i18n="services.simulation">Thiết Kế Mô Phỏng</h3>
+            <a href="dich-vu-thiet-ke-mo-phong.html" class="service-card-link">
+              <span data-i18n="services.view_more">Tìm hiểu chi tiết</span>
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ================= GIỚI THIỆU NGẮN VỀ CÔNG TY (số liệu lớn + ảnh + chỉ số) ================= -->
-  <section id="gioi-thieu" class="isc-section rx-band-a" data-layout="spread" aria-label="Giới thiệu về VMOS"
+  <section id="gioi-thieu" class="isc-section rx-band-a" data-layout="spread" aria-label="Giới thiệu về VIET.MOS"
     data-i18n-attr="aria-label:intro.badge">
     <div class="container">
       <div class="intro-badge reveal">
         <span class="intro-dot" aria-hidden="true"></span>
-        <span data-i18n="intro.badge">GIỚI THIỆU VỀ VMOS</span>
+        <span data-i18n="intro.badge">GIỚI THIỆU VỀ VIET.MOS</span>
       </div>
       <div class="isc-grid">
         <div class="isc-years reveal">
@@ -467,7 +596,8 @@
         </div>
 
         <div class="isc-body reveal">
-          <p class="isc-text" data-i18n="intro.text">VIET.MOS COMPANY LIMITED là doanh nghiệp chuyên cung cấp các giải
+          <p class="isc-text" data-i18n="intro.text">VIET.MOS COMPANY LIMITED (VMOS) là doanh nghiệp chuyên cung cấp các
+            giải
             pháp thiết kế kỹ thuật trong lĩnh vực tự động hóa công nghiệp, với ba lĩnh vực hoạt động chính: thiết kế cơ
             khí, thiết kế điện và lập trình điều khiển, thiết kế mô phỏng 3D. Công ty tập trung vào thiết kế và mô phỏng
             các thiết bị bán tự động, máy tự động và hệ thống dây chuyền sản xuất tự động hóa, góp phần nâng cao hiệu
@@ -487,7 +617,7 @@
           <div class="isc-stat">
             <i class="bi bi-clipboard2-check-fill isc-stat-icon" aria-hidden="true"></i>
             <div class="isc-stat-line">
-              <span class="isc-stat-num">150<span class="isc-stat-sign" aria-hidden="true">+</span></span>
+              <span class="isc-stat-num">300<span class="isc-stat-sign" aria-hidden="true">+</span></span>
               <span class="isc-stat-unit" data-i18n="intro.stat_projects_unit">Dự án</span>
             </div>
             <div class="isc-stat-cap" data-i18n="intro.stat_projects_cap">Hoàn thành</div>
@@ -505,209 +635,13 @@
     </div>
   </section>
 
-  <!-- ================= NĂNG LỰC (3 CỘT) ================= -->
-  <section id="nang-luc" class="cap-band" data-tone="blue" aria-label="Năng lực của VMOS"
-    data-i18n-attr="aria-label:cap.aria">
-    <div class="container">
-      <div class="cap-grid reveal">
-        <article class="cap-item">
-          <i class="bi bi-gear-wide-connected cap-icon" aria-hidden="true"></i>
-          <h3 class="cap-title" style="color:#fff!important" data-i18n="cap.1_title">NĂNG LỰC KỸ THUẬT VỮNG CHẮC</h3>
-          <p class="cap-desc" style="color:#fff!important" data-i18n="cap.1_desc">Đội ngũ kỹ sư VIET.MOS không ngừng
-            nâng cao chuyên môn trong lĩnh vực thiết kế cơ khí, điều khiển điện và tự động hóa, mang đến những giải pháp
-            kỹ thuật đáp ứng yêu cầu thực tế của doanh nghiệp.</p>
-        </article>
-        <article class="cap-item">
-          <i class="bi bi-badge-3d cap-icon" aria-hidden="true"></i>
-          <h3 class="cap-title" style="color:#fff!important" data-i18n="cap.2_title">TIÊN PHONG CÔNG NGHỆ MÔ PHỎNG</h3>
-          <p class="cap-desc" style="color:#fff!important" data-i18n="cap.2_desc">Ứng dụng công nghệ mô phỏng 3D và các
-            giải pháp kỹ thuật số trong thiết kế, kiểm chứng và tối ưu hóa quy trình sản xuất, góp phần nâng cao hiệu
-            quả triển khai dự án.</p>
-        </article>
-        <article class="cap-item">
-          <i class="bi bi-people-fill cap-icon" aria-hidden="true"></i>
-          <h3 class="cap-title" style="color:#fff!important" data-i18n="cap.3_title">ĐỒNG HÀNH CÙNG PHÁT TRIỂN</h3>
-          <p class="cap-desc" style="color:#fff!important" data-i18n="cap.3_desc">VIET.MOS hướng đến việc cung cấp các
-            giải pháp kỹ thuật linh hoạt, hiệu quả, đồng hành cùng khách hàng trong quá trình phát triển và hiện đại hóa
-            hệ thống sản xuất.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= SERVICES SECTION ================= -->
-  <section id="services" class="services-section rx-section rx-band-a" data-layout="spread">
-    <div class="bg-glow-right"></div>
-    <div class="dot-pattern"></div>
-    <div class="container">
-      <h2 class="section-title-compact reveal" data-i18n="services.title">Lĩnh Vực Hoạt Động</h2>
-
-      <div class="svc-grid reveal" role="list" aria-label="Lĩnh vực hoạt động">
-
-        <article class="svc-card" role="listitem" style="--c1:#f59e0b;--c2:#d97706">
-          <div class="svc-page">
-            <span class="svc-badge"><i class="bi bi-gear-wide-connected"></i></span>
-            <h3 data-i18n="services.mechanical">Thiết Kế Cơ Khí</h3>
-            <p data-i18n="services.mechanical_desc">Thiết kế 2D/3D, bản vẽ kỹ thuật và mô hình hóa máy móc, đồ gá, dây
-              chuyền sản xuất đạt chuẩn chế tạo.</p>
-            <a href="dich-vu-thiet-ke-co-khi.html" class="svc-link"><span data-i18n="services.view_more">Tìm hiểu chi
-                tiết</span> <i class="bi bi-arrow-right"></i></a>
-          </div>
-          <div class="svc-cover" aria-hidden="true">
-            <div class="svc-cover-front svc-bg-co-khi">
-              <img src="images/service-co-khi.jpg" alt="" class="svc-img" loading="lazy"
-                onerror="this.style.display='none'">
-              <span class="svc-shade"></span>
-              <span class="svc-label">
-                <span class="svc-front-desc" data-i18n="services.mechanical_short">Thiết kế 2D/3D, bản vẽ kỹ thuật, mô
-                  hình hóa máy móc và đồ gá.</span>
-                <span class="svc-badge"><i class="bi bi-gear-wide-connected"></i></span>
-                <span class="svc-label-text" data-i18n="services.mechanical">Thiết Kế Cơ Khí</span>
-              </span>
-            </div>
-            <div class="svc-cover-back"></div>
-          </div>
-        </article>
-
-        <article class="svc-card" role="listitem" style="--c1:#38bdf8;--c2:#2563eb">
-          <div class="svc-page">
-            <span class="svc-badge"><i class="bi bi-cpu-fill"></i></span>
-            <h3 data-i18n="services.electrical">Thiết Kế Điện - Lập Trình Điều Khiển</h3>
-            <p data-i18n="services.electrical_desc">Lập trình PLC, thiết kế giao diện HMI/SCADA, lập trình Robot công
-              nghiệp tích hợp Camera Vision và thiết kế tủ điện điều khiển.</p>
-            <a href="dich-vu-thiet-ke-dien.html" class="svc-link"><span data-i18n="services.view_more">Tìm hiểu chi
-                tiết</span> <i class="bi bi-arrow-right"></i></a>
-          </div>
-          <div class="svc-cover" aria-hidden="true">
-            <div class="svc-cover-front svc-bg-dien">
-              <img src="images/service-dien.jpg" alt="" class="svc-img" loading="lazy"
-                onerror="this.style.display='none'">
-              <span class="svc-shade"></span>
-              <span class="svc-label">
-                <span class="svc-front-desc" data-i18n="services.electrical_short">Lập trình PLC, HMI/SCADA, Robot,
-                  Camera Vision và tủ điện điều khiển.</span>
-                <span class="svc-badge"><i class="bi bi-cpu-fill"></i></span>
-                <span class="svc-label-text" data-i18n="services.electrical">Thiết Kế Điện - Lập Trình Điều Khiển</span>
-              </span>
-            </div>
-            <div class="svc-cover-back"></div>
-          </div>
-        </article>
-
-        <article class="svc-card" role="listitem" style="--c1:#a78bfa;--c2:#6366f1">
-          <div class="svc-page">
-            <span class="svc-badge"><i class="bi bi-badge-3d-fill"></i></span>
-            <h3 data-i18n="services.simulation">Thiết Kế Mô Phỏng</h3>
-            <p data-i18n="services.simulation_desc">Mô phỏng 3D dây chuyền, robot và hệ thống tự động hóa; kiểm thử
-              chương trình điều khiển trên môi trường ảo trước khi triển khai thực tế.</p>
-            <a href="dich-vu-thiet-ke-mo-phong.html" class="svc-link"><span data-i18n="services.view_more">Tìm hiểu chi
-                tiết</span> <i class="bi bi-arrow-right"></i></a>
-          </div>
-          <div class="svc-cover" aria-hidden="true">
-            <div class="svc-cover-front svc-bg-mo-phong">
-              <img src="images/service-mo-phong.jpg" alt="" class="svc-img" loading="lazy"
-                onerror="this.style.display='none'">
-              <span class="svc-shade"></span>
-              <span class="svc-label">
-                <span class="svc-front-desc" data-i18n="services.simulation_short">Mô phỏng 3D dây chuyền, robot; kiểm
-                  thử chương trình trên môi trường ảo.</span>
-                <span class="svc-badge"><i class="bi bi-badge-3d-fill"></i></span>
-                <span class="svc-label-text" data-i18n="services.simulation">Thiết Kế Mô Phỏng</span>
-              </span>
-            </div>
-            <div class="svc-cover-back"></div>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ================= CLIENTS SECTION ================= -->
-  <section id="clients" class="clients-section rx-section rx-band-a" data-layout="spread">
-    <div class="bg-glow-left"></div>
-    <div class="container">
-
-      <h2 class="section-title-compact reveal" data-i18n="clients.title">Khách Hàng Của Chúng Tôi</h2>
-
-      <div class="clients-marquee-wrapper reveal-scale">
-        <div class="clients-marquee-track">
-          <!-- 10 Logo gốc -->
-          <div class="client-logo-box">
-            <img src="images/konica-minolta.png" alt="Konica Minolta">
-          </div>
-          <div class="client-logo-box">
-            <img src="images/brother.png" alt="Brother">
-          </div>
-          <div class="client-logo-box">
-            <img src="images/toyota.png" alt="Toyota">
-          </div>
-          <div class="client-logo-box">
-            <img src="images/denso.png" alt="Denso">
-          </div>
-          <div class="client-logo-box">
-            <img src="images/yamaha.png" alt="Yamaha">
-          </div>
-          <div class="client-logo-box">
-            <img src="images/panasonic.png" alt="Panasonic">
-          </div>
-          <div class="client-logo-box">
-            <img src="images/sony.png" alt="Sony">
-          </div>
-          <div class="client-logo-box">
-            <img src="images/canon.png" alt="Canon">
-          </div>
-          <div class="client-logo-box">
-            <img src="images/honda.png" alt="Honda">
-          </div>
-          <div class="client-logo-box">
-            <img src="images/nissan.png" alt="Nissan Motor Corporation">
-          </div>
-
-          <!-- 10 Logo nhân đôi cho hiệu ứng lặp vô hạn (aria-hidden="true") -->
-          <div class="client-logo-box" aria-hidden="true">
-            <img src="images/konica-minolta.png" alt="">
-          </div>
-          <div class="client-logo-box" aria-hidden="true">
-            <img src="images/brother.png" alt="">
-          </div>
-          <div class="client-logo-box" aria-hidden="true">
-            <img src="images/toyota.png" alt="">
-          </div>
-          <div class="client-logo-box" aria-hidden="true">
-            <img src="images/denso.png" alt="">
-          </div>
-          <div class="client-logo-box" aria-hidden="true">
-            <img src="images/yamaha.png" alt="">
-          </div>
-          <div class="client-logo-box" aria-hidden="true">
-            <img src="images/panasonic.png" alt="">
-          </div>
-          <div class="client-logo-box" aria-hidden="true">
-            <img src="images/sony.png" alt="">
-          </div>
-          <div class="client-logo-box" aria-hidden="true">
-            <img src="images/canon.png" alt="">
-          </div>
-          <div class="client-logo-box" aria-hidden="true">
-            <img src="images/honda.png" alt="">
-          </div>
-          <div class="client-logo-box" aria-hidden="true">
-            <img src="images/nissan.png" alt="">
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
 
   <!-- ================= FOOTER ================= -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col footer-col-main">
-          <a href="index.html" class="logo" style="margin-bottom: 1rem;">
+          <a href="index.html" class="logo">
             <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED" class="logo-img">
           </a>
 
@@ -723,7 +657,7 @@
           </div>
 
           <div class="footer-contact-row">
-            <a href="tel:+84868966625"><i class="bi bi-telephone-fill"></i> 0868 966 625</a>
+            <a href="tel:+842436688679"><i class="bi bi-telephone-fill"></i> 024 36688679</a>
             <a href="mailto:viet.mos@v-mos.com"><i class="bi bi-envelope-fill"></i> viet.mos@v-mos.com</a>
           </div>
 
@@ -731,13 +665,13 @@
             <!-- Zalo: mở trang hồ sơ Zalo Business -->
             <a href="zalo-qr.html" target="_blank" rel="noopener noreferrer" class="social-icon"
               aria-label="Zalo">Zalo</a>
-            <!-- TODO: URL thật -->
-            <a href="#" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.facebook.com/vmos.2022" target="_blank" rel="noopener noreferrer" class="social-icon"
+              aria-label="Facebook"><i class="bi bi-facebook"></i></a>
           </div>
         </div>
 
         <div class="footer-col">
-          <h4 data-i18n="footer.quick_links">Liên Kết Nhanh</h4>
+          <h4 data-i18n="footer.quick_links">Liên kết nhanh</h4>
           <ul class="footer-links">
             <li><a href="index.html" data-i18n="nav.home">Trang chủ</a></li>
             <li><a href="index.html#services" data-i18n="footer.link_services">Dịch vụ trọng tâm</a></li>
@@ -747,9 +681,9 @@
         </div>
 
         <div class="footer-col">
-          <h4 data-i18n="footer.info_pages">Trang Thông Tin</h4>
+          <h4 data-i18n="footer.info_pages">Trang thông tin</h4>
           <ul class="footer-links">
-            <li><a href="blog.html" data-i18n="footer.link_blog">Tin tức &amp; Công nghệ</a></li>
+            <li><a href="blog.html" data-i18n="footer.link_blog">Tin tức &amp; công nghệ</a></li>
             <li><a href="contact.html" data-i18n="footer.link_contact">Liên hệ tư vấn</a></li>
             <li><a href="privacy.html" data-i18n="footer.privacy">Chính sách bảo mật</a></li>
             <li><a href="terms.html" data-i18n="footer.terms">Điều khoản sử dụng</a></li>
@@ -774,16 +708,16 @@
     </a>
 
     <!-- Nút Gọi điện -->
-    <a href="tel:+84868966625" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn"
+    <a href="tel:+842436688679" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn"
       data-i18n-attr="aria-label:float.phone_label">
-      <span class="floating-tooltip">0868 966 625</span>
+      <span class="floating-tooltip">02436688679</span>
       <i class="bi bi-telephone-fill"></i>
     </a>
   </div>
 
-  <script src="i18n.js?v=11"></script>
-  <script src="script.js?v=11"></script>
-  <script src="background-particles.js?v=1"></script>
+  <script src="i18n.js?v=20261116"></script>
+  <script src="script.js?v=20261116"></script>
+  <script src="background-particles.js?v=20261116"></script>
 </body>
 
 </html>

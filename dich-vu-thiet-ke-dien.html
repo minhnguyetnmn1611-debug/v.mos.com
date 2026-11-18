@@ -31,76 +31,218 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=rx30">
-  <link rel="stylesheet" href="vmos-layout.css?v=16">
-  <link rel="stylesheet" href="vmos-blue-theme.css?v=2">
-  <link rel="stylesheet" href="service-banner.css?v=3">
-  <!-- ===== NỀN BANNER THIẾT KẾ ĐIỆN: tiêu đề bên trái, ảnh mạch điện sát góc phải ===== -->
+  <link rel="stylesheet" href="style.css?v=20261116">
+  <link rel="stylesheet" href="vmos-layout.css?v=20261116">
+  <link rel="stylesheet" href="vmos-blue-theme.css?v=20261116">
+  <link rel="stylesheet" href="service-banner.css?v=20261116">
+  <!-- ===== NỀN BANNER THIẾT KẾ ĐIỆN: THIẾT KẾ ĐƯỜNG CHÉO KÍNH 3D XẾP LỚP ĐỒNG BỘ MÀU XANH (#0062ff) ===== -->
   <style id="dien-banner-theme">
-    .dien-banner {
-      --dien-bg: var(--svc-banner-bg);
-      /* Kích thước ảnh = chiều cao khối. Tối đa 736px (kích thước gốc), không bao giờ phóng to. */
-      --dien-size: clamp(520px, 85vh, 736px);
-      --dien-fade: 34%;
-      --dien-img-w: 54vw;
-      background: var(--dien-bg) !important;
+    html[data-theme]:root:root body .dien-banner {
+      --dien-bg: var(--svc-banner-bg, #0062ff);
+      --dien-size: var(--banner-h);
+      --dien-text-w: min(1000px, 52vw);
+      --dien-h1-size: var(--banner-title);
+      position: relative;
+      overflow: hidden;
       isolation: isolate;
       display: flex;
       align-items: center;
       min-height: var(--dien-size) !important;
+      padding: 3rem 0 !important;
+      background: linear-gradient(135deg, #0050d8 0%, var(--dien-bg) 52%, #0047b8 100%) !important;
+      border-bottom: none;
     }
 
-    /* Ảnh nền (máy tính): khung ảnh chỉ nằm ở bên phải banner, phủ kín chiều cao (cover, không méo),
-       chỉ mờ dần ở mép trái. Chữ nằm bên trái khung này nên không bị ảnh đè.
-       Chỉnh nhanh: --dien-img-w = bề rộng vùng ảnh (nhỏ hơn => chữ càng rộng chỗ, ảnh càng hẹp). */
-    .dien-banner::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: var(--dien-img-w);
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      background: url("images/dien-banner-bg.jpg?v=2") center / cover no-repeat;
-      -webkit-mask-image:
-        linear-gradient(90deg, transparent 0, #000 var(--dien-fade), #000 100%);
-      mask-image:
-        linear-gradient(90deg, transparent 0, #000 var(--dien-fade), #000 100%);
+    /* Tắt ::before / ::after mặc định của service-banner.css để dùng tổ hợp kính chéo 3D */
+    html[data-theme]:root:root body .dien-banner::before {
+      content: "" !important;
+      display: block !important;
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      z-index: 0 !important;
+      pointer-events: none !important;
+      background:
+        radial-gradient(circle at 18% 35%, rgba(255, 255, 255, 0.14) 0%, transparent 48%),
+        radial-gradient(circle at 78% 50%, rgba(56, 189, 248, 0.22) 0%, transparent 55%) !important;
+      -webkit-mask-image: none !important;
+      mask-image: none !important;
     }
 
-    /* Lớp tối nhẹ phía trái để chữ dễ đọc */
-    .dien-banner::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
+    html[data-theme]:root:root body .dien-banner::after {
+      content: "" !important;
+      display: block !important;
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: 1 !important;
+      pointer-events: none !important;
       background: linear-gradient(90deg,
-          rgba(var(--svc-banner-rgb), 0.90) 0%,
-          rgba(var(--svc-banner-rgb), 0.72) 35%,
-          rgba(var(--svc-banner-rgb), 0.28) 55%,
-          rgba(var(--svc-banner-rgb), 0) 72%);
-    }
-
-    /* ===== ĐỘ CHE PHỦ CỦA LỚP XANH (riêng trang Điện) =====
-       Chỉnh 2 số dưới đây (ghi đè service-banner.css, chỉ áp dụng cho banner Điện):
-         --svc-shade-max : độ đậm lớp xanh ở mép trái (0 = không phủ, 0.45 = như cũ)
-         --svc-shade-end : lớp xanh tắt hẳn tại vị trí này (% chiều ngang banner; cũ = 42%)
-       Muốn ảnh rõ hơn nữa: giảm 2 số này và giảm --dien-fade ở đầu khối style (hiện 34% của khung ảnh). */
-    html[data-theme]:root:root body .dien-banner {
-      --svc-shade-max: 0.22;
-      --svc-shade-end: 32%;
-    }
-
-    /* Đoạn mô tả: thêm bóng chữ nhẹ để vẫn đọc rõ khi lớp phủ mỏng hơn */
-    html[data-theme]:root:root body .dien-banner .dien-banner-title p {
-      text-shadow: 0 1px 10px rgba(0, 40, 120, 0.55);
+          rgba(var(--svc-banner-rgb, 0, 98, 255), 0.92) 0%,
+          rgba(var(--svc-banner-rgb, 0, 98, 255), 0.78) 36%,
+          rgba(var(--svc-banner-rgb, 0, 98, 255), 0.18) 52%,
+          rgba(var(--svc-banner-rgb, 0, 98, 255), 0) 66%) !important;
     }
 
     .dien-banner-dots,
     .dien-banner-glow {
       display: none !important;
+    }
+
+    /* ===== TỔ HỢP ĐƯỜNG CHÉO KÍNH 3D XẾP LỚP (LẤY CẢM HỨNG TỪ MẪU THAM KHẢO) ===== */
+    .dien-hero-decor {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .dien-glass-stage {
+      position: absolute;
+      top: -12%;
+      right: -8%;
+      width: 66%;
+      height: 124%;
+      pointer-events: none;
+    }
+
+    /* Các tấm kính 3D vát cạnh xoay chéo -36 độ xếp chồng lên nhau */
+    .dien-glass-plate {
+      position: absolute;
+      border-radius: 6px;
+      transform: rotate(-36deg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: linear-gradient(135deg,
+          rgba(147, 197, 253, 0.34) 0%,
+          rgba(37, 99, 235, 0.42) 45%,
+          rgba(0, 58, 168, 0.68) 100%);
+      border-top: 2px solid rgba(255, 255, 255, 0.85);
+      border-left: 2.5px solid rgba(255, 255, 255, 0.92);
+      border-right: 1px solid rgba(191, 219, 254, 0.45);
+      border-bottom: 3px solid rgba(0, 24, 82, 0.65);
+      box-shadow:
+        -22px 26px 48px rgba(0, 20, 75, 0.48),
+        -4px 6px 0 rgba(191, 219, 254, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.75),
+        inset 3px 3px 16px rgba(255, 255, 255, 0.24);
+      overflow: hidden;
+    }
+
+    /* Lớp kính con lồng bên trong mỗi tấm (tạo hiệu ứng 2 tầng viền vát nổi 3D như mẫu) */
+    .dien-glass-plate::before {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border-radius: 4px;
+      border-top: 2px solid rgba(255, 255, 255, 0.82);
+      border-left: 2px solid rgba(255, 255, 255, 0.88);
+      border-right: 1px solid rgba(255, 255, 255, 0.32);
+      border-bottom: 2px solid rgba(0, 24, 82, 0.55);
+      box-shadow:
+        -12px 14px 28px rgba(0, 18, 68, 0.42),
+        inset 0 0 22px rgba(255, 255, 255, 0.18);
+      background: linear-gradient(145deg,
+          rgba(255, 255, 255, 0.22) 0%,
+          rgba(0, 98, 255, 0.25) 55%,
+          rgba(0, 50, 150, 0.45) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Vệt phản quang mặt kính chéo */
+    .dien-glass-plate::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg,
+          rgba(255, 255, 255, 0.42) 0%,
+          rgba(255, 255, 255, 0.08) 28%,
+          transparent 52%,
+          rgba(56, 189, 248, 0.22) 100%);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Tấm 1: Khối kính chéo phía trên */
+    .dien-glass-plate--top {
+      top: -8%;
+      left: 16%;
+      width: 520px;
+      height: 290px;
+      z-index: 1;
+    }
+
+    /* Tấm 2: Khối kính chéo dưới cùng (tạo chiều sâu xếp lớp) */
+    .dien-glass-plate--bottom {
+      bottom: -14%;
+      left: 10%;
+      width: 560px;
+      height: 310px;
+      z-index: 2;
+      background: linear-gradient(135deg,
+          rgba(96, 165, 250, 0.38) 0%,
+          rgba(0, 98, 255, 0.55) 50%,
+          rgba(0, 48, 140, 0.78) 100%);
+    }
+
+    /* Tấm 3: Khối kính chéo trung tâm lớn nhất đè lên trên và lồng ảnh kỹ thuật điện */
+    .dien-glass-plate--main {
+      top: 14%;
+      right: -10%;
+      width: 680px;
+      height: 430px;
+      z-index: 3;
+      box-shadow:
+        -28px 34px 64px rgba(0, 16, 64, 0.58),
+        -6px 8px 0 rgba(255, 255, 255, 0.35),
+        inset 0 2px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    /* Ảnh tủ điện hiển thị rõ nét bên trong tấm kính chéo chính (xoay ngược lại +36deg để ảnh đứng thẳng tự nhiên) */
+    .dien-glass-photo {
+      position: absolute;
+      inset: -26%;
+      background: url("images/dien-banner-bg.jpg?v=2") center / cover no-repeat;
+      transform: rotate(36deg);
+      filter: contrast(1.06) saturate(1.05);
+      opacity: 0.92;
+      z-index: 1;
+    }
+
+    /* Lớp phủ xanh nhẹ hòa quyện ảnh vào chất liệu kính xanh dương */
+    .dien-glass-photo-tint {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg,
+          rgba(0, 98, 255, 0.32) 0%,
+          rgba(0, 71, 184, 0.14) 50%,
+          rgba(0, 50, 140, 0.38) 100%);
+      z-index: 1;
+    }
+
+    /* Ảnh mạch điện tử trong tấm kính trên */
+    .dien-glass-plate--top .dien-glass-photo {
+      background: url("images/dien-banner-circuit.jpg?v=1") center / cover no-repeat;
+      opacity: 0.78;
+      filter: brightness(1.18) contrast(1.12) saturate(1.15);
+    }
+
+    /* Ảnh phụ trong tấm kính dưới */
+    .dien-glass-plate--bottom .dien-glass-photo {
+      opacity: 0.38;
+      filter: hue-rotate(8deg) saturate(1.2) brightness(0.95);
+    }
+
+    .dien-hero-circuit-svg {
+      position: absolute;
+      left: -30px;
+      bottom: -50px;
+      width: 380px;
+      height: 380px;
+      opacity: 0.16;
+      color: #ffffff;
     }
 
     .dien-banner .container {
@@ -109,53 +251,104 @@
       width: 100%;
     }
 
-    /* Khối chữ chỉ chiếm nửa trái banner (vùng nền xanh), không tràn sang ảnh.
-       Chỉnh nhanh: --dien-text-w = bề rộng tối đa khối chữ; --dien-h1-size = cỡ tiêu đề.
-       Nếu dòng "LẬP TRÌNH ĐIỀU KHIỂN" vẫn chạm ảnh: giảm 3.6vw (trong --dien-h1-size) xuống 3.3vw, hoặc giảm 46vw (trong --dien-text-w) xuống 42vw. */
-    .dien-banner {
-      --dien-text-w: min(1000px, 46vw);
-      --dien-h1-size: clamp(2rem, 3.6vw, 4.5rem);
-    }
-
     .dien-banner .dien-banner-title {
       text-align: left !important;
       margin-bottom: 0;
       max-width: var(--dien-text-w);
     }
 
-    .dien-banner .dien-banner-title h1 {
-      font-size: var(--dien-h1-size);
-      line-height: 1.12;
-      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+    /* Tiêu đề chính */
+    html[data-theme]:root:root body .dien-banner .dien-banner-title h1,
+    html[data-theme]:root:root body .dien-banner .dien-banner-title h1 span {
+      margin: 0;
+      font-size: var(--dien-h1-size) !important;
+      line-height: 1.12 !important;
+      font-weight: 800 !important;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      background: none !important;
+      text-shadow: 0 2px 18px rgba(0, 20, 70, 0.45) !important;
     }
 
     .dien-banner .dien-banner-title-accent {
       display: block;
+      white-space: nowrap;
     }
 
-    /* Dòng 1: "Thiết Kế Điện"  |  Dòng 2: "&"  |  Dòng 3: "Lập Trình Điều Khiển"
-       (dấu xuống dòng \n nằm trong chuỗi dịch ở i18n.js) */
     .dien-banner .dien-banner-title h1>span:first-child {
       display: block;
       white-space: pre-line;
     }
 
-    @media (max-width: 768px) {
-      .dien-banner {
-        --dien-size: 440px;
-        --dien-fade: 45%;
+    /* Thanh gạch ngang trắng chuẩn nhận diện dưới tiêu đề */
+    .dien-hero-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1.1rem 0 1.2rem;
+    }
+
+    .dien-hero-divider::before {
+      content: "";
+      width: 68px;
+      height: 4px;
+      border-radius: 2px;
+      background: #ffffff;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.45);
+    }
+
+    .dien-hero-divider::after {
+      content: "";
+      width: 24px;
+      height: 2px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.55);
+    }
+
+    /* Đoạn mô tả */
+    html[data-theme]:root:root body .dien-banner .dien-banner-title p {
+      margin: 0 !important;
+      max-width: 540px;
+      font-size: var(--banner-desc) !important;
+      line-height: 1.65 !important;
+      font-weight: 500 !important;
+      text-align: left !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      text-shadow: 0 1px 10px rgba(0, 30, 100, 0.45) !important;
+    }
+
+    @media (max-width: 992px) {
+      .dien-glass-stage {
+        width: 85%;
+        right: -18%;
+        opacity: 0.55;
+      }
+
+      html[data-theme]:root:root body .dien-banner {
         --dien-text-w: 100%;
-        --dien-h1-size: clamp(2rem, 5vw, 4.75rem);
+      }
+    }
+
+    @media (max-width: 768px) {
+      html[data-theme]:root:root body .dien-banner {
+        --dien-size: var(--banner-h);
+        --dien-text-w: 100%;
+        --dien-h1-size: var(--banner-title);
       }
 
-      .dien-banner::before {
-        width: calc(var(--dien-size) * 780 / 440);
-        height: var(--dien-size);
-        background-size: 100% 100%;
+      .dien-glass-stage {
+        width: 110%;
+        right: -25%;
+        opacity: 0.38;
       }
 
-      .dien-banner::after {
-        background: linear-gradient(90deg, rgba(var(--svc-banner-rgb), 0.8) 0%, rgba(var(--svc-banner-rgb), 0.5) 100%);
+      html[data-theme]:root:root body .dien-banner::after {
+        background: linear-gradient(90deg,
+            rgba(var(--svc-banner-rgb, 0, 98, 255), 0.88) 0%,
+            rgba(var(--svc-banner-rgb, 0, 98, 255), 0.65) 100%) !important;
       }
     }
 
@@ -231,7 +424,9 @@
       border-top: 1px solid var(--border-color);
     }
 
-    .dsv-block:first-of-type {
+    /* Khối đầu của dãy .dsv-block (không phụ thuộc loại thẻ của các phần tử anh em) */
+    .dsv-block:first-child,
+    :not(.dsv-block)+.dsv-block {
       border-top: 0;
       padding-top: 0;
     }
@@ -534,7 +729,7 @@
     }
 
     html[data-theme]:root:root body .dien-banner .dien-banner-title h1 {
-      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      font-size: var(--banner-title);
       line-height: 1.15;
       text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
     }
@@ -833,14 +1028,38 @@
     #dien-02 .group-gallery-slide--fit img {
       object-fit: contain;
     }
+
+    /* ===== Khối 01: slider ảnh HMI + chương trình PLC =====
+       Ảnh chụp màn hình có chữ nhỏ nên hiện ĐỦ ảnh (contain), không cắt.
+       Nền mỗi slide trùng màu nền ảnh (HMI nền đen, Ladder nền trắng). Đổi tỉ lệ khung: --gg-ratio. */
+    #dien-01 .group-gallery {
+      --gg-ratio: 4 / 3;
+    }
+
+    #dien-01 .group-gallery-viewport {
+      border: 1px solid var(--border-color, #dde3ea);
+    }
+
+    #dien-01 .group-gallery-slide--fit img {
+      object-fit: contain;
+    }
+
+    #dien-01 .group-gallery-slide--hmi {
+      background: #0a0a0a;
+    }
+
+    #dien-01 .group-gallery-slide--ladder {
+      background: #ffffff;
+    }
   </style>
-  <link rel="stylesheet" href="vmos-white-theme.css?v=1">
-  <link rel="stylesheet" href="service-layout.css?v=3">
-  <link rel="stylesheet" href="group-gallery.css?v=8">
+  <link rel="stylesheet" href="vmos-white-theme.css?v=20261116">
+  <link rel="stylesheet" href="service-layout.css?v=20261116">
+  <link rel="stylesheet" href="group-gallery.css?v=20261122">
   <link rel="canonical" href="https://v-mos.com/dich-vu-thiet-ke-dien.html">
   <meta property="og:url" content="https://v-mos.com/dich-vu-thiet-ke-dien.html">
   <meta property="og:image" content="https://v-mos.com/images/vmos-logo.png">
-  <link rel="stylesheet" href="vmos-margins.css?v=1">
+  <link rel="stylesheet" href="vmos-margins.css?v=20261116">
+  <link rel="stylesheet" href="service-refine.css?v=20261124">
 </head>
 
 <body class="breadcrumb-below">
@@ -864,7 +1083,8 @@
           </a>
           <div class="nav-dropdown-menu">
             <a href="dich-vu-thiet-ke-co-khi.html" data-i18n="services.mechanical">Thiết Kế Cơ Khí</a>
-            <a href="dich-vu-thiet-ke-dien.html" data-i18n="services.electrical">Thiết Kế Điện - Lập Trình Điều
+            <a href="dich-vu-thiet-ke-dien.html" class="active" data-i18n="services.electrical">Thiết Kế Điện - Lập
+              Trình Điều
               Khiển</a>
             <a href="dich-vu-thiet-ke-mo-phong.html" data-i18n="services.simulation">Thiết Kế Mô Phỏng</a>
           </div>
@@ -941,10 +1161,35 @@
   </aside>
 
 
-  <!-- ================= KHỐI 1 — BANNER GỐC (2-FLAG-CARD HERO BANNER) ================= -->
-  <section class="dien-banner reveal" style="padding-top: 3rem;">
+  <!-- ================= KHỐI 1 — BANNER CÔNG NGHỆ CAO (XANH DƯƠNG CHỦ ĐẠO) ================= -->
+  <section class="dien-banner reveal">
     <div class="dien-banner-glow"></div>
     <div class="dien-banner-dots"></div>
+    <div class="dien-hero-decor" aria-hidden="true">
+      <div class="dien-glass-stage">
+        <div class="dien-glass-plate dien-glass-plate--top">
+          <div class="dien-glass-photo"></div>
+          <div class="dien-glass-photo-tint"></div>
+        </div>
+        <div class="dien-glass-plate dien-glass-plate--bottom">
+          <div class="dien-glass-photo"></div>
+          <div class="dien-glass-photo-tint"></div>
+        </div>
+        <div class="dien-glass-plate dien-glass-plate--main">
+          <div class="dien-glass-photo"></div>
+          <div class="dien-glass-photo-tint"></div>
+        </div>
+      </div>
+      <svg class="dien-hero-circuit-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 40 H60 L85 65 H145" stroke="currentColor" stroke-width="1.2" />
+        <circle cx="148" cy="65" r="4" stroke="currentColor" stroke-width="1.5" />
+        <path d="M10 95 H50 L75 120 H165" stroke="currentColor" stroke-width="1.2" />
+        <circle cx="168" cy="120" r="4" stroke="currentColor" stroke-width="1.5" />
+        <path d="M10 150 H80 L105 175 H155" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 3" />
+        <circle cx="158" cy="175" r="4" stroke="currentColor" stroke-width="1.5" />
+        <rect x="42" y="87" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.2" />
+      </svg>
+    </div>
 
     <div class="container">
       <div class="dien-banner-title">
@@ -954,9 +1199,9 @@
             Kế Điện
             &amp;</span><span class="dien-banner-title-accent" data-i18n="service_detail.electrical.hero_title_2"
             style="color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;background:none !important;">Lập
-            Trình Điều
-            Khiển</span>
+            Trình Điều Khiển</span>
         </h1>
+        <div class="dien-hero-divider" aria-hidden="true"></div>
         <p class="dien-banner-desc" style="color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;">
           VIET.MOS (VMOS) cung cấp giải pháp toàn diện về thiết kế điện và lập trình điều khiển: lập trình PLC bằng ngôn
           ngữ Ladder, thiết kế giao diện HMI/SCADA và lập trình Robot công nghiệp tích hợp Camera Vision thông minh, đáp
@@ -982,72 +1227,9 @@
 
 
   <!-- ================= THIẾT KẾ ĐIỆN & LẬP TRÌNH ĐIỀU KHIỂN: BỐ CỤC DÙNG CHUNG VỚI TRANG MÔ PHỎNG (service-layout.css) =================
-       Các khối: Giới thiệu -> Lợi ích -> Phạm vi dịch vụ -> Lĩnh vực ứng dụng -> Tư vấn
-       Chữ ở khối "Giới thiệu" và "Lợi ích" là NỘI DUNG TẠM - sửa trực tiếp tại đây. -->
+       Các khối: Phạm vi dịch vụ -> Lĩnh vực ứng dụng -> Tư vấn
+       (Đã bỏ khối "Giới thiệu" và "Lợi ích".) -->
   <main class="sl-page">
-
-    <!-- ===== 1. GIỚI THIỆU ===== -->
-    <section class="sl-section" id="dien-gioi-thieu">
-      <div class="sl-container">
-        <div class="sl-head reveal">
-          <h2>Thiết Kế Điện &amp; Lập Trình Điều Khiển Là Gì?</h2>
-        </div>
-        <div class="sl-intro reveal">
-          <div class="sl-intro-text">
-            <p class="sl-lead">Thiết kế điện và lập trình điều khiển là hai phần việc gắn liền nhau, giúp một máy hoặc
-              dây chuyền tự động vận hành đúng, ổn định và an toàn.</p>
-            <p><strong>Thiết kế điện</strong> là xây dựng hệ thống cấp nguồn và đấu nối cho thiết bị: lập sơ đồ nguyên
-              lý, chọn thiết bị điện (áp tô mát, contactor, biến tần, servo, nguồn, cảm biến...), bố trí và thiết kế tủ
-              điều khiển, đi dây và đánh dấu dây để dễ lắp đặt, bảo trì.</p>
-            <p><strong>Lập trình điều khiển</strong> là viết chương trình để thiết bị biết &ldquo;làm gì, khi
-              nào&rdquo;:
-              PLC điều khiển trình tự hoạt động, HMI là màn hình để người vận hành theo dõi và thao tác, cùng với robot
-              và camera vision cho các công đoạn gắp đặt, kiểm tra.</p>
-            <p>Có thể hiểu phần điện là &ldquo;hệ thần kinh&rdquo; truyền tín hiệu và năng lượng, còn chương trình điều
-              khiển là &ldquo;bộ não&rdquo; ra quyết định. VMOS cung cấp trọn gói cả hai, từ thiết kế điện, tủ điều
-              khiển đến lập trình PLC/HMI, robot và camera vision, giúp thiết bị chạy ổn định và giảm thời gian dừng
-              máy.</p>
-            <p class="sl-related-line"><strong>Liên quan:</strong>
-              <a href="dich-vu-thiet-ke-co-khi.html">Thiết kế cơ khí</a> |
-              <a href="dich-vu-thiet-ke-mo-phong.html">Thiết kế mô phỏng</a> |
-              <a href="du-an.html">Dự án triển khai</a>
-            </p>
-          </div>
-          <!-- ẢNH MINH HỌA (thêm sau): bỏ dấu comment và đổi đường dẫn ảnh
-          <figure class="sl-media">
-            <img src="images/ten-anh.jpg" alt="Mô tả ảnh" loading="lazy">
-          </figure>
-          -->
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== 2. LỢI ÍCH: 3 cột ===== -->
-    <section class="sl-section sl-section--alt" id="dien-loi-ich">
-      <div class="sl-container">
-        <div class="sl-head reveal">
-          <h2>Lợi ích khi hợp tác cùng VMOS</h2>
-        </div>
-        <div class="sl-benefits">
-          <article class="sl-benefit reveal">
-            <i class="bi bi-activity"></i>
-            <h3>Vận hành ổn định</h3>
-            <p>Chương trình có cấu trúc rõ ràng, logic liên động đầy đủ giúp thiết bị chạy ổn định và giảm dừng máy.</p>
-          </article>
-          <article class="sl-benefit reveal">
-            <i class="bi bi-shield-check"></i>
-            <h3>An toàn &amp; chuẩn hóa</h3>
-            <p>Bản vẽ điện và tủ điều khiển thực hiện theo tiêu chuẩn kỹ thuật, đáp ứng yêu cầu an toàn khi vận hành.
-            </p>
-          </article>
-          <article class="sl-benefit reveal">
-            <i class="bi bi-stopwatch"></i>
-            <h3>Sớm đưa vào chạy</h3>
-            <p>Kiểm thử trên môi trường ảo trước giúp giảm thời gian debug và hiệu chỉnh trên phần cứng thực.</p>
-          </article>
-        </div>
-      </div>
-    </section>
 
     <!-- ===== 3. PHẠM VI DỊCH VỤ (4 mảng, ảnh và chữ xen kẽ) ===== -->
     <section class="sl-section" id="dien-pham-vi">
@@ -1099,49 +1281,78 @@
               </li>
             </ul>
 
-            <h4 class="dsv-sub">Nền tảng công nghệ</h4>
-            <div class="dsv-logo-groups">
-              <div class="dsv-logo-group">
-                <h5 class="dsv-logo-group-title">Siemens</h5>
-                <ul class="dsv-logos">
+
+          </div>
+
+          <div class="dsv-visual">
+            <!-- Slider ảnh HMI + chương trình PLC (dùng chung group-gallery.css / group-gallery.js) -->
+            <div class="group-gallery" role="region" aria-roledescription="carousel"
+              aria-label="Giao diện HMI và chương trình PLC">
+              <div class="group-gallery-viewport">
+                <div class="group-gallery-track">
+                  <figure class="group-gallery-slide group-gallery-slide--fit group-gallery-slide--hmi"><img
+                      src="images/dien-hmi-demo.jpg" alt="Giao diện vận hành HMI / Touch Panel" draggable="false">
+                  </figure>
+                  <figure class="group-gallery-slide group-gallery-slide--fit group-gallery-slide--ladder"><img
+                      src="images/dien-plc-gxworks2-ladder.jpg" alt="Chương trình PLC dạng Ladder trên GX Works2"
+                      loading="lazy" draggable="false"></figure>
+                </div>
+              </div>
+              <div class="group-gallery-controls">
+                <div class="group-gallery-bars"></div>
+                <div class="group-gallery-arrows">
+                  <button type="button" class="group-gallery-btn group-gallery-prev" aria-label="Ảnh trước"><i
+                      class="bi bi-arrow-left"></i></button>
+                  <button type="button" class="group-gallery-btn group-gallery-next" aria-label="Ảnh kế tiếp"><i
+                      class="bi bi-arrow-right"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Nền tảng công nghệ: trải hết chiều ngang, mỗi hãng một dòng (CSS: mục 6b trong service-refine.css) -->
+          <div class="tp-block">
+            <h4 class="tp-title">Nền tảng công nghệ</h4>
+            <div class="tp-rows">
+              <div class="tp-row">
+                <div class="tp-vendor">
+                  <div class="tp-name">Siemens</div>
+                  <div class="tp-sub">Hệ thống điều khiển &amp; Số hóa</div>
+                </div>
+                <ul class="tp-cards">
                   <li><img src="images/logo-tia-portal.jpg" alt="Siemens TIA Portal" loading="lazy"></li>
                 </ul>
               </div>
-              <div class="dsv-logo-group">
-                <h5 class="dsv-logo-group-title">Mitsubishi Electric</h5>
-                <ul class="dsv-logos">
+              <div class="tp-row">
+                <div class="tp-vendor">
+                  <div class="tp-name">Mitsubishi Electric</div>
+                  <div class="tp-sub">Thiết bị &amp; Giải pháp tự động hóa</div>
+                </div>
+                <ul class="tp-cards">
                   <li><img src="images/logo-gx-works3.jpg" alt="Mitsubishi GX Works3" loading="lazy"></li>
                   <li><img src="images/logo-gx-works2.jpg" alt="Mitsubishi GX Works2" loading="lazy"></li>
                   <li><img src="images/logo-gx-designer3.jpg" alt="Mitsubishi GX Designer3" loading="lazy"></li>
                 </ul>
               </div>
-              <div class="dsv-logo-group">
-                <h5 class="dsv-logo-group-title">Omron</h5>
-                <ul class="dsv-logos">
+              <div class="tp-row">
+                <div class="tp-vendor">
+                  <div class="tp-name">Omron</div>
+                  <div class="tp-sub">Công nghệ tự động hóa</div>
+                </div>
+                <ul class="tp-cards">
                   <li><img src="images/logo-sysmac-studio.jpg" alt="Omron Sysmac Studio" loading="lazy"></li>
                 </ul>
               </div>
-              <div class="dsv-logo-group">
-                <h5 class="dsv-logo-group-title">Keyence</h5>
-                <ul class="dsv-logos">
+              <div class="tp-row">
+                <div class="tp-vendor">
+                  <div class="tp-name">Keyence</div>
+                  <div class="tp-sub">Thiết bị cảm biến &amp; Kiểm soát</div>
+                </div>
+                <ul class="tp-cards">
                   <li><img src="images/logo-kv-studio.jpg" alt="Keyence KV Studio" loading="lazy"></li>
                   <li><img src="images/logo-vt-studio.jpg" alt="Keyence VT Studio" loading="lazy"></li>
                 </ul>
               </div>
             </div>
-
-          </div>
-
-          <div class="dsv-visual">
-            <figure class="dsv-shot">
-              <img src="images/dien-hmi-demo.jpg" alt="Giao diện vận hành HMI / Touch Panel" loading="lazy">
-              <figcaption><i class="bi bi-window-stack"></i> Giao diện vận hành HMI / Touch Panel</figcaption>
-            </figure>
-            <figure class="dsv-shot">
-              <img src="images/dien-plc-gxworks2-ladder.jpg" alt="Chương trình PLC dạng Ladder trên GX Works2"
-                loading="lazy">
-              <figcaption><i class="bi bi-code-square"></i> Chương trình PLC (Ladder)</figcaption>
-            </figure>
           </div>
         </article>
         <article id="dien-02" class="dsv-block dsv-reverse reveal">
@@ -1160,16 +1371,6 @@
               <li><i class="bi bi-check-circle"></i>Hoàn thiện hồ sơ bản vẽ kỹ thuật bàn giao</li>
             </ul>
 
-            <h4 class="dsv-sub">Nền tảng công nghệ</h4>
-            <div class="dsv-logo-groups">
-              <div class="dsv-logo-group">
-                <h5 class="dsv-logo-group-title">Phần mềm thiết kế điện</h5>
-                <ul class="dsv-logos">
-                  <li><img src="images/logo-autocad.jpg" alt="Autodesk AutoCAD" loading="lazy"></li>
-                  <li><img src="images/logo-bricscad.jpg" alt="BricsCAD" loading="lazy"></li>
-                </ul>
-              </div>
-            </div>
 
           </div>
 
@@ -1202,6 +1403,21 @@
               </div>
             </div>
           </div>
+          <!-- Nền tảng công nghệ: trải hết chiều ngang (CSS: mục 6b trong service-refine.css) -->
+          <div class="tp-block">
+            <h4 class="tp-title">Nền tảng công nghệ</h4>
+            <div class="tp-rows">
+              <div class="tp-row">
+                <div class="tp-vendor">
+                  <div class="tp-name">Phần mềm thiết kế điện</div>
+                </div>
+                <ul class="tp-cards">
+                  <li><img src="images/logo-autocad.jpg" alt="Autodesk AutoCAD" loading="lazy"></li>
+                  <li><img src="images/logo-bricscad.jpg" alt="BricsCAD" loading="lazy"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </article>
         <article id="dien-03" class="dsv-block reveal">
           <div class="dsv-content">
@@ -1219,15 +1435,6 @@
               <li><i class="bi bi-check-circle"></i>Tối ưu quỹ đạo và thời gian chu kỳ (cycle time)</li>
             </ul>
 
-            <h4 class="dsv-sub">Nền tảng công nghệ</h4>
-            <div class="dsv-logo-groups">
-              <div class="dsv-logo-group">
-                <h5 class="dsv-logo-group-title">Phần mềm lập trình robot</h5>
-                <ul class="dsv-logos dsv-logos--plain">
-                  <li><img src="images/logo-motosim.png" alt="Yaskawa MotoSim EG-VRC" loading="lazy"></li>
-                </ul>
-              </div>
-            </div>
 
           </div>
 
@@ -1255,6 +1462,20 @@
                   <button type="button" class="group-gallery-btn group-gallery-next" aria-label="Ảnh kế tiếp"><i
                       class="bi bi-arrow-right"></i></button>
                 </div>
+              </div>
+            </div>
+          </div>
+          <!-- Nền tảng công nghệ: trải hết chiều ngang (CSS: mục 6b trong service-refine.css) -->
+          <div class="tp-block">
+            <h4 class="tp-title">Nền tảng công nghệ</h4>
+            <div class="tp-rows">
+              <div class="tp-row">
+                <div class="tp-vendor">
+                  <div class="tp-name">Phần mềm lập trình robot</div>
+                </div>
+                <ul class="tp-cards">
+                  <li><img src="images/logo-motosim.png" alt="Yaskawa MotoSim EG-VRC" loading="lazy"></li>
+                </ul>
               </div>
             </div>
           </div>
@@ -1332,7 +1553,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col footer-col-main">
-          <a href="index.html" class="logo" style="margin-bottom: 1rem;">
+          <a href="index.html" class="logo">
             <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED" class="logo-img">
           </a>
 
@@ -1348,7 +1569,7 @@
           </div>
 
           <div class="footer-contact-row">
-            <a href="tel:+84868966625"><i class="bi bi-telephone-fill"></i> 0868 966 625</a>
+            <a href="tel:+842436688679"><i class="bi bi-telephone-fill"></i> 024 36688679</a>
             <a href="mailto:viet.mos@v-mos.com"><i class="bi bi-envelope-fill"></i> viet.mos@v-mos.com</a>
           </div>
 
@@ -1356,13 +1577,13 @@
             <!-- Zalo: mở trang hồ sơ Zalo Business -->
             <a href="zalo-qr.html" target="_blank" rel="noopener noreferrer" class="social-icon"
               aria-label="Zalo">Zalo</a>
-            <!-- TODO: URL thật -->
-            <a href="#" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.facebook.com/vmos.2022" target="_blank" rel="noopener noreferrer" class="social-icon"
+              aria-label="Facebook"><i class="bi bi-facebook"></i></a>
           </div>
         </div>
 
         <div class="footer-col">
-          <h4 data-i18n="footer.quick_links">Liên Kết Nhanh</h4>
+          <h4 data-i18n="footer.quick_links">Liên kết nhanh</h4>
           <ul class="footer-links">
             <li><a href="index.html" data-i18n="nav.home">Trang chủ</a></li>
             <li><a href="index.html#services" data-i18n="footer.link_services">Dịch vụ trọng tâm</a></li>
@@ -1372,9 +1593,9 @@
         </div>
 
         <div class="footer-col">
-          <h4 data-i18n="footer.info_pages">Trang Thông Tin</h4>
+          <h4 data-i18n="footer.info_pages">Trang thông tin</h4>
           <ul class="footer-links">
-            <li><a href="blog.html" data-i18n="footer.link_blog">Tin tức &amp; Công nghệ</a></li>
+            <li><a href="blog.html" data-i18n="footer.link_blog">Tin tức &amp; công nghệ</a></li>
             <li><a href="contact.html" data-i18n="footer.link_contact">Liên hệ tư vấn</a></li>
             <li><a href="privacy.html" data-i18n="footer.privacy">Chính sách bảo mật</a></li>
             <li><a href="terms.html" data-i18n="footer.terms">Điều khoản sử dụng</a></li>
@@ -1398,16 +1619,16 @@
     </a>
 
     <!-- Nút Gọi điện -->
-    <a href="tel:+84868966625" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn"
+    <a href="tel:+842436688679" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn"
       data-i18n-attr="aria-label:float.phone_label">
-      <span class="floating-tooltip">0868 966 625</span>
+      <span class="floating-tooltip">02436688679</span>
       <i class="bi bi-telephone-fill"></i>
     </a>
   </div>
 
-  <script src="i18n.js?v=11"></script>
-  <script src="script.js?v=11"></script>
-  <script src="group-gallery.js?v=2"></script>
+  <script src="i18n.js?v=20261116"></script>
+  <script src="script.js?v=20261116"></script>
+  <script src="group-gallery.js?v=20261116"></script>
 </body>
 
 </html>

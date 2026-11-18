@@ -1,0 +1,381 @@
+/* ==========================================================================
+   contact-split.css - Trang Liên hệ chia 2 phần: Tư vấn (#tu-van) và Tuyển dụng (#tuyen-dung)
+   Nạp SAU vmos-margins.css. Tiền tố .ct-
+   Chỉnh nhanh: --ct-gap (khoảng cách 2 cột), --ct-accent (màu nhấn)
+   ========================================================================== */
+.ct-section {
+  --ct-gap: 3.5rem;
+  --ct-accent: var(--brand, #0062ff);
+  scroll-margin-top: 6.5rem;
+}
+
+/* ---- Tiêu đề từng phần ---- */
+.ct-head {
+  margin-bottom: 2rem;
+}
+
+.ct-panel {
+  padding: 2.5rem 0 6rem !important;
+}
+
+.ct-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ct-accent);
+}
+
+.ct-head h2 {
+  margin: 0.6rem 0 0.7rem;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.ct-head p {
+  max-width: 920px;
+  text-wrap: pretty;
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+/* ---- Lưới 2 cột (dùng cho cả hai phần) ---- */
+.ct-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ct-gap);
+  align-items: start;
+}
+
+/* Tuyển dụng chỉ còn thẻ liên hệ: bỏ lưới 2 cột, xếp 3 thẻ thành một hàng */
+.ct-grid--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.ct-grid--single .ct-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 992px) {
+  .ct-grid--single .ct-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---- Phần tuyển dụng ---- */
+.ct-box {
+  padding: 2.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--ct-accent);
+  border-radius: var(--radius-md, 12px);
+}
+
+.ct-box h3 {
+  margin: 0 0 1.25rem;
+  font-size: 1.4rem;
+}
+
+.ct-steps {
+  margin: 0 0 1.75rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: ctstep;
+}
+
+.ct-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 0.7rem 0;
+  line-height: 1.65;
+  color: var(--text-muted);
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.ct-steps li:last-child {
+  border-bottom: 0;
+}
+
+.ct-steps li::before {
+  counter-increment: ctstep;
+  content: "0" counter(ctstep);
+  flex: 0 0 auto;
+  min-width: 26px;
+  font-weight: 800;
+  color: var(--ct-accent);
+}
+
+.ct-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.ct-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ct-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md, 12px);
+}
+
+.ct-icon {
+  display: flex;
+  flex: 0 0 50px;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: rgba(var(--brand-rgb, 0, 98, 255), 0.12);
+  color: var(--ct-accent);
+  font-size: 1.4rem;
+}
+
+.ct-card h4 {
+  margin: 0 0 0.2rem;
+  font-size: 1.05rem;
+}
+
+.ct-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.ct-card a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ct-card a:hover {
+  color: var(--ct-accent);
+  text-decoration: underline;
+}
+
+@media (max-width: 992px) {
+  .ct-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ct-box {
+    padding: 1.5rem 1.25rem;
+  }
+}
+
+
+/* ==========================================================================
+   Banner chung đầu trang - cùng kiểu banner 3 trang dịch vụ (service-banner.css):
+   nền xanh --brand, ảnh nằm bên phải và mờ dần sang trái, chữ trắng viết hoa.
+   Ảnh: images/tuyen-dung-banner.jpg (tỉ lệ 2048 x 875).
+   Chỉnh nhanh: --ct-size (chiều cao banner), --ct-fade (điểm ảnh hiện rõ hoàn toàn).
+   ========================================================================== */
+html[data-theme]:root:root body .ct-banner {
+  --ct-size: var(--banner-h);
+  --ct-fade: 42%;
+  --ct-rgb: var(--brand-rgb, 0, 98, 255);
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: var(--ct-size);
+  padding: 3rem 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--brand, #0062ff) !important;
+  border: 0 !important;
+}
+
+html[data-theme]:root:root body .ct-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
+  width: calc(var(--ct-size) * 2048 / 875);
+  height: var(--ct-size);
+  pointer-events: none;
+  background: url("images/tuyen-dung-banner.jpg") center / 100% 100% no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.16) 10.5%, rgba(0, 0, 0, 0.5) 21%, rgba(0, 0, 0, 0.84) 31.5%, #000 var(--ct-fade), #000 100%);
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.16) 10.5%, rgba(0, 0, 0, 0.5) 21%, rgba(0, 0, 0, 0.84) 31.5%, #000 var(--ct-fade), #000 100%);
+}
+
+/* Lớp phủ cùng màu nền: chỉ làm dịu phần ảnh nằm dưới chữ */
+html[data-theme]:root:root body .ct-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+      rgba(var(--ct-rgb), 0.45) 0%,
+      rgba(var(--ct-rgb), 0.25) 25%,
+      rgba(var(--ct-rgb), 0) 42%);
+}
+
+.ct-banner .container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.ct-banner-title {
+  max-width: 100%;
+  text-align: left;
+}
+
+html[data-theme]:root:root body .ct-banner .ct-banner-title h1 {
+  margin: 0;
+  font-size: var(--banner-title) !important;
+  line-height: 1.12 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: none !important;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55) !important;
+}
+
+.ct-banner-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1.1rem 0 1.2rem;
+}
+
+.ct-banner-divider::before {
+  content: "";
+  width: 68px;
+  height: 4px;
+  border-radius: 2px;
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.45);
+}
+
+.ct-banner-divider::after {
+  content: "";
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+html[data-theme]:root:root body .ct-banner .ct-banner-title p {
+  max-width: 520px;
+  margin: 0 !important;
+  font-size: var(--banner-desc) !important;
+  line-height: 1.55 !important;
+  font-weight: 500 !important;
+  text-align: left !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55) !important;
+}
+
+/* Điện thoại: chữ đè lên ảnh nên phủ nhẹ toàn chiều ngang (giống banner dịch vụ) */
+@media (max-width: 768px) {
+  html[data-theme]:root:root body .ct-banner {
+    --ct-size: var(--banner-h);
+  }
+
+  /* Tiêu đề luôn 1 dòng: thu nhỏ theo bề ngang màn hình để không tràn */
+  html[data-theme]:root:root body .ct-banner .ct-banner-title h1 {
+    font-size: var(--banner-title) !important;
+  }
+
+  html[data-theme]:root:root body .ct-banner::before {
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  html[data-theme]:root:root body .ct-banner::after {
+    background: linear-gradient(90deg,
+        rgba(var(--ct-rgb), 0.82) 0%,
+        rgba(var(--ct-rgb), 0.52) 100%);
+  }
+}
+
+/* ==========================================================================
+   Tab phụ: Liên hệ tư vấn / Liên hệ tuyển dụng (contact-tabs.js)
+   ========================================================================== */
+.ct-panel[hidden] {
+  display: none !important;
+}
+
+.ct-tabs-wrap {
+  margin-top: 1.5rem;
+}
+
+.ct-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.ct-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: -1px;
+  padding: 1rem 0.25rem;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.ct-tab:hover {
+  color: var(--brand, #0062ff);
+}
+
+.ct-tab.is-active {
+  color: var(--brand, #0062ff);
+  border-bottom-color: var(--brand, #0062ff);
+}
+
+.ct-tab:focus-visible {
+  outline: 2px solid var(--brand, #0062ff);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .ct-tabs {
+    gap: 0.25rem 1.25rem;
+  }
+
+  .ct-tab {
+    font-size: 0.98rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ct-tab {
+    transition: none;
+  }
+}

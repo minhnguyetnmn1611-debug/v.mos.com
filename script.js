@@ -18,9 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
   initHeroSlider();
   initAboutCardStack();
-  initServiceAccordion();
   initStatsCounter();
-  initPortfolioTabs();
   initContactForm();
   initTerminalStagger();
   initScrollReveal();
@@ -203,33 +201,6 @@ function initStatsCounter() {
   if (statsSection) observer.observe(statsSection);
 }
 
-/* --- PORTFOLIO FILTER TABS --- */
-function initPortfolioTabs() {
-  const tabs = document.querySelectorAll('.portfolio-tabs .tab-btn');
-  const items = document.querySelectorAll('.portfolio-grid .project-card');
-
-  if (!tabs.length || !items.length) return;
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      const filter = tab.getAttribute('data-filter');
-
-      items.forEach(item => {
-        const category = item.getAttribute('data-category');
-        if (filter === 'all' || category === filter) {
-          item.style.display = 'block';
-          item.style.animation = 'fadeInUp 0.4s ease forwards';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    });
-  });
-}
-
 /* --- CONTACT FORM: GỬI THẬT QUA ENDPOINT (data-endpoint trên thẻ <form>) --- */
 function initContactForm() {
   const form = document.getElementById('contact-form');
@@ -258,9 +229,9 @@ function initContactForm() {
       return;
     }
 
-    // Chưa thay Access Key thật (lấy tại web3forms.com) -> báo lỗi rõ ràng thay vì gửi yêu cầu chắc chắn thất bại
+    // Nếu dùng Web3Forms mà chưa thay Access Key thật -> báo lỗi rõ ràng
     const keyInput = form.querySelector('[name="access_key"]');
-    if (keyInput && (!keyInput.value || keyInput.value === 'DAN_ACCESS_KEY_CUA_BAN')) {
+    if (endpoint.includes('web3forms.com') && keyInput && (!keyInput.value || keyInput.value === 'DAN_ACCESS_KEY_CUA_BAN')) {
       console.error('Contact form: chưa thay Access Key trong <input name="access_key"> (contact.html).');
       showToast('⚠️ ' + (window.t ? window.t('toast.contact_error') : 'Gửi thất bại. Vui lòng gọi hotline hoặc email cho chúng tôi.'), 'warning');
       return;
@@ -279,14 +250,20 @@ function initContactForm() {
       page: location.href
     };
     // Các ô ẩn cấu hình sẵn trong form (access_key, subject, from_name...) được gửi kèm
-    form.querySelectorAll('input[type="hidden"]').forEach((h) => { payload[h.name] = h.value; });
+    form.querySelectorAll('input[type="hidden"]').forEach((h) => {
+      if (h.name === 'access_key' && !endpoint.includes('web3forms.com')) return;
+      payload[h.name] = h.value;
+    });
     // Để khi bấm "Reply" trong hộp thư, mail trả lời thẳng về khách
     payload._replyto = email;
 
     try {
+      const isGoogleScript = endpoint.includes('script.google.com');
       const res = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers: isGoogleScript
+          ? { 'Content-Type': 'text/plain;charset=utf-8' }
+          : { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(payload)
       });
       let data = null;
@@ -403,18 +380,6 @@ function initHeroSlider() {
   });
 
   startAutoplay();
-}
-
-function initServiceAccordion() {
-  const items = document.querySelectorAll('.service-accordion-item');
-  items.forEach(item => {
-    const header = item.querySelector('.service-accordion-header');
-    header.addEventListener('click', () => {
-      const isActive = item.classList.contains('active');
-      items.forEach(i => i.classList.remove('active'));
-      if (!isActive) item.classList.add('active');
-    });
-  });
 }
 
 /* --- SCROLL REVEAL OBSERVER --- */

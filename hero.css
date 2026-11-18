@@ -8,7 +8,8 @@ html[data-theme="light"] .vh-hero {
   --hl-bg: #141b25;
   --hl-bg-near: #28313c;
   --hl-img: url("images/hero-line-bg.jpg");
-  --hl-pos: 38%;
+  --hl-pos: 0%;
+  /* neo sát mép trên để không cắt đầu robot */
   --hl-shade: 0.78;
   --hl-fade: 260px;
   --hl-size: 736px;
@@ -94,7 +95,8 @@ html[data-theme="light"] .vh-hero::after {
   width: 100%;
   max-width: none;
   margin: 0 auto;
-  padding: 0 2rem 3rem clamp(1.5rem, 6vw, 6rem);
+  /* Lề trái/phải do vmos-margins.css quản lý (--page-edge); ở đây chỉ đặt đáy */
+  padding: 0 0 3rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -169,20 +171,6 @@ html[data-theme="light"] .vh-btn:hover {
   color: #ffffff !important;
 }
 
-.vh-trust h5,
-html[data-theme="dark"] .vh-trust h5,
-html[data-theme="light"] .vh-trust h5 {
-  color: #dbe7fb !important;
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
-}
-
-.vh-logos img,
-html[data-theme="dark"] .vh-logos img,
-html[data-theme="light"] .vh-logos img {
-  filter: grayscale(1) brightness(0) invert(1) !important;
-  opacity: 0.85 !important;
-}
-
 /* Navbar Logo Display Fix */
 .logo-img {
   display: block !important;
@@ -250,5 +238,15 @@ html[data-theme="light"] .vh-logos img {
 @media (prefers-reduced-motion: reduce) {
   .vh-btn {
     transition: none;
+  }
+}
+
+/* Ảnh banner bắt đầu từ dưới thanh menu, không bị che phần trên */
+@media (min-width: 993px) {
+
+  .vh-hero::before,
+  html[data-theme="dark"] .vh-hero::before,
+  html[data-theme="light"] .vh-hero::before {
+    inset: 68px 0 0 0 !important;
   }
 }

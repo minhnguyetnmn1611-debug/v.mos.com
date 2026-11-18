@@ -32,18 +32,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=rx30">
-  <link rel="stylesheet" href="vmos-layout.css?v=16">
-  <link rel="stylesheet" href="vmos-blue-theme.css?v=2">
-  <link rel="stylesheet" href="service-banner.css?v=3">
-  <!-- ===== BANNER THIẾT KẾ MÔ PHỎNG: tiêu đề bên trái, ảnh mô phỏng sát bên phải (cùng bố cục các trang lĩnh vực khác) ===== -->
+  <link rel="stylesheet" href="style.css?v=20261116">
+  <link rel="stylesheet" href="vmos-layout.css?v=20261116">
+  <link rel="stylesheet" href="vmos-blue-theme.css?v=20261116">
+  <link rel="stylesheet" href="service-banner.css?v=20261116">
+  <!-- ===== BANNER THIẾT KẾ MÔ PHỎNG: 3D GLASS PRISM TILES ĐỒNG BỘ MÀU XANH (#0062ff) ===== -->
   <style id="mo-phong-banner-theme">
-    .mo-phong-banner {
-      --mp-bg: var(--svc-banner-bg);
-      --mp-size: clamp(520px, 85vh, 736px);
-      /* chiều cao banner = chiều cao ảnh */
-      --mp-fade: 34%;
-      /* độ rộng vùng mờ ở mép trái ảnh */
+    html[data-theme]:root:root body .mo-phong-banner {
+      --mp-bg: var(--svc-banner-bg, #0062ff);
+      --mp-size: var(--banner-h);
       position: relative;
       overflow: hidden;
       isolation: isolate;
@@ -51,39 +48,65 @@
       align-items: center;
       min-height: var(--mp-size);
       padding: 3rem 0;
-      background: var(--mp-bg);
+      background: var(--mp-bg) !important;
+      border-bottom: none;
     }
 
-    /* Ảnh nền 16:9, dính góc phải-trên; chỉ mờ dần ở mép trái (không mờ/đổ bóng mép dưới) */
-    .mo-phong-banner::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: calc(var(--mp-size) * 2500 / 1314);
-      /* tỉ lệ ảnh 2500×1314 */
-      height: var(--mp-size);
-      z-index: 0;
-      pointer-events: none;
-      background: url("images/mo-phong-banner-bg.jpg") center / 100% 100% no-repeat;
-      -webkit-mask-image:
-        linear-gradient(90deg, transparent 0, #000 var(--mp-fade), #000 100%);
-      mask-image:
-        linear-gradient(90deg, transparent 0, #000 var(--mp-fade), #000 100%);
+    /* Ảnh banner 2048x768 (đã chỉnh về xanh thương hiệu #0062ff, vùng trái là nền xanh phẳng
+       nên hòa liền với nền banner, không cần mask). Cao bằng banner, canh sát mép phải.
+       Không dùng image-rendering/filter/transform để trình duyệt tự làm mượt, ảnh không bị vỡ. */
+    html[data-theme]:root:root body .mo-phong-banner::before {
+      content: "" !important;
+      display: block !important;
+      position: absolute !important;
+      top: 0 !important;
+      right: 0 !important;
+      left: auto !important;
+      bottom: auto !important;
+      height: 100% !important;
+      width: auto !important;
+      aspect-ratio: 2048 / 768 !important;
+      z-index: 0 !important;
+      pointer-events: none !important;
+      background: url("images/banner-mo-phong.jpg?v=20261116-hd3") right center / 100% 100% no-repeat !important;
+      image-rendering: auto !important;
+      transform: none !important;
+      filter: none !important;
+      -webkit-mask-image: none !important;
+      mask-image: none !important;
     }
 
-    /* Lớp tối phía trái để chữ trắng luôn dễ đọc trên ảnh sáng */
-    .mo-phong-banner::after {
-      content: "";
+    /* Lớp phủ xanh CHỈ bảo vệ vùng chữ bên trái (kết thúc ở 35%),
+       hoàn toàn không đè lên các khối kính 3D mô phỏng để hình ảnh luôn trong veo, sắc nét */
+    html[data-theme]:root:root body .mo-phong-banner::after {
+      content: "" !important;
+      display: block !important;
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: 1 !important;
+      pointer-events: none !important;
+      background: linear-gradient(90deg,
+          rgba(var(--svc-banner-rgb, 0, 98, 255), 0.65) 0%,
+          rgba(var(--svc-banner-rgb, 0, 98, 255), 0.40) 20%,
+          rgba(var(--svc-banner-rgb, 0, 98, 255), 0) 35%) !important;
+    }
+
+    .mp-hero-decor {
       position: absolute;
       inset: 0;
       z-index: 1;
       pointer-events: none;
-      background: linear-gradient(90deg,
-          rgba(var(--svc-banner-rgb), 0.90) 0%,
-          rgba(var(--svc-banner-rgb), 0.72) 35%,
-          rgba(var(--svc-banner-rgb), 0.28) 55%,
-          rgba(var(--svc-banner-rgb), 0) 72%);
+      overflow: hidden;
+    }
+
+    .mp-hero-sim-svg {
+      position: absolute;
+      left: -35px;
+      bottom: -55px;
+      width: 380px;
+      height: 380px;
+      opacity: 0.16;
+      color: #ffffff;
     }
 
     .mo-phong-banner .container {
@@ -94,128 +117,119 @@
 
     .mo-phong-banner .mo-phong-banner-title {
       text-align: left;
-      max-width: 1000px;
+      max-width: min(1000px, 52vw);
     }
 
-    /* Chữ luôn trắng vì banner luôn nền tối (cả theme sáng lẫn tối) */
-    .mo-phong-banner .mo-phong-banner-title h1 {
-      margin: 0;
-      max-width: 8.5em;
-      text-wrap: balance;
-      font-size: clamp(2rem, 5vw, 4.75rem);
-      line-height: 1.12;
-      color: #ffffff !important;
-      text-transform: uppercase;
-      /* đồng bộ với tiêu đề trang Cơ Khí (chữ hoa) */
-      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
-    }
-
-    .mo-phong-banner .mo-phong-banner-title p {
-      margin: 1.25rem 0 0;
-      max-width: 520px;
-      font-size: clamp(1rem, 1.4vw, 1.2rem);
-      line-height: 1.55;
-      color: #dbe7fb !important;
-      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
-    }
-
-    @media (max-width: 768px) {
-      .mo-phong-banner {
-        --mp-size: 440px;
-      }
-
-      /* Điện thoại: canh giữa ảnh (hiện phần giữa dây chuyền), phủ tối đều để chữ rõ */
-      .mo-phong-banner::before {
-        right: 50%;
-        transform: translateX(50%);
-      }
-
-      .mo-phong-banner::after {
-        background: linear-gradient(90deg, rgba(var(--svc-banner-rgb), 0.8) 0%, rgba(var(--svc-banner-rgb), 0.5) 100%);
-      }
-    }
-
-    /* ===== TIÊU ĐỀ BANNER ĐỒNG BỘ 3 TRANG DỊCH VỤ (chữ hoa, trắng, cùng cỡ) ===== */
+    /* Tiêu đề chính nằm trên 1 dòng duy nhất */
     html[data-theme]:root:root body .mo-phong-banner .mo-phong-banner-title h1,
     html[data-theme]:root:root body .mo-phong-banner .mo-phong-banner-title h1 span {
+      margin: 0;
+      max-width: none;
+      white-space: nowrap;
+      font-size: var(--banner-title) !important;
+      line-height: 1.12 !important;
+      font-weight: 800 !important;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
       color: #ffffff !important;
       -webkit-text-fill-color: #ffffff !important;
       background: none !important;
-      text-transform: uppercase;
-      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 2px 18px rgba(0, 20, 70, 0.45) !important;
     }
 
-    html[data-theme]:root:root body .mo-phong-banner .mo-phong-banner-title h1 {
-      margin: 0;
-      font-size: clamp(2rem, 5vw, 4.75rem);
-      line-height: 1.12;
-      font-weight: 800;
-      text-wrap: balance;
-      max-width: 8.5em;
+    /* Thanh gạch ngang trắng chuẩn nhận diện dưới tiêu đề */
+    .mp-hero-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1.1rem 0 1.2rem;
     }
 
+    .mp-hero-divider::before {
+      content: "";
+      width: 68px;
+      height: 4px;
+      border-radius: 2px;
+      background: #ffffff;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.45);
+    }
+
+    .mp-hero-divider::after {
+      content: "";
+      width: 24px;
+      height: 2px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.55);
+    }
+
+    /* Đoạn mô tả */
     html[data-theme]:root:root body .mo-phong-banner .mo-phong-banner-title p {
-      color: #ffffff !important;
-      -webkit-text-fill-color: #ffffff !important;
-      font-size: clamp(1rem, 1.4vw, 1.2rem);
-      line-height: 1.55;
+      margin: 0 !important;
+      max-width: 520px;
+      font-size: var(--banner-desc) !important;
+      line-height: 1.55 !important;
       font-weight: 500 !important;
       text-align: left !important;
-      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
-    }
-  </style>
-  <link rel="stylesheet" href="vmos-white-theme.css?v=1">
-  <link rel="stylesheet" href="service-layout.css?v=2">
-  <link rel="canonical" href="https://v-mos.com/dich-vu-thiet-ke-mo-phong.html">
-  <meta property="og:url" content="https://v-mos.com/dich-vu-thiet-ke-mo-phong.html">
-  <meta property="og:image" content="https://v-mos.com/images/vmos-logo.png">
-  <style>
-    /* Khối giới thiệu: chữ bên trái, video bên phải, cao đúng bằng khối chữ (máy tính). Điện thoại: video xuống dưới, giữ tỉ lệ gốc. */
-    .sl-media--fit img {
-      object-fit: contain;
-      background: #fff;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      text-shadow: 0 1px 10px rgba(0, 30, 100, 0.45) !important;
     }
 
-    .sl-feature p {
-      font-size: 1.15rem;
+    @media (max-width: 768px) {
+      html[data-theme]:root:root body .mo-phong-banner {
+        --mp-size: var(--banner-h);
+      }
+
+      .mo-phong-banner .mo-phong-banner-title {
+        max-width: 100%;
+      }
+
+      html[data-theme]:root:root body .mo-phong-banner .mo-phong-banner-title h1,
+      html[data-theme]:root:root body .mo-phong-banner .mo-phong-banner-title h1 span {
+        font-size: var(--banner-title) !important;
+      }
+
+      html[data-theme]:root:root body .mo-phong-banner::before {
+        top: 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        height: 100% !important;
+        width: auto !important;
+        aspect-ratio: 2048 / 768 !important;
+        opacity: 0.45 !important;
+      }
+
+      html[data-theme]:root:root body .mo-phong-banner::after {
+        background: linear-gradient(90deg,
+            rgba(var(--svc-banner-rgb, 0, 98, 255), 0.88) 0%,
+            rgba(var(--svc-banner-rgb, 0, 98, 255), 0.65) 100%) !important;
+      }
     }
 
-    .sl-media video {
-      display: block;
+    /* 4 ảnh minh họa mục 01-04 cùng một khung tỉ lệ: ảnh gốc có tỉ lệ khác nhau (ảnh 04 cao hơn)
+       nên trước đây chiều cao mỗi ảnh theo tỉ lệ riêng. Đổi tỉ lệ chung: sửa --mp-shot-ratio. */
+    .sl-page #mp-pham-vi .dsv-shot {
+      --mp-shot-ratio: 16 / 10;
+      aspect-ratio: var(--mp-shot-ratio);
+    }
+
+    .sl-page #mp-pham-vi .dsv-shot img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .mp-stack .sl-media {
-      background: #fff;
-    }
-
-    @media (min-width: 993px) {
-      .sl-intro {
-        grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.8fr);
-        align-items: stretch;
-      }
-
-      .mp-stack {
-        position: relative;
-        align-self: stretch;
-      }
-
-      .mp-stack::before {
-        content: "";
-        display: block;
-        padding-top: 70%;
-      }
-
-      .mp-stack .sl-media {
-        position: absolute;
-        inset: 0;
-        aspect-ratio: auto;
-      }
+    .sl-page #mp-pham-vi .dsv-shot--contain img {
+      object-fit: contain !important;
     }
   </style>
-  <link rel="stylesheet" href="vmos-margins.css?v=1">
+  <link rel="stylesheet" href="vmos-white-theme.css?v=20261116">
+  <link rel="stylesheet" href="service-layout.css?v=20261116">
+  <link rel="canonical" href="https://v-mos.com/dich-vu-thiet-ke-mo-phong.html">
+  <meta property="og:url" content="https://v-mos.com/dich-vu-thiet-ke-mo-phong.html">
+  <meta property="og:image" content="https://v-mos.com/images/vmos-logo.png">
+  <link rel="stylesheet" href="vmos-margins.css?v=20261116">
+  <link rel="stylesheet" href="service-refine.css?v=20261124">
 </head>
 
 <body class="breadcrumb-below">
@@ -316,13 +330,26 @@
   </aside>
 
 
-  <!-- ================= HERO BANNER (tiêu đề trái + ảnh mô phỏng phải) ================= -->
+  <!-- ================= HERO BANNER (tiêu đề trái + ảnh lăng kính 3D mô phỏng phải) ================= -->
   <section class="mo-phong-banner">
+    <div class="mp-hero-decor" aria-hidden="true">
+      <svg class="mp-hero-sim-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,20 175,62 175,138 100,180 25,138 25,62" stroke="currentColor" stroke-width="1.2" />
+        <polygon points="100,52 148,79 148,121 100,148 52,121 52,79" stroke="currentColor" stroke-width="1.2"
+          stroke-dasharray="5 3" />
+        <line x1="100" y1="20" x2="100" y2="100" stroke="currentColor" stroke-width="1" />
+        <line x1="175" y1="62" x2="100" y2="100" stroke="currentColor" stroke-width="1" />
+        <line x1="25" y1="62" x2="100" y2="100" stroke="currentColor" stroke-width="1" />
+        <line x1="100" y1="100" x2="100" y2="180" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" />
+        <circle cx="100" cy="100" r="5" stroke="currentColor" stroke-width="1.5" />
+      </svg>
+    </div>
     <div class="container">
       <div class="mo-phong-banner-title">
         <h1 data-i18n="services.simulation"
           style="color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;background:none !important;">Thiết
           Kế Mô Phỏng</h1>
+        <div class="mp-hero-divider" aria-hidden="true"></div>
         <p data-i18n="service_detail.simulation.hero_desc"
           style="color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;">
           Giải pháp mô phỏng 3D động lực học, kiểm tra va chạm và kiểm chứng quy trình vận hành từ VMOS (VIET.MOS
@@ -353,112 +380,95 @@
        Chưa gắn data-i18n nên sẽ hiện tiếng Việt ở cả 3 ngôn ngữ cho tới khi thêm bản dịch vào i18n.js. -->
   <main class="sl-page">
 
-    <!-- ===== 1. GIỚI THIỆU: "Thiết kế mô phỏng là gì" ===== -->
-    <section class="sl-section" id="gioi-thieu">
+    <!-- ===== PHẠM VI DỊCH VỤ (4 mảng, ảnh và chữ xen kẽ chuẩn .dsv-block đồng bộ Cơ khí & Điện) ===== -->
+    <section class="sl-section" id="mp-pham-vi">
       <div class="sl-container">
         <div class="sl-head reveal">
-          <h2>Thiết kế mô phỏng là gì?</h2>
+          <h2>Phạm Vi Dịch Vụ</h2>
         </div>
-        <div class="sl-intro reveal">
-          <div class="sl-intro-text">
-            <p>Thiết kế mô phỏng là xây dựng mô hình 3D của thiết bị, robot và toàn bộ dây chuyền sản
-              xuất trên máy tính, rồi chạy thử quy trình vận hành trong môi trường ảo trước khi chế tạo và lắp đặt thực
-              tế.</p>
-            <p>Với các nền tảng mô phỏng nhà máy như Visual Components, kỹ sư dựng bố trí xưởng (layout) gồm robot, băng
-              tải, xe tự hành, pallet và thiết bị phụ trợ, sau đó mô phỏng chuyển động, thời gian chu kỳ và luồng vật
-              liệu. Nền tảng hỗ trợ làm việc với bản vẽ DWG của nhà máy (Autodesk RealDWG) và mô phỏng vật lý (NVIDIA
-              PhysX).</p>
-            <p>Nhờ đó, va chạm, sai chu kỳ hay lỗi logic điều khiển được phát hiện ngay trên màn hình thay vì khi đã lắp
-              ráp. Doanh nghiệp có thể so sánh nhiều phương án bố trí, ước tính năng suất và trình bày trực quan giải
-              pháp với khách hàng trước khi đầu tư.</p>
+        <article id="mp-01" class="dsv-block reveal">
+          <div class="dsv-content">
+            <span class="dsv-num">01</span>
+            <p class="dsv-lead">Mô phỏng chuyển động của robot, thiết bị và các cơ cấu tự động ngay trên mô hình 3D, từ
+              thao tác gắp –
+              đặt, di chuyển trên băng tải đến phối hợp giữa nhiều robot. Toàn bộ dây chuyền được kiểm chứng trong môi
+              trường ảo, giúp phát hiện sớm các vấn đề về trình tự hoạt động và tầm với của robot trước khi chế tạo và
+              lắp đặt thực tế.</p>
           </div>
-          <div class="mp-stack">
-            <div class="sl-media mp-img-video" style="--sl-ratio: 1000 / 856;">
-              <video autoplay muted loop playsinline controls preload="auto" poster="images/mo-phong-demo-poster.jpg"
-                aria-label="Video mô phỏng cụm máy có robot trong Visual Components">
-                <source src="images/mo-phong-demo.mp4" type="video/mp4">
-                <a href="images/mo-phong-demo.mp4">Tải video mô phỏng (MP4)</a>
-              </video>
-            </div>
+
+          <div class="dsv-visual">
+            <figure class="dsv-shot">
+              <img src="images/mo-phong-dac-diem-1.jpg" alt="Mô phỏng 3D dây chuyền robot xếp pallet" loading="lazy">
+            </figure>
           </div>
-        </div>
+        </article>
+        <article id="mp-02" class="dsv-block dsv-reverse reveal">
+          <div class="dsv-content">
+            <span class="dsv-num">02</span>
+            <p class="dsv-lead">Mô phỏng phương án bố trí nhà máy và dây chuyền sản xuất, bao gồm vị trí máy móc, robot,
+              băng tải, hàng
+              rào an toàn, khu vực thao tác của người vận hành và lối di chuyển. Nhờ đó có thể so sánh nhiều phương án
+              bố trí, chọn giải pháp phù hợp nhất về không gian, dòng vật liệu và an toàn trước khi triển khai.</p>
+          </div>
+
+          <div class="dsv-visual">
+            <figure class="dsv-shot">
+              <img src="images/mo-phong-dac-diem-2.jpg" alt="Mô phỏng bố trí nhà máy và dây chuyền sản xuất"
+                loading="lazy">
+            </figure>
+          </div>
+        </article>
+        <article id="mp-03" class="dsv-block reveal">
+          <div class="dsv-content">
+            <span class="dsv-num">03</span>
+            <p class="dsv-lead">Đánh giá năng lực sản xuất thông qua cycle time của từng công đoạn và của toàn hệ thống.
+              Kết quả mô
+              phỏng được lập thành biểu đồ thời gian (time chart) để xác định điểm nghẽn, cân bằng công đoạn và ước
+              tính sản lượng, làm cơ sở cho việc điều chỉnh thiết kế và lựa chọn thiết bị.</p>
+          </div>
+
+          <div class="dsv-visual">
+            <figure class="dsv-shot dsv-shot--contain">
+              <img src="images/mo-phong-dac-diem-3.png" alt="Bảng Time Chart đánh giá cycle time" loading="lazy">
+            </figure>
+          </div>
+        </article>
+        <article id="mp-04" class="dsv-block dsv-reverse reveal">
+          <div class="dsv-content">
+            <span class="dsv-num">04</span>
+            <p class="dsv-lead">Kiểm tra va chạm, vùng làm việc và khả năng can thiệp giữa các thiết bị như robot, đồ
+              gá, bàn xoay và
+              khung bảo vệ. Việc này giúp xác nhận robot với tới được vị trí thao tác, các cơ cấu không cản trở nhau
+              và bố trí đáp ứng yêu cầu an toàn, từ đó hạn chế sửa đổi tốn kém tại hiện trường.</p>
+          </div>
+
+          <div class="dsv-visual">
+            <figure class="dsv-shot">
+              <img src="images/mo-phong-dac-diem-4.jpg" alt="Mô phỏng robot ABB và vùng làm việc" loading="lazy">
+            </figure>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- ===== 2. LỢI ÍCH: 3 cột ===== -->
-    <section class="sl-section sl-section--alt" id="loi-ich">
+    <!-- ===== PHẦN MỀM SỬ DỤNG ===== -->
+    <section class="sl-section" id="mp-tech">
       <div class="sl-container">
-        <div class="sl-head reveal">
-          <h2>Lợi ích khi áp dụng mô phỏng</h2>
-          <p>Giảm số lần chế thử vật lý và nâng cao chất lượng, từ đó tiết kiệm chi phí và thời gian phát triển thiết
-            bị.</p>
-        </div>
-        <div class="sl-benefits">
-          <article class="sl-benefit reveal">
-            <i class="bi bi-speedometer2"></i>
-            <h3>Nâng cao hiệu suất</h3>
-            <p>Kiểm chứng thiết bị đáp ứng hoặc vượt yêu cầu về chu kỳ, tải trọng và độ ổn định trước khi chế tạo.</p>
-          </article>
-          <article class="sl-benefit reveal">
-            <i class="bi bi-stopwatch"></i>
-            <h3>Rút ngắn thời gian</h3>
-            <p>Nhận phản hồi nhanh về hoạt động của thiết kế, giúp lặp lại và hoàn thiện phương án trong thời gian ngắn
-              hơn.</p>
-          </article>
-          <article class="sl-benefit reveal">
-            <i class="bi bi-piggy-bank"></i>
-            <h3>Giảm chi phí</h3>
-            <p>Phát hiện lỗi sớm, hạn chế sửa đổi tại hiện trường và giảm số lượng mẫu thử, giúp tối ưu ngân sách đầu
-              tư.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== 3. ĐẶC ĐIỂM DỊCH VỤ: ảnh + chữ xen kẽ ===== -->
-    <section class="sl-section" id="dac-diem">
-      <div class="sl-container">
-        <div class="sl-head reveal">
-          <h2>Chúng tôi làm gì?</h2>
-        </div>
-        <div class="sl-features">
-          <div class="sl-feature reveal">
-            <div class="sl-media"><img src="images/mo-phong-dac-diem-1.jpg"
-                alt="Mô phỏng 3D dây chuyền robot xếp pallet" loading="lazy"></div>
-            <div>
-              <p>Mô phỏng chuyển động của robot, thiết bị và các cơ cấu tự động ngay trên mô hình 3D, từ thao tác gắp –
-                đặt, di chuyển trên băng tải đến phối hợp giữa nhiều robot. Toàn bộ dây chuyền được kiểm chứng trong môi
-                trường ảo, giúp phát hiện sớm các vấn đề về trình tự hoạt động và tầm với của robot trước khi chế tạo và
-                lắp đặt thực tế.</p>
-            </div>
+        <div class="tl-strip tl-strip--mp reveal">
+          <div class="tl-intro">
+            <h2>Phần Mềm<br>Sử Dụng</h2>
+            <p class="tl-desc">Phần mềm VMOS sử dụng để dựng mô hình 3D và chạy mô phỏng dây chuyền sản xuất.</p>
           </div>
-          <div class="sl-feature reveal">
-            <div class="sl-media"><img src="images/mo-phong-dac-diem-2.jpg"
-                alt="Mô phỏng bố trí nhà máy và dây chuyền sản xuất" loading="lazy"></div>
-            <div>
-              <p>Mô phỏng phương án bố trí nhà máy và dây chuyền sản xuất, bao gồm vị trí máy móc, robot, băng tải, hàng
-                rào an toàn, khu vực thao tác của người vận hành và lối di chuyển. Nhờ đó có thể so sánh nhiều phương án
-                bố trí, chọn giải pháp phù hợp nhất về không gian, dòng vật liệu và an toàn trước khi triển khai.</p>
-            </div>
-          </div>
-          <div class="sl-feature reveal">
-            <div class="sl-media sl-media--fit"><img src="images/mo-phong-dac-diem-3.png"
-                alt="Bảng Time Chart đánh giá cycle time" loading="lazy"></div>
-            <div>
-              <p>Đánh giá năng lực sản xuất thông qua cycle time của từng công đoạn và của toàn hệ thống. Kết quả mô
-                phỏng được lập thành biểu đồ thời gian (time chart) để xác định điểm nghẽn, cân bằng công đoạn và ước
-                tính sản lượng, làm cơ sở cho việc điều chỉnh thiết kế và lựa chọn thiết bị.</p>
-            </div>
-          </div>
-          <div class="sl-feature reveal">
-            <div class="sl-media sl-media--fit"><img src="images/mo-phong-dac-diem-4.jpg"
-                alt="Mô phỏng robot ABB và vùng làm việc" loading="lazy"></div>
-            <div>
-              <p>Kiểm tra va chạm, vùng làm việc và khả năng can thiệp giữa các thiết bị như robot, đồ gá, bàn xoay và
-                khung bảo vệ. Việc này giúp xác nhận robot với tới được vị trí thao tác, các cơ cấu không cản trở nhau
-                và bố trí đáp ứng yêu cầu an toàn, từ đó hạn chế sửa đổi tốn kém tại hiện trường.</p>
-            </div>
-          </div>
+          <ul class="tl-logos">
+            <li>
+              <div class="tl-logo"><img src="images/tech-visual-components.png" alt="Visual Components" loading="lazy">
+              </div>
+            </li>
+            <li>
+              <div class="tl-logo"><img src="images/tech-visual-components-experience.png"
+                  alt="Visual Components Experience" loading="lazy"></div>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
@@ -470,7 +480,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col footer-col-main">
-          <a href="index.html" class="logo" style="margin-bottom: 1rem;">
+          <a href="index.html" class="logo">
             <img src="images/vmos-logo.png" alt="VMOS - VIET.MOS COMPANY LIMITED" class="logo-img">
           </a>
 
@@ -486,7 +496,7 @@
           </div>
 
           <div class="footer-contact-row">
-            <a href="tel:+84868966625"><i class="bi bi-telephone-fill"></i> 0868 966 625</a>
+            <a href="tel:+842436688679"><i class="bi bi-telephone-fill"></i> 024 36688679</a>
             <a href="mailto:viet.mos@v-mos.com"><i class="bi bi-envelope-fill"></i> viet.mos@v-mos.com</a>
           </div>
 
@@ -494,13 +504,13 @@
             <!-- Zalo: mở trang hồ sơ Zalo Business -->
             <a href="zalo-qr.html" target="_blank" rel="noopener noreferrer" class="social-icon"
               aria-label="Zalo">Zalo</a>
-            <!-- TODO: URL thật -->
-            <a href="#" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.facebook.com/vmos.2022" target="_blank" rel="noopener noreferrer" class="social-icon"
+              aria-label="Facebook"><i class="bi bi-facebook"></i></a>
           </div>
         </div>
 
         <div class="footer-col">
-          <h4 data-i18n="footer.quick_links">Liên Kết Nhanh</h4>
+          <h4 data-i18n="footer.quick_links">Liên kết nhanh</h4>
           <ul class="footer-links">
             <li><a href="index.html" data-i18n="nav.home">Trang chủ</a></li>
             <li><a href="index.html#services" data-i18n="footer.link_services">Dịch vụ trọng tâm</a></li>
@@ -510,9 +520,9 @@
         </div>
 
         <div class="footer-col">
-          <h4 data-i18n="footer.info_pages">Trang Thông Tin</h4>
+          <h4 data-i18n="footer.info_pages">Trang thông tin</h4>
           <ul class="footer-links">
-            <li><a href="blog.html" data-i18n="footer.link_blog">Tin tức &amp; Công nghệ</a></li>
+            <li><a href="blog.html" data-i18n="footer.link_blog">Tin tức &amp; công nghệ</a></li>
             <li><a href="contact.html" data-i18n="footer.link_contact">Liên hệ tư vấn</a></li>
             <li><a href="privacy.html" data-i18n="footer.privacy">Chính sách bảo mật</a></li>
             <li><a href="terms.html" data-i18n="footer.terms">Điều khoản sử dụng</a></li>
@@ -536,15 +546,15 @@
     </a>
 
     <!-- Nút Gọi điện -->
-    <a href="tel:+84868966625" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn"
+    <a href="tel:+842436688679" class="floating-btn btn-phone" aria-label="Gọi điện tư vấn"
       data-i18n-attr="aria-label:float.phone_label">
-      <span class="floating-tooltip">0868 966 625</span>
+      <span class="floating-tooltip">02436688679</span>
       <i class="bi bi-telephone-fill"></i>
     </a>
   </div>
 
-  <script src="i18n.js?v=11"></script>
-  <script src="script.js?v=11"></script>
+  <script src="i18n.js?v=20261116"></script>
+  <script src="script.js?v=20261116"></script>
 </body>
 
 </html>

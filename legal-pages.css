@@ -1,0 +1,88 @@
+/* ==========================================================================
+   legal-pages.css - Style dùng chung cho privacy.html và terms.html
+   (thay cho style inline trước đây). Nạp SAU vmos-margins.css.
+   Đổi độ rộng thẻ nội dung: sửa --legal-max.
+   ========================================================================== */
+body .legal-section {
+    padding: 2rem 0 6rem;
+}
+
+body .legal-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* ==========================================================================
+   Trang văn bản dài (Chính sách bảo mật, Điều khoản sử dụng): chữ canh trái, tiêu đề mục, danh sách
+   ========================================================================== */
+body .legal-doc {
+    --legal-max: 860px;
+    max-width: var(--legal-max);
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+    text-align: left;
+    border-radius: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+body .legal-doc .legal-updated {
+    margin: 0 0 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+body .legal-doc h2 {
+    margin: 2.25rem 0 0.9rem;
+    font-size: 1.35rem;
+    line-height: 1.35;
+}
+
+body .legal-doc .legal-updated+h2 {
+    margin-top: 0;
+}
+
+body .legal-doc p {
+    margin: 0 0 1rem;
+    line-height: 1.8;
+}
+
+body .legal-doc ul {
+    margin: 0 0 1rem;
+    padding-left: 1.4rem;
+    list-style: disc;
+}
+
+body .legal-doc li {
+    margin-bottom: 0.55rem;
+    line-height: 1.75;
+}
+
+body .legal-doc a:not(.btn) {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+body .legal-doc .legal-contact {
+    margin: 0 0 1rem;
+    padding: 1.25rem 1.5rem 0.75rem;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--accent-sky, #0062ff);
+    border-radius: 8px;
+}
+
+body .legal-doc .legal-actions {
+    margin-top: 2.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--border-color);
+    justify-content: flex-start;
+}
+
+@media (max-width: 640px) {
+    body .legal-doc {
+        padding: 2rem 1.25rem;
+    }
+}

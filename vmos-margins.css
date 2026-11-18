@@ -38,6 +38,7 @@ html[data-theme="light"] .vh-wrap {
    ========================================================================== */
 :root {
   --footer-logo-h: 84px;
+  --footer-logo-gap: 1rem;
 }
 
 footer.footer .logo-img,
@@ -52,6 +53,11 @@ html[data-theme] body footer.footer .logo .logo-img {
   :root {
     --footer-logo-h: 68px;
   }
+}
+
+/* Khoảng cách dưới logo chân trang (trước đây là style inline trong từng file HTML) */
+footer.footer .footer-col-main>.logo {
+  margin-bottom: var(--footer-logo-gap);
 }
 
 /* ==========================================================================
@@ -75,4 +81,44 @@ footer.footer .footer-grid {
 
 footer.footer .footer-bottom {
   padding-top: var(--footer-bottom-gap) !important;
+}
+
+/* ==========================================================================
+   CHÂN TRANG - 3 cột thẳng hàng: "Mã số doanh nghiệp", "Liên Kết Nhanh",
+   "Trang Thông Tin" bắt đầu trên cùng một đường ngang.
+   Hai cột phải được đẩy xuống đúng bằng chiều cao logo + khoảng cách dưới logo.
+   Đổi cỡ logo (--footer-logo-h) thì căn lề tự theo.
+   Nếu điểm chuyển 3 cột -> 1 cột của footer không phải 992px, sửa số 993px.
+   ========================================================================== */
+@media (min-width: 993px) {
+  footer.footer .footer-grid {
+    align-items: start;
+  }
+
+  footer.footer .footer-col:not(.footer-col-main) {
+    padding-top: calc(var(--footer-logo-h) + var(--footer-logo-gap));
+  }
+
+  footer.footer .footer-col h4 {
+    margin-top: 0;
+  }
+}
+
+/* ==========================================================================
+   CHÂN TRANG - thống nhất kiểu chữ cho 4 nhãn: "Mã số doanh nghiệp", "Địa chỉ",
+   "Liên kết nhanh", "Trang thông tin" (cùng phông, độ đậm, màu; cỡ chữ bằng cỡ nội dung --fs-body).
+   Chỉ viết hoa chữ cái đầu của từ đầu tiên (sửa trong i18n.js và HTML).
+   ========================================================================== */
+html[data-theme]:root:root body footer.footer :is(.footer-col h4, .footer-legal strong) {
+  font-family: inherit;
+  font-size: var(--fs-body, 1rem) !important;
+  font-weight: 700;
+  line-height: 1.3 !important;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+footer.footer .footer-legal strong {
+  display: inline-block;
+  margin-bottom: 0.35rem;
 }

@@ -61,8 +61,7 @@ html[data-theme="light"]:root body footer.footer {
 }
 
 /* ---- Họa tiết chấm xám trên nền: bỏ để nền thật sự trắng ---- */
-html[data-theme="light"] .dot-pattern,
-html[data-theme="light"] .orgchart-dot-pattern {
+html[data-theme="light"] .dot-pattern {
   display: none !important;
 }
 

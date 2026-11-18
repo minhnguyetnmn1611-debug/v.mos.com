@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      var t = 'light';
+      try { t = localStorage.getItem('theme') || 'light'; } catch (e) { }
+      if (t !== 'dark' && t !== 'light') t = 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DEMO BANNER: LỤC GIÁC 3D - MÀU XANH THƯƠNG HIỆU VMOS</title>
+
+  <!-- Icons & Fonts -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=20261116">
+  <link rel="stylesheet" href="vmos-layout.css?v=20261116">
+  <link rel="stylesheet" href="vmos-blue-theme.css?v=20261116">
+  <link rel="stylesheet" href="vmos-text-blue.css?v=20261116">
+
+  <style>
+    /* ========================================================
+       THANH ĐIỀU HƯỚNG DEMO TRÊN CÙNG
+       ======================================================== */
+    .demo-top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 10000;
+      background: #061533;
+      color: #fff;
+      padding: 0.8rem 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 2px solid #0062ff;
+    }
+    .demo-brand {
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #60a5fa;
+    }
+    .demo-apply-btn {
+      background: #10b981;
+      color: #fff;
+      border: none;
+      padding: 0.55rem 1.35rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .demo-apply-btn:hover {
+      background: #059669;
+      transform: translateY(-1px);
+    }
+
+    /* ========================================================
+       BANNER MẪU LỤC GIÁC 3D - ĐÃ ĐỒNG BỘ MÀU XANH THƯƠNG HIỆU #0062FF
+       ======================================================== */
+    .glowing-hex-banner {
+      position: relative;
+      min-height: clamp(380px, 32vw, 480px);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      /* MÀU XANH THƯƠNG HIỆU VMOS ĐỒNG BỘ VỚI CÁC TRANG DỊCH VỤ / DỰ ÁN / LIÊN HỆ */
+      background: var(--brand, #0062ff) !important;
+      isolation: isolate;
+    }
+
+    /* Lớp hình ảnh lục giác 3D phát sáng góc phải (Ghép mượt mà 100% với nền xanh thương hiệu) */
+    .glowing-hex-banner::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: clamp(520px, 58vw, 1100px);
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      background: url("images/banner-hex-tech-vmos-blue.jpg") right center / cover no-repeat;
+      /* Hiệu ứng chuyển mềm sang nền xanh thương hiệu bên trái, tuyệt đối không lộ mép */
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.15) 12%, rgba(0,0,0,0.75) 28%, #000 45%);
+      mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.15) 12%, rgba(0,0,0,0.75) 28%, #000 45%);
+    }
+
+    /* Vệt sáng cyan nhẹ bổ trợ góc trên phải để tăng độ sâu */
+    .glowing-hex-banner::before {
+      content: "";
+      position: absolute;
+      top: -10%;
+      right: 5%;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.18) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .glowing-hex-banner .container {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+    }
+
+    .glowing-hex-content {
+      max-width: 680px;
+      padding: 3rem 0;
+    }
+
+    /* Tiêu đề chính: TIN TỨC & HOẠT ĐỘNG (Chữ trắng viết hoa đồng bộ toàn site) */
+    .hex-banner-title {
+      margin: 0 0 1.15rem;
+      font-size: var(--banner-title, clamp(1.75rem, 3.4vw, 3.5rem)) !important;
+      line-height: 1.12 !important;
+      font-weight: 800 !important;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45) !important;
+    }
+
+    /* Vạch phân cách trắng đồng bộ với banner các trang khác */
+    .hex-divider-line {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .hex-divider-line::before {
+      content: "";
+      width: 68px;
+      height: 4px;
+      border-radius: 2px;
+      background: #ffffff;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.45);
+    }
+    .hex-divider-line::after {
+      content: "";
+      width: 24px;
+      height: 2px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.65);
+    }
+
+    /* Dòng mô tả căn chỉnh trên 1 dòng trọn vẹn */
+    .hex-banner-desc {
+      margin: 0;
+      font-size: var(--banner-desc, clamp(1rem, 1.4vw, 1.2rem)) !important;
+      line-height: 1.6 !important;
+      font-weight: 500 !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45) !important;
+      max-width: 1150px;
+      text-wrap: balance;
+    }
+    @media (min-width: 1200px) {
+      .hex-banner-desc {
+        white-space: nowrap;
+      }
+    }
+
+    /* Bảng thông tin so sánh bên dưới */
+    .review-section {
+      padding: 3rem 0;
+      background: var(--fx-bg, #f8fafc);
+    }
+    .review-card {
+      background: var(--fx-card, #ffffff);
+      border: 1px solid var(--fx-line, #dde3ea);
+      border-radius: 14px;
+      padding: 2.2rem;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+    html[data-theme="dark"] .review-card {
+      background: #111a2e;
+      border-color: #334155;
+    }
+  </style>
+</head>
+
+<body class="breadcrumb-below">
+
+  <!-- ================= DEMO TOPBAR ================= -->
+  <div class="demo-top-bar">
+    <div class="demo-brand">
+      <i class="bi bi-hexagon-fill"></i>
+      <span>DEMO: BANNER LỤC GIÁC 3D - ĐÃ CHUYỂN SANG MÀU XANH THƯƠNG HIỆU VMOS (#0062FF)</span>
+    </div>
+
+    <div style="display: flex; gap: 0.75rem; align-items: center;">
+      <a href="blog.html" class="demo-apply-btn" style="background: #0062ff;">
+        <i class="bi bi-eye"></i> Xem trang blog.html hiện tại
+      </a>
+      <a href="dich-vu-thiet-ke-co-khi.html" target="_blank" class="demo-apply-btn" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);">
+        <i class="bi bi-box-arrow-up-right"></i> So sánh với trang Cơ khí
+      </a>
+    </div>
+  </div>
+
+  <!-- ================= BANNER LỤC GIÁC 3D VỚI MÀU XANH THƯƠNG HIỆU #0062FF ================= -->
+  <section class="glowing-hex-banner" id="banner-hex-view">
+    <div class="container">
+      <div class="glowing-hex-content">
+        
+        <!-- Tiêu đề lớn -->
+        <h1 class="hex-banner-title">TIN TỨC &amp; HOẠT ĐỘNG</h1>
+        
+        <!-- Vạch phân cách tinh tế đồng bộ toàn site -->
+        <div class="hex-divider-line" aria-hidden="true"></div>
+
+        <!-- Dòng mô tả đã căn chỉnh trọn vẹn 1 dòng -->
+        <p class="hex-banner-desc">
+          Cập nhật các hoạt động đào tạo, hợp tác phát triển nguồn nhân lực và giải pháp công nghệ tự động hóa từ VIET.MOS (VMOS).
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BREADCRUMB ================= -->
+  <nav class="service-detail-breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+      <ul class="service-detail-breadcrumb-list">
+        <li><a href="index.html">Trang chủ</a></li>
+        <li class="separator" aria-hidden="true"><i class="bi bi-chevron-right"></i></li>
+        <li class="current" aria-current="page" style="text-transform: uppercase;">Tin tức</li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ================= ĐỐI CHIẾU THIẾT KẾ ================= -->
+  <section class="review-section">
+    <div class="container">
+      
+      <div class="review-card">
+        <h2 style="color: var(--ui-heading, #0047b8); margin-top: 0; font-size: 1.45rem;">
+          <i class="bi bi-check-circle-fill" style="color: #10b981;"></i> ĐÃ ĐỒNG BỘ MÀU XANH CHUẨN THƯƠNG HIỆU (#0062FF):
+        </h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+          
+          <div style="padding: 1.35rem; background: var(--fx-card-sub, #f8fafc); border-radius: 10px; border: 1px solid var(--fx-line, #e2e8f0);">
+            <strong style="color: #0062ff; font-size: 1.05rem;">1. Màu nền xanh sáng rực rỡ đồng bộ toàn website</strong>
+            <p style="margin: 0.6rem 0 0; line-height: 1.6; color: #475569; font-size: 0.93rem;">
+              • Đã loại bỏ màu xanh tối, thay bằng đúng mã màu <code>--brand: #0062ff</code> dùng chung cho toàn bộ các trang: <strong>Thiết Kế Cơ Khí, Thiết Kế Điện, Mô Phỏng, Dự Án và Liên Hệ</strong>.<br>
+              • Màu sắc tươi sáng, trẻ trung và tràn đầy năng lượng công nghệ.
+            </p>
+          </div>
+
+          <div style="padding: 1.35rem; background: var(--fx-card-sub, #f8fafc); border-radius: 10px; border: 1px solid var(--fx-line, #e2e8f0);">
+            <strong style="color: #0062ff; font-size: 1.05rem;">2. Khối lục giác 3D phát sáng viền Neon</strong>
+            <p style="margin: 0.6rem 0 0; line-height: 1.6; color: #475569; font-size: 0.93rem;">
+              • Hình ảnh gốc bạn gửi đã được cân chỉnh sắc độ mượt mà sang dải màu xanh thương hiệu (#0060FF - #0077FF), các đường viền neon cyan phát sáng nổi bật trên nền xanh.<br>
+              • Sử dụng <code>mask-image</code> chuyển êm, hòa lẫn hoàn hảo vào nền xanh bên trái.
+            </p>
+          </div>
+
+          <div style="padding: 1.35rem; background: var(--fx-card-sub, #f8fafc); border-radius: 10px; border: 1px solid var(--fx-line, #e2e8f0);">
+            <strong style="color: #0062ff; font-size: 1.05rem;">3. Chữ & Vạch phân cách đồng bộ</strong>
+            <p style="margin: 0.6rem 0 0; line-height: 1.6; color: #475569; font-size: 0.93rem;">
+              • Vạch phân cách màu trắng chuẩn 2 đoạn (đoạn dài 68px, đoạn ngắn 24px) giống 100% các trang nội dung khác.<br>
+              • Dòng mô tả nằm trọn trên 1 dòng duy nhất trên màn hình máy tính, cực kỳ gọn gàng.
+            </p>
+          </div>
+
+        </div>
+
+        <div style="margin-top: 2rem; padding: 1.25rem 1.5rem; background: rgba(0,98,255,0.06); border-left: 4px solid #0062ff; border-radius: 6px;">
+          <strong style="color: #0047b8; font-size: 1.05rem;">Bạn hãy xem thử màu sắc mới này nhé!</strong><br>
+          <span style="color: #334155; font-size: 0.95rem; line-height: 1.6; display: inline-block; margin-top: 0.25rem;">
+            Nếu màu xanh này đã chuẩn ý bạn, hãy nhắn tôi <strong>"Đồng ý áp dụng"</strong>, tôi sẽ cập nhật chính thức vào trang <strong>blog.html</strong> ngay nhé!
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</body>
+
+</html>

@@ -12,8 +12,8 @@ Website tĩnh giới thiệu doanh nghiệp và dịch vụ kỹ thuật tự đ
   - `dich-vu-thiet-ke-co-khi.html`: Dịch vụ thiết kế cơ khí
   - `dich-vu-thiet-ke-dien.html`: Dịch vụ thiết kế điện & lập trình điều khiển
   - `dich-vu-thiet-ke-mo-phong.html`: Dịch vụ thiết kế mô phỏng 3D
-  - `privacy.html`: Chính sách bảo mật (đang cập nhật)
-  - `terms.html`: Điều khoản sử dụng (đang cập nhật)
+  - `privacy.html`: Chính sách bảo mật
+  - `terms.html`: Điều khoản sử dụng
   - `zalo-qr.html`: Cửa sổ quét mã Zalo kết nối
 
 ---
@@ -26,8 +26,8 @@ python server.py
 ```
 Máy chủ sẽ tự động tìm cổng trống (từ 8000 trở đi) và phục vụ trang web tại `http://localhost:8000`. Mặc định chỉ nghe trên `127.0.0.1` (chỉ máy bạn truy cập được); muốn mở cho điện thoại cùng Wi-Fi, đặt biến môi trường `VMOS_HOST=0.0.0.0` trước khi chạy.
 
-Trên Windows có thể bấm đúp `start-web.bat` (gọi `start-server.ps1`) để khởi động nhanh mà không cần mở terminal.
-Hai cách này độc lập; chỉ cần dùng một trong hai, không chạy đồng thời.
+Trên Windows có thể bấm đúp `start-web.bat` để khởi động nhanh mà không cần mở terminal (file này tự chọn `py` hoặc `python` rồi chạy `server.py`).
+Đây chỉ là lối tắt cho cách chính ở trên; chỉ cần dùng một trong hai, không chạy đồng thời.
 
 > **LƯU Ý QUAN TRỌNG KHI TRIỂN KHAI PRODUCTION:**
 > - File `server.py` **CHỈ DÙNG CHO MÔI TRƯỜNG DEVELOPMENT CỤC BỘ**.
@@ -38,11 +38,8 @@ Hai cách này độc lập; chỉ cần dùng một trong hai, không chạy đ
 
 ## 2. Khuyến nghị tối ưu hóa hiệu năng Production
 
-1. **Tách ảnh Base64 inline**:
-   - `index.html` (chứa 1 ảnh Base64 ~385 KB tương ứng với `images/hero-factory-iso (1).jpg`).
-   - `vmos-blue-theme.css` (chứa 1 ảnh Base64 ~509 KB dùng cho nền banner).
-   - Tách các chuỗi base64 này thành file ảnh độc lập (hoặc WebP/AVIF) để giảm dung lượng tải ban đầu của HTML/CSS từ ~1 MB xuống dưới 150 KB.
+1. **Ảnh Base64 inline**: đã tách khỏi `index.html` và `vmos-blue-theme.css` (hiện không còn chuỗi `data:image` nào). Khi thêm ảnh mới, luôn dùng file riêng (WebP/AVIF).
 2. **Gộp và Minify CSS/JS**:
-   - Gộp và nén các file CSS (`style.css`, `vmos-layout.css`, `vmos-blue-theme.css`, `vmos-factory-theme.css`, `vmos-text-blue.css`, `vmos-white-theme.css`; thêm `hero.css` cho trang chủ, `group-gallery.css` cho Về chúng tôi, `service-banner.css` cho 3 trang dịch vụ) thành bundle duy nhất cho từng trang khi build production.
+   - Gộp và nén các file CSS (`style.css`, `vmos-layout.css`, `vmos-blue-theme.css`, `vmos-factory-theme.css`, `vmos-text-blue.css`, `vmos-white-theme.css`, `vmos-margins.css`; thêm `hero.css` và `intro-showcase.css` cho trang chủ, `group-gallery.css` và `philosophy-ceo.css` cho Về chúng tôi, `service-banner.css`, `service-layout.css` và `service-refine.css` cho 3 trang dịch vụ, `contact-split.css` cho Liên hệ, `page-banner.css` + `legal-pages.css` cho Tin tức / Chính sách bảo mật / Điều khoản) thành bundle duy nhất cho từng trang khi build production.
 3. **Lazy Loading cho hình ảnh**:
    - Thêm thuộc tính `loading="lazy"` cho tất cả các thẻ `<img>` nằm ngoài màn hình đầu tiên (below the fold).

@@ -1,14 +1,14 @@
 /* ==========================================================================
    service-banner.css - MÀU XANH CHUNG CHO 3 TRANG DỊCH VỤ
    (Cơ khí / Điện / Mô phỏng) - cùng màu xanh với các trang còn lại của site.
-   Muốn đổi màu: chỉ sửa 2 biến dưới đây (nhớ sửa cả 2 cho cùng một màu).
+   Muốn đổi màu: sửa --brand và --brand-rgb trong vmos-layout.css (một chỗ duy nhất).
    Nạp file này SAU vmos-blue-theme.css (đã thêm sẵn vào 3 trang).
    ========================================================================== */
 :root {
-  --svc-blue: #0062ff;
-  /* xanh thương hiệu của site (dạng hex)  */
-  --svc-banner-rgb: 0, 98, 255;
-  /* CÙNG màu trên, dạng R, G, B           */
+  --svc-blue: var(--brand, #0062ff);
+  /* lấy từ --brand trong vmos-layout.css (dạng hex) */
+  --svc-banner-rgb: var(--brand-rgb, 0, 98, 255);
+  /* lấy từ --brand-rgb (dạng R, G, B) */
   --svc-banner-bg: var(--svc-blue);
 }
 

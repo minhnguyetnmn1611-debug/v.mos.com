@@ -1,0 +1,761 @@
+/* ==========================================================================
+   service-refine.css - Bố cục & Giao diện Tinh chuẩn (Factory Precision & Luxury)
+   Áp dụng đồng bộ cho cả 3 trang dịch vụ VMOS:
+     1. dich-vu-thiet-ke-co-khi.html (Thiết Kế Cơ Khí)
+     2. dich-vu-thiet-ke-dien.html   (Thiết Kế Điện & Lập Trình Điều Khiển)
+     3. dich-vu-thiet-ke-mo-phong.html (Thiết Kế Mô Phỏng 3D)
+   Nạp SAU service-layout.css và vmos-margins.css.
+   ========================================================================== */
+
+/* ---------- 1. Biến màu sắc & Nền tảng chuẩn Factory Theme ---------- */
+.sl-page {
+  --ck-line: var(--sl-line, #c6cdd3);
+  --ck-card: var(--sl-card, #ffffff);
+  --ck-accent: var(--sl-accent, #0062ff);
+  --ck-accent-hover: var(--sl-accent-hover, #003fae);
+  --ck-ink: var(--sl-ink, #0f172a);
+  --ck-muted: var(--sl-muted, #475569);
+}
+
+html[data-theme="dark"] .sl-page {
+  --ck-card: var(--fx-card, #262c32);
+  --ck-line: var(--fx-line, #3d4650);
+}
+
+/* ---------- 2. Tiêu đề khối (.sl-head): sắc nét, đĩnh đạc ---------- */
+.sl-page .sl-head h2 {
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  position: relative;
+}
+
+.sl-page .sl-head h2::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 3px;
+  margin-top: 0.85rem;
+  background: var(--ck-accent);
+  border-radius: 0;
+}
+
+/* ---------- 3. Khối nội dung dịch vụ (.dsv-block) ---------- */
+.sl-page .dsv-block {
+  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  border-top: 1px solid var(--ck-line);
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+.sl-page .dsv-block:first-child,
+.sl-page :not(.dsv-block)+.dsv-block {
+  border-top: 0;
+  padding-top: 0;
+}
+
+/* Bố cục 2 cột chữ | ảnh (ảnh nhỏ nằm một bên, xen kẽ trái/phải bằng .dsv-reverse).
+   Trang Cơ khí và Điện khai báo các luật này trong <style> inline; trang Mô phỏng không có
+   nên ảnh bị kéo to ra giữa trang. Đặt ở đây để trang Mô phỏng dùng chung bố cục đó. */
+.sl-page .dsv-block {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: start;
+}
+
+.sl-page .dsv-reverse .dsv-content {
+  order: 2;
+}
+
+.sl-page .dsv-reverse .dsv-visual {
+  order: 1;
+}
+
+.sl-page .dsv-visual {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+
+@media (max-width: 991px) {
+  .sl-page .dsv-block {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .sl-page .dsv-reverse .dsv-content,
+  .sl-page .dsv-reverse .dsv-visual {
+    order: initial;
+  }
+}
+
+/* Số chỉ mục mảng dịch vụ 01, 02, 03, 04 */
+.sl-page .dsv-num {
+  display: inline-block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--ck-accent);
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid var(--ck-accent);
+}
+
+.sl-page .dsv-title {
+  font-size: clamp(1.4rem, 2.3vw, 1.85rem);
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 0 0 1rem 0;
+  color: var(--ck-ink);
+}
+
+.sl-page .dsv-lead {
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--ck-muted);
+  margin: 0 0 1.75rem 0;
+}
+
+.sl-page .dsv-sub {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ck-ink);
+  padding-left: 0.6rem;
+  border-left: 3px solid var(--ck-accent);
+  margin: 0 0 1.25rem 0;
+}
+
+/* ---------- 4. Danh sách công việc: Đánh số 01, 02... thay cho dấu tích tròn ---------- */
+.sl-page .dsv-checks,
+.sl-page .dsv-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  counter-reset: dsv-item;
+}
+
+.sl-page .dsv-checks li,
+.sl-page .dsv-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px dashed var(--ck-line);
+  line-height: 1.65;
+  font-size: 0.98rem;
+}
+
+.sl-page .dsv-checks li:last-child,
+.sl-page .dsv-steps li:last-child {
+  border-bottom: none;
+}
+
+/* Ẩn dấu tích tròn cũ */
+.sl-page .dsv-checks i,
+.sl-page .dsv-steps li>i {
+  display: none !important;
+}
+
+/* Tự động đánh số thứ tự kỹ thuật 01, 02, 03... */
+.sl-page .dsv-checks li::before,
+.sl-page .dsv-steps li::before {
+  counter-increment: dsv-item;
+  content: "0" counter(dsv-item);
+  flex: 0 0 auto;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ck-accent);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+  min-width: 24px;
+}
+
+.sl-page .dsv-steps strong {
+  display: block;
+  color: var(--ck-ink);
+  font-size: 0.98rem;
+  margin-bottom: 0.2rem;
+}
+
+.sl-page .dsv-steps span {
+  display: block;
+  color: var(--ck-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+/* ---------- 5. Khung ảnh kỹ thuật (.dsv-shot, .sl-media): viền hairline, vuông góc ---------- */
+.sl-page .dsv-shot,
+.sl-page .sl-media {
+  margin: 0;
+  background: var(--ck-card);
+  border: 1px solid var(--ck-line);
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+
+.sl-page .dsv-shot img,
+.sl-page .sl-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--ck-card);
+}
+
+.sl-page .dsv-shot--contain img {
+  object-fit: contain !important;
+  background: #ffffff !important;
+  padding: 0.5rem;
+}
+
+.sl-page .dsv-shot figcaption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ck-muted);
+  border-top: 1px solid var(--ck-line);
+  background: var(--ck-card);
+}
+
+.sl-page .dsv-shot figcaption i {
+  color: var(--ck-accent);
+}
+
+/* ---------- 6. Logo hãng công nghệ (dsv-logo-groups): Ô phẳng, viền 1px, vuông góc ---------- */
+/* Cỡ logo: sửa 4 biến này để to/nhỏ toàn bộ logo phần mềm (trang Điện).
+   --dl-h = chiều cao ô, --dl-min-w = bề rộng tối thiểu ô, --dl-img-h / --dl-img-w = logo tối đa trong ô. */
+.sl-page .dsv-logo-groups {
+  --dl-h: 76px;
+  --dl-min-w: 140px;
+  --dl-img-h: 60px;
+  --dl-img-w: 160px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 2rem;
+  margin: 0 0 1.5rem 0;
+}
+
+@media (max-width: 575px) {
+  .sl-page .dsv-logo-groups {
+    --dl-h: 62px;
+    --dl-min-w: 112px;
+    --dl-img-h: 46px;
+    --dl-img-w: 124px;
+  }
+}
+
+.sl-page .dsv-logo-group {
+  min-width: 0;
+}
+
+.sl-page .dsv-logo-group-title {
+  margin: 0 0 0.6rem 0;
+  padding-left: 0.5rem;
+  border-left: 2px solid var(--ck-accent);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--ck-ink);
+}
+
+.sl-page .dsv-logos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sl-page .dsv-logos li {
+  width: auto;
+  min-width: var(--dl-min-w, 95px);
+  height: var(--dl-h, 48px);
+  flex: 0 0 auto;
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border: 1px solid var(--ck-line) !important;
+  box-shadow: none !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  transition: border-color 0.2s ease;
+}
+
+.sl-page .dsv-logos li:hover {
+  transform: none !important;
+  border-color: var(--ck-accent) !important;
+}
+
+.sl-page .dsv-logos img {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-height: var(--dl-img-h, 38px);
+  max-width: var(--dl-img-w, 110px);
+  object-fit: contain;
+  background: #ffffff;
+}
+
+.sl-page .dsv-logos--plain li {
+  background: #ffffff !important;
+  border: 1px solid var(--ck-line) !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 4px 12px;
+}
+
+.sl-page .dsv-logos--plain img {
+  height: 100%;
+  max-height: var(--dl-img-h, 38px);
+  width: auto;
+  object-fit: contain;
+}
+
+/* ---------- 6b. Nền tảng công nghệ theo hãng (.tp-block) - trang Điện, khối 01 ----------
+   Trải hết chiều ngang (ở dưới cả cột chữ lẫn slider). Mỗi hãng một dòng: tên hãng + mô tả ngắn bên trái,
+   các ô logo bên phải, các dòng ngăn bằng đường kẻ mảnh.
+   Chỉnh nhanh: --tp-name-w (rộng cột tên hãng), --tp-card-w / --tp-card-h (ô logo),
+   --tp-radius và --tp-shadow (đặt 8px và 0 2px 8px rgba(15,23,42,.12) để có ô bo tròn, đổ bóng nhẹ). */
+.sl-page .tp-block {
+  --tp-name-w: 300px;
+  --tp-card-w: 180px;
+  --tp-card-h: 112px;
+  --tp-radius: 0;
+  --tp-shadow: none;
+  grid-column: 1 / -1;
+  order: 3;
+  /* luôn nằm sau cột chữ và ảnh, kể cả khi bài dùng .dsv-reverse */
+  min-width: 0;
+  padding-top: 0.5rem;
+}
+
+html[data-theme]:root:root body .sl-page .tp-title {
+  margin: 0 0 1.75rem;
+  padding-left: 0.85rem;
+  border-left: 4px solid var(--ck-accent);
+  font-size: clamp(1.6rem, 3vw, 2.2rem) !important;
+  font-weight: 800;
+  line-height: 1.15 !important;
+  letter-spacing: -0.01em;
+  color: var(--ck-ink) !important;
+}
+
+.sl-page .tp-rows {
+  border-top: 1px solid var(--ck-line);
+}
+
+.sl-page .tp-row {
+  display: grid;
+  grid-template-columns: var(--tp-name-w) minmax(0, 1fr);
+  gap: 1rem 2rem;
+  align-items: center;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--ck-line);
+}
+
+.sl-page .tp-name {
+  font-size: clamp(1.2rem, 1.9vw, 1.55rem);
+  font-weight: 800;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: var(--ck-ink);
+}
+
+.sl-page .tp-sub {
+  margin-top: 0.4rem;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--ck-muted);
+}
+
+.sl-page .tp-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sl-page .tp-cards li {
+  display: flex;
+  flex: 0 0 var(--tp-card-w);
+  align-items: center;
+  justify-content: center;
+  height: var(--tp-card-h);
+  padding: 6px;
+  background: #ffffff;
+  border: 1px solid var(--ck-line);
+  border-radius: var(--tp-radius);
+  box-shadow: var(--tp-shadow);
+  overflow: hidden;
+}
+
+.sl-page .tp-cards img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .sl-page .tp-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 575px) {
+  .sl-page .tp-block {
+    --tp-card-w: calc(50% - 0.5rem);
+    --tp-card-h: 100px;
+  }
+}
+
+/* ---------- 7. Slider trình chiếu ảnh (.sl-page .group-gallery) ----------
+   Điều khiển (thanh phân đoạn dài + nút mũi tên vuông xám) dùng đúng kiểu trang Về chúng tôi,
+   định nghĩa trong group-gallery.css. Không đặt nền / viền / kích thước cho
+   .group-gallery-bar và .group-gallery-btn ở đây để hai trang luôn giống nhau. */
+.sl-page .group-gallery-viewport {
+  border-radius: 0;
+}
+
+/* ---------- 8. Ma trận lĩnh vực ứng dụng / Thiết bị (.dsv-ind-grid) ---------- */
+.sl-page .dsv-ind-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+  counter-reset: dsv-ind-counter;
+}
+
+.sl-page .dsv-ind {
+  position: relative;
+  background: var(--ck-card);
+  border: 1px solid var(--ck-line);
+  border-top: 3px solid var(--ck-accent);
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 1.75rem 1.5rem;
+  text-align: left;
+  transition: border-color 0.2s ease;
+}
+
+.sl-page .dsv-ind:hover {
+  border-color: var(--ck-accent);
+  transform: none !important;
+}
+
+/* Đánh số tự nhiên 01 - 06 */
+.sl-page .dsv-ind::before {
+  counter-increment: dsv-ind-counter;
+  content: "0" counter(dsv-ind-counter);
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ck-accent);
+  margin-bottom: 0.75rem;
+}
+
+/* Ẩn các icon bootstrap tròn */
+.sl-page .dsv-ind i {
+  display: none !important;
+}
+
+.sl-page .dsv-ind h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 0.5rem 0;
+  color: var(--ck-ink);
+}
+
+.sl-page .dsv-ind p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ck-muted);
+  margin: 0;
+}
+
+@media (max-width: 991px) {
+  .sl-page .dsv-ind-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .sl-page .dsv-ind-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- 9. Trục tiến trình kỹ thuật (.ck-steps): 5 bước tĩnh ---------- */
+.sl-page .ck-steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+  list-style: none;
+  padding: 0;
+  margin: 2.5rem 0 0 0;
+  counter-reset: ck-step;
+  position: relative;
+}
+
+@media (min-width: 992px) {
+  .sl-page .ck-steps::before {
+    content: "";
+    position: absolute;
+    top: 35px;
+    left: 40px;
+    right: 40px;
+    height: 2px;
+    background: var(--ck-line);
+    z-index: 0;
+  }
+}
+
+.sl-page .ck-steps li {
+  position: relative;
+  z-index: 1;
+  background: var(--ck-card);
+  border: 1px solid var(--ck-line);
+  border-top: 3px solid var(--ck-accent);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 1.5rem 1.15rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  transition: border-color 0.2s ease;
+}
+
+.sl-page .ck-steps li:hover {
+  border-color: var(--ck-accent);
+}
+
+.sl-page .ck-steps li::before {
+  counter-increment: ck-step;
+  content: "0" counter(ck-step);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1.25rem;
+  background: var(--ck-card);
+  border: 2px solid var(--ck-accent);
+  color: var(--ck-accent);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.sl-page .ck-steps h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 0.5rem 0;
+  color: var(--ck-ink);
+}
+
+.sl-page .ck-steps p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--ck-muted);
+  margin: 0;
+}
+
+@media (max-width: 991px) {
+  .sl-page .ck-steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .sl-page .ck-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- 10. Nền tảng công nghệ (.tl-strip): chữ lớn bên trái, hàng logo bên phải ----------
+   Dùng ở trang Cơ khí (.tl-strip--ck) và Mô phỏng (.tl-strip--mp). Không khung viền: chỉ hai đường kẻ
+   trên/dưới, các cột logo ngăn bằng vạch dọc mảnh. Logo luôn hiện đủ màu.
+   Ở giao diện Tối, ô logo giữ nền trắng để logo có nền trắng không bị lộ khung.
+   Chỉnh nhanh: --tl-h (chiều cao logo), --tl-cols (tỉ lệ cột chữ : cột logo). */
+.sl-page .tl-strip {
+  --tl-h: 84px;
+  --tl-cols: minmax(0, 5fr) minmax(0, 7fr);
+  display: grid;
+  grid-template-columns: var(--tl-cols);
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0;
+  border-top: 2px solid var(--ck-line);
+  border-bottom: 2px solid var(--ck-line);
+}
+
+/* Biến thể riêng từng trang. Mặc định đang bằng giá trị chung; sửa số ở đây để chỉnh riêng một trang. */
+.sl-page .tl-strip--ck {
+  --tl-h: 84px;
+  --tl-cols: minmax(0, 5fr) minmax(0, 7fr);
+}
+
+.sl-page .tl-strip--mp {
+  --tl-h: 84px;
+  --tl-cols: minmax(0, 5fr) minmax(0, 7fr);
+}
+
+.sl-page .tl-intro h2 {
+  margin: 0;
+  font-size: clamp(2.1rem, 3.8vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--ck-ink);
+}
+
+/* h2 của khối này không dùng gạch xanh dưới tiêu đề của .sl-head */
+.sl-page .tl-intro h2::after {
+  content: none;
+}
+
+.sl-page .tl-desc {
+  max-width: 30em;
+  margin: 1.25rem 0 0;
+  line-height: 1.7;
+  color: var(--ck-muted);
+}
+
+.sl-page .tl-logos {
+  display: flex;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-right: 1px solid var(--ck-line);
+}
+
+.sl-page .tl-logos li {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 190px;
+  padding: 2rem 1rem;
+  text-align: center;
+  border-left: 1px solid var(--ck-line);
+}
+
+.sl-page .tl-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  height: var(--tl-h);
+}
+
+.sl-page .tl-logo img {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  filter: none;
+}
+
+/* iCAD: chữ nhỏ giữa khung vuông trắng, cắt bớt viền trắng để to bằng các logo khác */
+.sl-page .tl-logo img[alt="iCAD"] {
+  width: calc(var(--tl-h) * 2.2);
+  object-fit: cover;
+  object-position: center;
+}
+
+html[data-theme="dark"] .sl-page .tl-logo {
+  padding: 0.5rem 0.75rem;
+  background: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .sl-page .tl-strip {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .sl-page .tl-logos li {
+    min-height: 160px;
+  }
+}
+
+@media (max-width: 575px) {
+  .sl-page .tl-logos {
+    flex-direction: column;
+    border-right: 0;
+  }
+
+  .sl-page .tl-logos li {
+    min-height: 0;
+    border-left: 0;
+    border-top: 1px solid var(--ck-line);
+  }
+
+  .sl-page .tl-logos li:last-child {
+    border-bottom: 1px solid var(--ck-line);
+  }
+}
+
+/* ---------- 11. Hàng nội dung Mô phỏng (.sl-features, .sl-feature): Đánh số 01-04 ---------- */
+.sl-page .sl-features {
+  counter-reset: mp-step;
+}
+
+.sl-page .sl-feature {
+  position: relative;
+  padding-top: clamp(2rem, 4vw, 3.5rem);
+  padding-bottom: clamp(2rem, 4vw, 3.5rem);
+  border-top: 1px solid var(--ck-line);
+  margin: 0 !important;
+}
+
+.sl-page .sl-feature:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.sl-page .sl-feature>div:last-child::before {
+  counter-increment: mp-step;
+  content: "0" counter(mp-step);
+  display: inline-block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--ck-accent);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid var(--ck-accent);
+}
+
+.sl-page .sl-feature p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--ck-muted);
+  margin: 0;
+}

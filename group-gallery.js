@@ -12,7 +12,7 @@
     var next = root.querySelector('.group-gallery-next');
     var viewport = root.querySelector('.group-gallery-viewport');
     var total = slides.length;
-    if (!track || total < 2) return;
+    if (!track || !bars || !prev || !next || !viewport || total < 2) return;
 
     // Báo trong Console (F12) nếu có ảnh không tải được, kèm đường dẫn cần kiểm tra
     var imgs = root.querySelectorAll('img');
@@ -31,7 +31,8 @@
       var b = document.createElement('button');
       b.type = 'button';
       b.className = 'group-gallery-bar';
-      b.setAttribute('aria-label', 'Ảnh ' + (i + 1));
+      // Đổi ngôn ngữ nhãn: thêm data-bar-label="Photo" vào .group-gallery (mặc định tiếng Việt)
+      b.setAttribute('aria-label', (root.getAttribute('data-bar-label') || 'Ảnh') + ' ' + (i + 1));
       (function (n) { b.addEventListener('click', function () { go(n, true); }); })(i);
       bars.appendChild(b);
       barEls.push(b);
@@ -63,10 +64,16 @@
     prev.addEventListener('click', function () { go(index - 1, true); });
     next.addEventListener('click', function () { go(index + 1, true); });
 
-    root.addEventListener('mouseenter', stop);
-    root.addEventListener('mouseleave', start);
-    root.addEventListener('focusin', stop);
-    root.addEventListener('focusout', start);
+    // Chỉ tự chạy lại khi cả chuột lẫn bàn phím đều đã rời khỏi slider
+    var hovering = false;
+    var focused = false;
+    function sync() { if (hovering || focused) stop(); else start(); }
+    root.addEventListener('mouseenter', function () { hovering = true; sync(); });
+    root.addEventListener('mouseleave', function () { hovering = false; sync(); });
+    root.addEventListener('focusin', function () { focused = true; sync(); });
+    root.addEventListener('focusout', function (e) {
+      if (!root.contains(e.relatedTarget)) { focused = false; sync(); }
+    });
 
     // Vuốt ngang trên điện thoại
     var x0 = null;
@@ -78,7 +85,7 @@
       }
       x0 = null;
       start();
-    });
+    }, { passive: true });
 
     // Tạm dừng khi tab bị ẩn
     document.addEventListener('visibilitychange', function () {

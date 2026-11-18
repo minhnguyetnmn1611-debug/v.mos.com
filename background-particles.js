@@ -16,6 +16,11 @@
       document.body.insertBefore(canvas, document.body.firstChild);
     }
 
+    canvas.setAttribute('aria-hidden', 'true');
+
+    // Canvas đang bị CSS ẩn (display:none) thì không chạy animation - tránh tốn CPU vô ích
+    if (window.getComputedStyle(canvas).display === 'none') return;
+
     var ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -91,6 +96,14 @@
       }
     }, { passive: true });
 
+    function releasePointer() {
+      mouse.targetX = -1000;
+      mouse.targetY = -1000;
+    }
+    window.addEventListener('touchend', releasePointer, { passive: true });
+    window.addEventListener('touchcancel', releasePointer, { passive: true });
+    document.documentElement.addEventListener('mouseleave', releasePointer);
+
     // Particle Generation
 
     function Particle() {
@@ -139,6 +152,14 @@
     var staticOnly = prefersReducedMotion;
     var frameId = null;
 
+    // Cache theme, chỉ cập nhật khi thuộc tính data-theme đổi (khỏi đọc DOM mỗi frame)
+    // Mặc định của site là giao diện Sáng, nên chỉ coi là tối khi data-theme === 'dark'
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    new MutationObserver(function () {
+      isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (staticOnly) render(0);
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
     function render(timestamp) {
       if (!isRunning && !staticOnly) return;
       var time = (timestamp || 0) * 0.001;
@@ -149,11 +170,9 @@
 
       ctx.clearRect(0, 0, width, height);
 
-      var isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-
       // Colors adapted to theme
       var dotColor = isDark ? '103, 232, 249' : '79, 70, 229';       // Cyan (dark) / Indigo (light)
-      var lineBaseColor = isDark ? '99, 102, 241' : '99, 102, 241';   // Indigo
+      var lineBaseColor = '99, 102, 241';                              // Indigo (cả hai theme)
 
       // 1. Draw Constellation Network Connections
       var maxDist = 135;
